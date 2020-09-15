@@ -1,0 +1,2 @@
+source "${HOME}"/.config/aliases/aliases-general
+source "${HOME}"/.config/aliases/aliases-secret

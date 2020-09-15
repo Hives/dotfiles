@@ -1,0 +1,77 @@
+# defaults for ls:
+alias ls="${aliases[ls]:-ls} -h --color=auto --group-directories-first"
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+alias .......="cd ../../../../../.."
+alias ........="cd ../../../../../../.."
+
+# -i requires cp and mv to prompt for confirmation when overwriting existing files
+# -v gives feedback
+alias cp="cp -iv"
+alias mv="mv -iv"
+
+alias l="ls -lh"
+
+# -p creates parent directories if necessary. -v gives feedback
+alias mkdir="mkdir -pv"
+
+# alias p="mpc toggle"
+# alias n="mpc next"
+
+# alias nts="mplayer http://134.213.27.207:8000/listen.pls"
+alias res="mplayer http://stream.resonance.fm:8000/resonance"
+# alias rad4="get_iplayer --stream --type=liveradio \"Radio 4 FM\" --player=\"mplayer -cache 256 -\" --modes=hlsaacstd"
+# alias rad3="get_iplayer --stream --type=liveradio \"Radio 3 FM\" --player=\"mplayer -cache 256 -\" --modes=hlsaacstd"
+
+alias m="mplayer -af scaletempo=speed=tempo"
+
+alias rx="xrdb ~/.Xresources"
+
+alias hosts="sudoedit /etc/hosts"
+alias vhosts="sudoedit /etc/httpd/conf/extra/httpd-vhosts.conf"
+# alias vim="vim.nox" # vim package compiled with ruby support
+alias vim=~/.local/bin/nvim.appimage
+alias vimrc='${EDITOR:-vi} ~/.vim/vimrc'
+
+alias weather="curl http://wttr.in/limehouse"
+
+alias gd="cd ~/Downloads; ls -lrt"
+alias gdoc="cd ~/Documents"
+alias gm="cd ~/Music; ls -lrt"
+
+alias o="xdg-open"
+
+alias t="tmux"
+alias mux="tmuxinator"
+
+alias zeesh='${EDITOR:-vi} ~/.zshrc'
+
+alias tmp="cd ~/tmp"
+alias bin="cd ~/bin"
+alias aliases='${EDITOR:-vi} ~/.config/aliases/aliases'
+
+# kubectl
+alias kc="kubectl"
+alias kctx="kubectx"
+alias kns="kubens"
+alias kgp="kubectl get pods"
+alias kgd="kubectl get deployments"
+
+alias p="mocp -G"
+alias poop="ncmpcpp"
+
+alias fd="fdfind"
+
+alias vix='${EDITOR:-vi} ~/.xmonad/xmonad.hs'
+
+# git
+alias gc="git commit -v"
+alias ga="git add"
+alias gst="git status"
+alias gl="git log"
+alias ig='${EDITOR:-vi} .gitignore'
+alias browse="vim -E -c Gbrowse -c q"
