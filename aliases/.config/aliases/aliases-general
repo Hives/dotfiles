@@ -74,4 +74,6 @@ alias ga="git add"
 alias gst="git status"
 alias gl="git log"
 alias ig='${EDITOR:-vi} .gitignore'
+# requires vim-fugitive plugin
+# https://github.com/tpope/vim-fugitive
 alias browse="vim -E -c Gbrowse -c q"
