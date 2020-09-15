@@ -42,6 +42,9 @@ alias weather="curl http://wttr.in/limehouse"
 alias gd="cd ~/Downloads; ls -lrt"
 alias gdoc="cd ~/Documents"
 alias gm="cd ~/Music; ls -lrt"
+alias tmp="cd ~/tmp"
+alias bin="cd ~/bin"
+alias dotfiles="cd ~/.dotfiles"
 
 alias o="xdg-open"
 
@@ -49,9 +52,6 @@ alias t="tmux"
 alias mux="tmuxinator"
 
 alias zeesh='${EDITOR:-vi} ~/.zshrc'
-
-alias tmp="cd ~/tmp"
-alias bin="cd ~/bin"
 alias aliases='${EDITOR:-vi} ~/.config/aliases/aliases'
 
 # kubectl
