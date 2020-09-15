@@ -1,0 +1,307 @@
+call plug#begin('~/.vim/plugged')
+
+let g:plug_timeout = 1000
+function! BuildYCM(info)
+    " info is a dictionary with 3 fields
+    " - name:   name of the plugin
+    " - status: 'installed', 'updated', or 'unchanged'
+    "       
+    " - force:  set on PlugInstall! or PlugUpdate!
+    if a:info.status == 'installed' || a:info.force
+        !./install.py --js-completer --go-completer
+    endif
+endfunction
+
+Plug 'chriskempson/base16-vim'
+Plug 'shumphrey/fugitive-gitlab.vim' " An extension to fugitive.vim for gitlab support
+Plug 'junegunn/fzf' " fuzzy finder - requires fzf to be installed seperately
+Plug 'junegunn/fzf.vim' " Things you can do with fzf and Vim
+Plug 'udalov/kotlin-vim' " Kotlin plugin for Vim.
+Plug 'cohama/lexima.vim' " Auto close parentheses and repeat by dot dot dot...
+Plug 'itchyny/lightline.vim' " status bar
+Plug 'wincent/loupe' " Enhanced in-file search for Vim
+Plug 'godlygeek/tabular' " Vim script for text filtering and alignment
+Plug 'wincent/terminus' " enhanced terminal integration including mouse stuff
+Plug 'Hives/vim-base16-lightline' " A minimal base16 colour scheme for vim-lightline
+Plug 'tpope/vim-commentary' " comment stuff out
+Plug 'tpope/vim-eunuch' " Helpers for UNIX
+Plug 'tpope/vim-fugitive' " A Git wrapper so awesome, it should be illegal
+Plug 'maxmellon/vim-jsx-pretty' " JSX syntax pretty highlighting for vim
+" Plug 'jeetsukumaran/vim-buffergator' " Vim plugin to manage buffers.
+Plug 'tpope/vim-liquid' " syntax highlighting for liquid + jekyll enhancements
+Plug 'andymass/vim-matchup' " enhances vim's '%' motion and matching
+" Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'tpope/vim-rhubarb' " GitHub extension for fugitive.vim
+" Plug 'tpope/vim-sensible' " a set of sensible defaults
+Plug 'tpope/vim-sleuth' " automatic indentation detection
+Plug 'psliwka/vim-smoothie' " Smooth scrolling for Vim done right🥤
+" Plug 'honza/vim-snippets' " multi-language snippets for use with ultisnips
+Plug 'tpope/vim-surround' " edit parantheses, brackets, quotes, html tags + more
+Plug 'christoomey/vim-tmux-navigator' " Seamless navigation between tmux panes and vim splits
+Plug 'tpope/vim-vinegar' " edit parantheses, brackets, quotes, html tags + more
+" Plug 'tmux-plugins/vim-tmux-focus-events'
+" Plug 'vimwiki/vimwiki' " Personal wiki for vim
+" Plug 'chaoren/vim-wordmotion' " provides CamelCase motion through words
+Plug 'Sirver/ultisnips' " snippets
+Plug 'othree/yajs.vim' " Yet Another JavaScript Syntax for vim
+" Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') } " code completion
+" Plug 'reedes/vim-pencil'
+
+" NVIM stuff
+Plug 'neovim/nvim-lspconfig' " Collection of (useful, but unsupported) configurations for the Nvim LSP client
+
+call plug#end()
+
+" LEADER
+let mapleader = " "
+
+" SYNTAX HIGHLIGHTING
+syntax enable
+
+" SOME GLOBAL VARIABLES
+let $VRC = "~/.vim/vimrc"
+
+" BASE16 COLOURS
+let base16colorspace=256
+colorscheme base16-default-dark
+
+" DEOPLETE
+" let g:deoplete#enable_at_startup = 1
+
+" ULTISNIPS
+" let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
+" " make YCM compatible with UltiSnips (using supertab)
+" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+" let g:SuperTabDefaultCompletionType = '<C-n>'
+" " better key bindings for UltiSnipsExpandTrigger
+" let g:UltiSnipsExpandTrigger = "<tab>"
+" let g:UltiSnipsJumpForwardTrigger = "<tab>"
+" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+" FZF
+nnoremap <leader>t :FZF<cr>
+nnoremap <leader>b :Buffer<cr>
+nnoremap <leader>f :Ag<cr>
+" Default fzf layout
+" - down / up / left / right
+" let g:fzf_layout = { 'up': '~40%' }
+
+" FUGITIVE
+nnoremap <leader>s :Gstatus<cr>
+
+" FUGITIVE-GITLAB
+" https://github.com/shumphrey/fugitive-gitlab.vim
+let g:fugitive_gitlab_domains = ['https://jl.githost.io/']
+
+" OMNICOMPLETE
+" filetype plugin on
+" set omnifunc=syntaxcomplete#Complete
+
+" EASYESCAPE
+" let g:easyescape_chars = { "j": 2 }
+" let g:easyescape_timeout = 150
+" cnoremap jj <ESC>
+" let g:easyescape_chars = { "j": 1, "k": 1 }
+" let g:easyescape_timeout = 100
+" cnoremap jk <ESC>
+" cnoremap kj <ESC>
+
+" LANGUAGE SERVER
+" let g:LanguageClient_autoStart = 1
+" let g:LanguageClient_serverCommands = {}
+
+" let g:LanguageClient_rootMarkers = {
+"     \ 'javascript': ['jsconfig.json'],
+"     \ 'typescript': ['tsconfig.json'],
+"     \ }
+
+" if executable('javascript-typescript-stdio')
+"   let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
+" else
+"   echo "javascript-typescript-stdio not installed!\n"
+" endif
+
+" let g:LanguageClient_serverCommands.haskell = ['hie-wrapper', '--lsp']
+
+" set signcolumn=yes
+
+" let g:LanguageClient_diagnosticsDisplay = {
+"     \     1: {
+"     \         "name": "Error",
+"     \         "texthl": "ALEError",
+"     \         "signText": "✖",
+"     \         "signTexthl": "ALEErrorSign",
+"     \         "virtualTexthl": "Error",
+"     \     },
+"     \     2: {
+"     \         "name": "Warning",
+"     \         "texthl": "ALEWarning",
+"     \         "signText": "⚠",
+"     \         "signTexthl": "ALEWarningSign",
+"     \         "virtualTexthl": "Todo",
+"     \     },
+"     \     3: {
+"     \         "name": "Information",
+"     \         "texthl": "ALEInfo",
+"     \         "signText": "ℹ",
+"     \         "signTexthl": "ALEInfoSign",
+"     \         "virtualTexthl": "Todo",
+"     \     },
+"     \     4: {
+"     \         "name": "Hint",
+"     \         "texthl": "ALEInfo",
+"     \         "signText": "➤",
+"     \         "signTexthl": "ALEInfoSign",
+"     \         "virtualTexthl": "Todo",
+"     \     },
+"     \ }
+
+" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" " Or map each action separately
+" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <silent> <leader><F6> :call LanguageClient#textDocument_rename()<CR>
+
+" BUFFERS
+set hidden
+
+" SPACES AND TABS
+set tabstop=4             " number of visual spaces per tab
+set softtabstop=4         " number of spaces in tab when editing
+set shiftwidth=4
+set expandtab             " tabs are spaces
+autocmd FileType ruby setlocal ts=2 sts=2 sw=2
+autocmd FileType liquid setlocal ts=2 sts=2 sw=2
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+
+if has('linebreak')
+  set linebreak " wrap long lines at characters in 'breakat'
+endif
+
+" if has('linebreak')
+"   let &showbreak='↳ ' " DOWNWARDS ARROW WITH TIP RIGHTWARDS (U+21B3, UTF-8: E2 86 B3)
+" endif
+
+" LIGHTLINE
+" append * for 'changes need saving' to the filename
+function! LightlineFilename()
+  let modified = &modified ? ' *' : ''
+  let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+  return filename . modified
+endfunction
+
+set noshowmode " hide --INSERT--, not required with coloured status bar
+let g:lightline = {
+      \   'colorscheme': 'base16',
+      \   'active': {
+      \     'left': [ [ 'mode', 'paste' ],
+      \               [ 'readonly', 'filename' ] ],
+      \     'right': [ [ 'lineinfo' ],
+      \                [ 'percent' ],
+      \                [ 'filetype' ] ],
+      \   },
+      \   'inactive': {
+      \     'left': [ [ 'readonly', 'filename' ] ],
+      \     'right': [ [ 'lineinfo' ],
+      \                [ 'percent' ],
+      \                [ 'filetype' ] ],
+      \   },
+      \   'component_function': {
+      \     'filename': 'LightlineFilename',
+      \   },
+      \ }
+
+" MARKDOWN
+au BufRead,BufNewFile *.md call functions#plaintext()
+autocmd FileType markdown setlocal ts=2 sts=2 sw=2
+
+" NERD TREE
+" map <C-n> :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
+
+" " PRETTIER
+" " https://github.com/prettier/vim-prettier
+" let g:prettier#autoformat = 0
+" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+
+" SPELLCHECK
+" autocmd FileType markdown,mkd setlocal spell
+" autocmd FileType text         setlocal spell
+
+"    YOUCOMPLETEME
+" " *j*ump to *d*efinition
+" nnoremap <leader>jd :YcmCompleter GoTo<CR>
+" " hide annoying preview window
+" set completeopt-=preview
+" " don't display gutter symbols
+" let g:ycm_enable_diagnostic_signs=0
+
+" GOPASS
+" https://github.com/gopasspw/gopass/blob/master/docs/setup.md#securing-your-editor
+au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
+
+" STUFFS ----------------------------------------------------------------------
+
+nnoremap <leader>q :q<cr>
+nnoremap <leader>w :w<cr>
+
+" set cursor in normal and insert modes
+" 1 or 0 -> blinking block
+" 2 -> steady block
+" 3 -> blinking underscore
+" 4 -> steady underscore
+" Recent versions of xterm (282 or above) also support
+" 5 -> blinking vertical bar
+" 6 -> solid vertical bar
+let &t_SI .= "\<Esc>[4 q"
+let &t_EI .= "\<Esc>[2 q"
+
+" something to do with stopping the delay when changing to normal mode?!
+set timeoutlen=1000 ttimeoutlen=0
+
+" make Ctrl-C copy to both x clipboard and primary selection
+" requires gvim to be installed?!
+" see https://www.youtube.com/watch?v=E_rbfQqrm7g
+vnoremap <C-c> "*y :let @+=@*<CR>
+
+" Run xrdb whenever Xdefaults or Xresources are updated.
+autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %
+
+" UI CONFIG
+" set list                              " show whitespace while typing
+set number
+set showcmd
+set cursorline
+" set cursorcolumn
+set number relativenumber
+
+highlight Comment cterm=italic gui=italic
+
+augroup numbertoggle
+    autocmd!
+    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
+let &colorcolumn="+".join(range(80,999),",")
+" :highlight EndOfBuffer ctermbg=18
+
+" NVIM LSP
+
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+
+:lua <<EOF
+require'nvim_lsp'.tsserver.setup{}
+EOF
