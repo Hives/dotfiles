@@ -1,3 +1,8 @@
+mpd/*
+!mpd/.config
+!mpd/.config/mpd
+!mpd/.config/mpd/mpd.conf
+
 vim/.vim/plugged
 vim/.vim/.netrwhist
 
