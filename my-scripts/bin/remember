@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+
+notes_path="$HOME/Documents/notes/"
+remember_file="remember.md"
+datetime="$(date +'%Y-%m-%d %H:%M')"
+
+echo -e "- [$datetime] $1" >> "$notes_path/$remember_file"

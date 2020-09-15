@@ -1,0 +1,5 @@
+#! /usr/bin/env bash
+
+clipboard=$(xsel)
+
+[[ $clipboard == http* ]] && /opt/google/chrome/google-chrome --profile-directory=Default --app=$clipboard

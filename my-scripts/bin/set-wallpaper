@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# sets the wallpaper
+
+# feh --bg-max ~/Pictures/fomenko/5865090295_af8c96f404_o.jpg
+feh --bg-fill ~/Pictures/nasa-art/Cylinder_Endcap_AC75-1883_5729.jpg

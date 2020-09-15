@@ -1,0 +1,17 @@
+#! /bin/sh
+
+# load custom keymap
+xkbcomp $HOME/.xkb/L380.xkb $DISPLAY
+
+# # kill any instance of xcape that may already be running
+# killall xcape -q
+# 
+# # make the hyper act like its normal keys when tapped
+# xcape -e 'Super_L=Tab'
+# 
+# # make tapped Ctrl behave like Escape but with a very short timeout
+# xcape -e 'Control_L=Escape' -t 150
+# 
+# # load combo-modifier and function layer
+# #xmodmap "$HOME/.scripts/special-fn-layer-iso.xmodmap"
+

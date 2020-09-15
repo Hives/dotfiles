@@ -1,0 +1,7 @@
+#! /bin/sh
+
+# load custom keymap with tab and backslash set to hyper
+xkbcomp $HOME/.xkb/default-dump.xkb $DISPLAY
+
+# kill any instance of xcape that may already be running
+killall xcape -q

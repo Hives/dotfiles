@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# prints microphone status for use in statusbar
+
+if $(pacmd list-sources | grep -q "muted: yes"); then
+    echo " off"
+else
+    echo " on"
+fi

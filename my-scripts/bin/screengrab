@@ -1,0 +1,69 @@
+#! /bin/bash
+
+SCRIPTNAME=$(basename $0)
+
+datetime="$(date +'%Y-%m-%d_%H-%M-%S')"
+filename="Screenshot_$datetime.png"
+folder="$HOME/Pictures/screenshots"
+filepath="$folder/$filename"
+
+main () {
+    case ${1:-copy} in
+        copy) copy ;;
+        save) save selection ;;
+        win) save win ;;
+        *) usage;;
+    esac
+}
+
+copy () {
+    maim -u -s --format png /dev/stdout | xclip -selection clipboard -t image/png -i;
+
+    if [ "${PIPESTATUS[0]}" -eq 0 ]; then
+        notify-send "Screengrab copied to clipboard" --icon=camera-photo
+    fi
+
+    # you can't paste this into Thunderbird, because it won't accept the image in image/png format.
+    # a way to make it work in Thunderbird can be found here
+    # https://askubuntu.com/questions/759651/how-to-copy-an-image-to-the-clipboard-from-a-file-using-command-line
+}
+
+save () {
+    [ -d $folder ] || mkdir $folder -p
+
+    if [ ! -e "$filepath" ]; then
+        case ${1} in
+            selection) save_selection ;;
+            win) save_active_window ;;
+        esac
+
+        if [ "${PIPESTATUS[0]}" -eq 0 ]; then
+            notify-send "Screengrab saved" --icon=camera-photo
+        else
+            notify-send --urgency=normal "Something went wrong :(" --icon=camera-photo
+        fi
+    else
+        notify-send --urgency=normal "Can't take screenshot
+        File already exists!?" --icon=dialog-warning
+    fi
+}
+
+save_selection () {
+    maim -s --format png "$filepath" -u
+}
+
+save_active_window () {
+    maim -i $(xdotool getActiveWindow) --format png "$filepath" -u
+}
+
+usage () {
+    (>&2 echo "
+    Usage:
+
+    $SCRIPTNAME [copy] - drag and copy
+    $SCRIPTNAME [save] - drag and save
+    $SCRIPTNAME [win] - saves active window (bind this to a keystroke to make it useful)
+    ")
+}
+
+main $*

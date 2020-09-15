@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# toggles all microphones
+
+pacmd list-sources | \
+    grep -oP 'index: \d+' | \
+    awk '{ print $2 }' | \
+    xargs -I{} pactl set-source-mute {} toggle
+
+if $(pacmd list-sources | grep -q "muted: yes"); then
+    title="Muted"
+    message="Shh..."
+    icon_name="microphone-sensitivity-muted"
+else
+    title="Unmuted"
+    message="Blah blah blah"
+    icon_name="microphone-sensitivity-medium"
+fi
+
+dunstify "${title}" "${message}" -i ${icon_name} -t 1500 -r 945739

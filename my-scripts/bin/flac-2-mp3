@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# from https://wiki.archlinux.org/index.php/Convert_FLAC_to_MP3
+
+# "Since LAME is a single-threaded encoder, conversion can be accelerated by
+# encoding multiple files concurrently on multiple cores."
+
+# requires `parallel` to be installed
+
+parallel ffmpeg -i {} -qscale:a 0 {.}.mp3 ::: ./*.flac

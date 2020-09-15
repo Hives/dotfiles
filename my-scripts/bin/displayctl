@@ -1,0 +1,147 @@
+#! /usr/bin/env bash
+
+notify-send "displayctl fired" --expire-time 0
+
+set -eu
+
+# ----------------------------------------------------------------------
+# Display Ctl
+# ----------------------------------------------------------------------
+# Call this with `menu` parameter to bring up a menu of screenlayout options.
+# Choosing one will also save the choice to a config file, along with a
+# fingerprint identifying the displays currently connected to the machine.
+# 
+# Call it with `auto` and it will load the screenlayout config matching the
+# fingerprint of the current displays. Use udev to execute this command
+# whenever a display is connected or disconnected. See e.g.
+# /etc/udev/rules.d/80-display-hotplug.rules
+
+
+# ----------------------------------------------------------------------
+# Standard Boilerplate
+# ----------------------------------------------------------------------
+# I (Ethan Schoonover) use this standard boilerplate in multiple scripts where
+# I might need to re-run as the X user. Some items are not necessary in all
+# scripts but I'd rather keep it consistent. In general, the *ctl scripts
+# (audioctl, displayctl) require this as they may be called by udev or acpi and
+# thus by root.
+
+# rerun as X user if running as root
+XUSER=$(ps -C Xorg -C X -ouser=)
+[ "$(id -un)" = root ] && [ "$XUSER" != root ] && exec su -c "$0 $*" "$XUSER"
+
+# grab X user id if necessary
+XUSERID=$(id -u $XUSER)
+
+# key environment variables
+export DISPLAY=":0"
+export XAUTHORITY=$HOME/.Xauthority
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$XUSERID/bus"
+
+# script values and config file if we need it
+SCRIPTNAME=$(basename $0)
+SCRIPTDIR=$(dirname $(readlink -f $0))
+CONFIG=/home/$XUSER/.config/$SCRIPTNAME
+
+# ----------------------------------------------------------------------
+# Main
+# ----------------------------------------------------------------------
+
+main () {
+    # cache xrandr output since it's the slowest call
+    CMDBASE="xrandr -d $DISPLAY"
+    XRANDRV="$(${CMDBASE} --verbose)"
+
+    # execute function based on command line arguments
+    case ${1:-auto} in
+        menu)   menu ;;
+        auto)   auto ;;
+        fing*)  report_fingerprint ;;
+        *)      usage ;;
+    esac
+}
+
+menu () {
+    screenlayout_folder="${HOME}/.screenlayout"
+    screenlayout_file=$(for file in "${screenlayout_folder}/"*; do echo "$(basename "${file}")"; done | launcher "Screenlayout")
+    screenlayout="${screenlayout_folder}/${screenlayout_file}"
+    
+    save_fingerprint "${screenlayout}"
+    execute "${screenlayout}"
+}
+
+auto () {
+    if [ -f $CONFIG ]; then
+        fingerprint="$(generate_fingerprint)"
+        . $CONFIG
+        eval "fingerprint_layout=\"\${${fingerprint}:-}\""
+        if [ -f "${fingerprint_layout}" ]; then
+            execute "${fingerprint_layout}"
+        else
+            echo "Couldn't do it 1?!"
+        fi
+    else
+        echo "Couldn't do it 2?!"
+    fi
+}
+
+save_fingerprint () {
+    fingerprint="$(generate_fingerprint)" 
+    if [ -f "$CONFIG" ]; then
+        CONFIG_VALUES="$(grep -v $fingerprint $CONFIG || echo '')"
+        echo "${CONFIG_VALUES:-}" > "$CONFIG"
+    fi
+    echo "${fingerprint}=${1:-}" >> "$CONFIG"
+}
+
+generate_fingerprint () {
+    # get a fingerprint for current connected displays based on EDIDs
+    edid_fingerprint="$(echo "$XRANDRV" | get_edids)"
+    echo FINGERPRINT_$(echo $edid_fingerprint | sha1sum - | cut -d " " -f 1)
+}
+
+report_fingerprint () {
+    fingerprint="$(generate_fingerprint)"
+    if [ -f $CONFIG ]; then
+        . $CONFIG
+        eval "fingerprint_mode=\"\${${fingerprint}:-}\""
+    fi
+    echo "Using config file: $CONFIG"
+    echo "Fingerprint for currently connected displays is: ${fingerprint##FINGERPRINT_}"
+    echo "Saved screenlayout for this fingerprint is: ${fingerprint_mode:-unset}"
+}
+
+get_edids () {
+    while read line; do
+        if [ "${line#*EDID:}" != "$line" ]; then
+            EDID=true
+            while $EDID; do
+                read edidline
+                if [ "${edidline#*:}" = "$edidline" ]; then
+                    export FINGERPRINT="${FINGERPRINT:-}$edidline"
+                else
+                    EDID=false
+                fi
+            done
+        fi
+    done
+    echo "$FINGERPRINT"
+}
+
+execute () {
+    eval ${1}
+    sleep 4
+    set-wallpaper
+}
+
+usage () {
+    (>&2 echo "
+    Usage:
+
+    $SCRIPTNAME [menu]
+    $SCRIPTNAME [auto]
+    $SCRIPTNAME [fingerprint]   
+    ")
+}
+
+main $*

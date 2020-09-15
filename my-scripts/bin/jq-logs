@@ -1,0 +1,24 @@
+#! /usr/bin/env bash
+
+properties=(
+    "@timestamp"
+    "x-b3-traceid"
+    "message"
+    "method"
+    "request_uri"
+    "status"
+    "duration"
+    "user_agent"
+)
+
+function ifPropertyExistsIncludeIt {
+    echo '(if ."'$1'" == null then {} else { "'$1'" } end)'
+}
+
+query='{}'
+
+for property in "${properties[@]}"; do
+    query+=' + '$(ifPropertyExistsIncludeIt ${property})
+done
+
+eval "jq '${query}'"
