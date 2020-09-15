@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =5
+let g:netrw_dirhistcnt =6
+let g:netrw_dirhist_6='/home/hives/.dotfiles/.git'
 let g:netrw_dirhist_5='/home/hives/Documents/john-lewis/digital-merch/digi-merch-ui/.storybook'
 let g:netrw_dirhist_4='/home/hives/Documents/john-lewis/digital-merch/digi-merch-ui'
 let g:netrw_dirhist_3='/tmp/.mount_nvim.aExfdWW/usr/share/nvim/runtime/doc'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_0='/home/hives/Documents/john-lewis/digi-merch/digi-merch-in
 let g:netrw_dirhist_9='/home/hives/Documents/test-driven development by example/.git'
 let g:netrw_dirhist_8='/home/hives/Documents/john-lewis/digi-merch/terraform/tiers/flex'
 let g:netrw_dirhist_7='/home/hives/Documents/john-lewis/digi-merch/terraform/tiers'
-let g:netrw_dirhist_6='/tmp'
