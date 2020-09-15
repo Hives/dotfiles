@@ -10,6 +10,13 @@ So you could clone this repo into `~/.dotfiles/`, then run `stow vim` inside
 `~/.dotfiles/`, and it will create symlinks of the contents of `vim` in your home
 directory, which is what you want. Repeat for whatever else.
 
+### tmux
+
+Follow instructions to install [Tmux Plugin
+Manager](https://github.com/tmux-plugins/tpm)
+
+Do `prefix` + `I` to install plugins from `.tmux.conf`
+
 ### Vim
 
 [`vim-plug`](https://github.com/junegunn/vim-plug) is included in `autoload` folder. Run `:PlugInstall` to install
