@@ -21,3 +21,11 @@ Do `prefix` + `I` to install plugins from `.tmux.conf`
 
 [`vim-plug`](https://github.com/junegunn/vim-plug) is included in `autoload` folder. Run `:PlugInstall` to install
 plugins.
+
+## TODO
+
+- zsh
+- fzf
+- base16
+- git
+- emacs?
