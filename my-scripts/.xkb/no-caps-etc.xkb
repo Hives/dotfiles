@@ -1,0 +1,23 @@
+// To get the current xkb config, run this command: xkbcomp $DISPLAY xkb.dump
+// There's a map of the 4-character key names on this page: https://www.charvolant.org/doug/xkb/html/node5.html
+
+xkb_keymap {
+	xkb_keycodes      { include "evdev+aliases(qwerty)"	};
+	xkb_types         { include "complete"};
+	xkb_compatibility { include "complete" };
+
+	xkb_symbols       {
+        
+        // look in /usr/share/X11/xkb/symbols for things you can include here
+        // ctrl(nocaps) removes caps lock and replaces it with another ctrl
+        // level3(ralt_switch) makes right alt access the third shift level
+        include "pc+gb+gb:2+inet(evdev)+ctrl(nocaps)"
+
+        // press tab, get super
+		key  <TAB> { [ Super_L, Super_L ] };
+        // maps real tab behaviour to some random keycode so it's still available to xcape
+		key <I252> { [ Tab, ISO_Left_Tab ] };
+    
+    };
+
+};
