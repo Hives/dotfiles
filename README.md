@@ -22,6 +22,9 @@ In tmux do `prefix` + `I` to install plugins from `.tmux.conf`
 [`vim-plug`](https://github.com/junegunn/vim-plug) is included in `autoload`
 folder. Run `:PlugInstall` to install plugins from `vimrc`.
 
+Do something like `:mkspell ~/.vim/spell/en.utf-8.add` to compile the spellings
+file.
+
 ## TODO
 
 - zsh
