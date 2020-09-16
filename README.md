@@ -15,12 +15,12 @@ directory, which is what you want. Repeat for whatever else.
 Follow instructions to install [Tmux Plugin
 Manager](https://github.com/tmux-plugins/tpm)
 
-Do `prefix` + `I` to install plugins from `.tmux.conf`
+In tmux do `prefix` + `I` to install plugins from `.tmux.conf`
 
-### Vim
+### vim
 
-[`vim-plug`](https://github.com/junegunn/vim-plug) is included in `autoload` folder. Run `:PlugInstall` to install
-plugins.
+[`vim-plug`](https://github.com/junegunn/vim-plug) is included in `autoload`
+folder. Run `:PlugInstall` to install plugins from `vimrc`.
 
 ## TODO
 
