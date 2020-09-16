@@ -5,6 +5,7 @@ mpd/.config/mpd/*
 
 vim/.vim/plugged
 vim/.vim/.netrwhist
+vim/.vim/spell/en.utf-8.add.spl
 
 xmonad/.xmonad/*
 !xmonad/.xmonad/xmonad.hs
