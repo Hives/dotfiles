@@ -15,6 +15,9 @@ set -eu
 # fingerprint of the current displays. Use udev to execute this command
 # whenever a display is connected or disconnected. See e.g.
 # /etc/udev/rules.d/80-display-hotplug.rules
+# restart udev after making changes:
+# > systemctl restart udev.service 
+
 
 
 # ----------------------------------------------------------------------
