@@ -7,4 +7,4 @@
 
 # requires `parallel` to be installed
 
-parallel ffmpeg -i {} -qscale:a 0 {.}.mp3 ::: ./*.flac
+parallel ffmpeg -i {} -b:a 320k {.}.mp3 ::: ./*.flac
