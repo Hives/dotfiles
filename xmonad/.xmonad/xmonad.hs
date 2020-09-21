@@ -569,12 +569,12 @@ myKeys2 conf =
            , ( "M-S-s"
              , addName "Move w to next screen" $ shiftNextScreen >> nextScreen
              )
-           , ("M-w", addName "Focus on screen 0" $ viewScreen def 0)
-           , ("M-S-w", addName "Move w to screen 0" $ sendToScreen def 0 >> viewScreen def 0)
-           , ("M-e", addName "Focus on screen 1" $ viewScreen def 1)
-           , ("M-S-e", addName "Move w to screen 1" $ sendToScreen def 1 >> viewScreen def 1)
-           , ("M-r", addName "Focus on screen 2" $ viewScreen def 2)
-           , ("M-S-r", addName "Move w to screen 2" $ sendToScreen def 2 >> viewScreen def 2)
+           , ("M-w", addName "Focus on screen 0" $ viewScreen horizontalScreenOrderer 0)
+           , ("M-S-w", addName "Move w to screen 0" $ sendToScreen def 0 >> viewScreen horizontalScreenOrderer 0)
+           , ("M-e", addName "Focus on screen 1" $ viewScreen horizontalScreenOrderer 1)
+           , ("M-S-e", addName "Move w to screen 1" $ sendToScreen horizontalScreenOrderer 1 >> viewScreen horizontalScreenOrderer 1)
+           , ("M-r", addName "Focus on screen 2" $ viewScreen horizontalScreenOrderer 2)
+           , ("M-S-r", addName "Move w to screen 2" $ sendToScreen horizontalScreenOrderer 2 >> viewScreen horizontalScreenOrderer 2)
            ]
     ^++^
 
