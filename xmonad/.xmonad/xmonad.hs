@@ -569,20 +569,12 @@ myKeys2 conf =
            , ( "M-S-s"
              , addName "Move w to next screen" $ shiftNextScreen >> nextScreen
              )
-           , ("M-<Left>", addName "Focus on primary screen" $ viewScreen def 0)
-           , ( "M-<Right>"
-             , addName "Focus on secondary screen" $ viewScreen def 1
-             )
-           , ( "M-S-<Left>"
-             , addName "Move w to primary screen"
-             $  sendToScreen def 0
-             >> viewScreen def 0
-             )
-           , ( "M-S-<Right>"
-             , addName "Move w to secondary screen"
-             $  sendToScreen def 1
-             >> viewScreen def 1
-             )
+           , ("M-w", addName "Focus on screen 0" $ viewScreen def 0)
+           , ("M-S-w", addName "Move w to screen 0" $ sendToScreen def 0 >> viewScreen def 0)
+           , ("M-e", addName "Focus on screen 1" $ viewScreen def 1)
+           , ("M-S-e", addName "Move w to screen 1" $ sendToScreen def 1 >> viewScreen def 1)
+           , ("M-r", addName "Focus on screen 2" $ viewScreen def 2)
+           , ("M-S-r", addName "Move w to screen 2" $ sendToScreen def 2 >> viewScreen def 2)
            ]
     ^++^
 
@@ -611,9 +603,9 @@ myKeys2 conf =
            , ( "M--"
              , addName "Increase window spacing" $ incScreenWindowSpacing 2
              )
-           , ( "M-w"
-             , addName "Reset window spacing" $ setScreenWindowSpacing 6
-             )
+           -- , ( "M-w"
+           --   , addName "Reset window spacing" $ setScreenWindowSpacing (fromIntegral gutter)
+           --   )
 
 -- If following is run on a floating window, the sequence first tiles it.
 -- Not perfect, but works.
@@ -651,7 +643,7 @@ myKeys2 conf =
                ("gopass ls --flat | rofi -dmenu -i -fuzzy | xargs --no-run-if-empty gopass show -c"
                )
              )
-           , ( "M-r"
+           , ( "M-b"
              , addName "Keyboard remapping menu" $ spawn
                ("find $HOME/bin/keyboard-remaps -type f | rofi -dmenu -i -fuzzy | /bin/sh"
                )
