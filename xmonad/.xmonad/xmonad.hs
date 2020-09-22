@@ -304,6 +304,7 @@ myManageHook = composeAll
   , appName =? "transmission-gtk" --> doShift "6"
   , stringProperty "WM_WINDOW_ROLE" =? "browser" --> doShift "7"
   , fmap ("meet.google.com" `isInfixOf`) appName --> doShift "2"
+  , appName =? "jetbrains-idea" --> doShift "8"
 
     -- Pop up help pages
   , title =? "Paul's Special Less" --> centerScreen 0.5 0.9
