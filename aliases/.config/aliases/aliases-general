@@ -1,14 +1,6 @@
 # defaults for ls:
 alias ls="${aliases[ls]:-ls} -h --color=auto --group-directories-first"
 
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias ......="cd ../../../../.."
-alias .......="cd ../../../../../.."
-alias ........="cd ../../../../../../.."
-
 # -i requires cp and mv to prompt for confirmation when overwriting existing files
 # -v gives feedback
 alias cp="cp -iv"
