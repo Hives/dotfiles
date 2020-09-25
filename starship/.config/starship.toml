@@ -43,8 +43,8 @@ prompt_order = [
     "character",
 ]
 
-[character]      # The name of the module we are configuring is "character"
-symbol = "➜"     # The "symbol" segment is being set to "➜"
+# [character]      # The name of the module we are configuring is "character"
+# symbol = "➜"     # The "symbol" segment is being set to "➜"
 
 [package]
 disabled = true
