@@ -76,3 +76,7 @@ base16
 tmux
 Plugin
 vim
+vim
+fd
+autojump
+neovim
