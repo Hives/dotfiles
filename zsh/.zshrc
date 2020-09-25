@@ -168,6 +168,14 @@ if [ -x "$(command -v kubectl)" ]; then source <(kubectl completion zsh); fi
 # linux brew??
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
+# node
+# - fnm
+export PATH=/home/hives/.fnm:$PATH
+eval "`fnm env --multi`"
+source ~/.zsh/node-autoswitch.sh
+# - yarn
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
 # SDKMAN - THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/hives/.sdkman"
 [[ -s "/home/hives/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hives/.sdkman/bin/sdkman-init.sh"
