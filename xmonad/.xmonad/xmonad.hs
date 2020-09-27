@@ -1,6 +1,5 @@
 import           XMonad
-import qualified XMonad.Actions.ConstrainedResize
-                                               as Sqr
+import qualified XMonad.Actions.ConstrainedResize as Sqr
 import           XMonad.Actions.CopyWindow
 import           XMonad.Actions.DynamicWorkspaces
 import           XMonad.Actions.FloatKeys
@@ -45,11 +44,11 @@ import           XMonad.Util.EZConfig
 import           XMonad.Util.Loggers
 import           XMonad.Util.NamedActions
 import           XMonad.Util.NamedScratchpad
-import           XMonad.Util.Paste             as P               -- testing
+import           XMonad.Util.Paste as P               -- testing
 import           XMonad.Util.Run
 import           XMonad.Util.Themes
 import           XMonad.Util.WorkspaceCompare
-import qualified XMonad.StackSet               as W
+import qualified XMonad.StackSet as W
 import           Data.Char
 import           Data.List
 import           Data.Time
@@ -59,9 +58,9 @@ import           Graphics.X11.Xinerama
 import           System.Exit
 import           System.IO
 
-import qualified Data.Map                      as M
+import qualified Data.Map as M
 -- import qualified XMonad.Actions.Submap as SM
-import           XMonad.Actions.Search         as S
+import           XMonad.Actions.Search as S
 
 ------------------------------------------------------------------------
 -- Colours
@@ -155,10 +154,10 @@ myLauncher =
 
 scratchpads =
     -- kitty terminal apps
-  [ NS "terminal"    (myTerminal ++ " --name terminal-scratchpad tmux") (resource =? "terminal-scratchpad") (placeWindow 0.05 0.02 0.52 0.02)
-  , NS "htop"        (myTerminal ++ " --name htop-scratchpad htop")     (resource =? "htop-scratchpad")     (centerScreen 0.7 0.7)
-  , NS "alsamixer"   (myTerminal ++ " alsamixer")                       (title =? "alsamixer")              (centerScreen 0.6 0.7)
-  , NS "musicplayer" (myTerminal ++ " --name ncmpcpp ncmpcpp")          (resource =? "ncmpcpp")             (centerScreen 0.7 0.7)
+  [ NS "terminal"    (myTerminal ++ " --name terminal-scratchpad")  (resource =? "terminal-scratchpad") (placeWindow 0.05 0.02 0.52 0.02)
+  , NS "htop"        (myTerminal ++ " --name htop-scratchpad htop") (resource =? "htop-scratchpad")     (centerScreen 0.7 0.7)
+  , NS "alsamixer"   (myTerminal ++ " alsamixer")                   (title =? "alsamixer")              (centerScreen 0.6 0.7)
+  , NS "musicplayer" (myTerminal ++ " --name ncmpcpp ncmpcpp")      (resource =? "ncmpcpp")             (centerScreen 0.7 0.7)
   -- , NS
   --   "musicplayer"
   --   ("/usr/bin/mocp-scrobbler.py -d; " ++ myTerminal ++ " --name mocp mocp")
