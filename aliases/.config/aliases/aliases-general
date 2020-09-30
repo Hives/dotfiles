@@ -52,7 +52,7 @@ alias t="tmux"
 alias mux="tmuxinator"
 
 alias zeesh='${EDITOR:-vi} ~/.zshrc'
-alias aliases='${EDITOR:-vi} ~/.config/aliases/aliases'
+alias aliases='${EDITOR:-vi} ~/.config/aliases/aliases-general'
 
 # kubectl
 alias kc="kubectl"
