@@ -43,7 +43,7 @@ Plug 'tpope/vim-vinegar' " edit parantheses, brackets, quotes, html tags + more
 " Plug 'vimwiki/vimwiki' " Personal wiki for vim
 " Plug 'chaoren/vim-wordmotion' " provides CamelCase motion through words
 Plug 'Sirver/ultisnips' " snippets
-Plug 'othree/yajs.vim' " Yet Another JavaScript Syntax for vim
+" Plug 'othree/yajs.vim' " Yet Another JavaScript Syntax for vim
 " Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') } " code completion
 " Plug 'reedes/vim-pencil'
 
@@ -303,5 +303,6 @@ nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
 :lua <<EOF
-require'nvim_lsp'.tsserver.setup{}
+  require'nvim_lsp'.tsserver.setup{}
+  require'nvim_lsp'.bashls.setup{}
 EOF
