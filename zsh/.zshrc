@@ -1,9 +1,21 @@
 ##############################################################################
+# Global
+##############################################################################
+
+# Create a hash table for globally stashing variables without polluting main
+# scope with a bunch of identifiers.
+typeset -A __HIVEMIND
+
+__HIVEMIND[ITALIC_ON]=$'\e[3m'
+__HIVEMIND[ITALIC_OFF]=$'\e[23m'
+
+##############################################################################
 # Bindings
 ##############################################################################
 
 bindkey -e # emacs bindings, set to -v for vi bindings
 
+# NOTE: must come before zsh-history-substring-search & zsh-syntax-highlighting.
 # only alphanumeric chars are considered WORDCHARS
 # so doing C-w on "cd ~/foo/bar"
 # results in      "cd ~/foo/"
@@ -61,11 +73,15 @@ compinit -u
 # - Substring complete (ie. bar -> foobar).
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
-# Menu-style autocompletion
+# Menu-style autocompletion (navigate with arrow keys)
 zstyle ':completion:*' menu select
 
 # Colorize completions using default `ls` colors.
 zstyle ':completion:*' list-colors ''
+
+# Categorize completion suggestions with headings:
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format %F{default}%B%{$__HIVEMIND[ITALIC_ON]%}--- %d ---%{$__HIVEMIND[ITALIC_OFF]%}%b%f
 
 ##############################################################################
 # History
@@ -99,6 +115,17 @@ zstyle ':completion:*:*:cdr:*:*' menu selection
 # fall through to cd if cdr is passed a non-recent dir as an argument
 zstyle ':chpwd:*' recent-dirs-default true
 
+# # auto ls after cd
+# function -auto-ls-after-cd() {
+#   emulate -L zsh
+#   # Only in response to a user-initiated `cd`, not indirectly (eg. via another
+#   # function).
+#   if [ "$ZSH_EVAL_CONTEXT" = "toplevel:shfunc" ]; then
+#     ls -a
+#   fi
+# }
+# add-zsh-hook chpwd -auto-ls-after-cd
+
 ##############################################################################
 # Options
 ##############################################################################
@@ -107,6 +134,8 @@ setopt autocd               # .. is shortcut for cd .. (etc)
 setopt autopushd            # cd automatically pushes old dir onto dir stack
 setopt correct              # command auto-correction
 alias sudo='nocorrect sudo'
+setopt listpacked           # make completion lists more densely packed
+setopt menucomplete         # auto-insert first possible ambiguous completion
 setopt printexitvalue       # for non-zero exit status
 setopt pushdignoredups      # don't push multiple copies of same dir onto stack
 setopt pushdsilent          # don't print dir stack after pushing/popping
@@ -116,7 +145,7 @@ setopt pushdsilent          # don't print dir stack after pushing/popping
 ##############################################################################
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#657B83' # from solarized dark
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
 
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
