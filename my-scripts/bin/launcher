@@ -1,4 +1,4 @@
 #!/bin/sh
 #dmenu -i -nb $BACK_NORMAL -nf $FORE_NORMAL -sb $BACK_SEL -sf $FORE_SEL -fn "$FONT"
 #dmenu -i -fn "xos4 Terminus:size=12:antialias=true:hinting=true"
-rofi -matching fuzzy -dmenu "${*:+-p}" "${*:-}"
+rofi -matching fuzzy -dmenu -i "${*:+-p}" "${*:-}"
