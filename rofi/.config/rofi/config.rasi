@@ -6,27 +6,18 @@
 
 * {
 
-/* colours from colour manager go below
-   don't fiddle with these lines or it might mess everything up */
-
-/* ʕっ•ᴥ•ʔっ COLOURS START */
-
-/* /home/hives/.config/xcolors/dark-scheme */
-
-normal-foreground: #889091;
-normal-background: #0e2329;
-normal-background-alternate: #162d33;
-normal-selected-foreground: #0e2329;
-normal-selected-background: #268bd2;
-active-foreground: #0e2329;
-active-background: #d33682;
-active-background-alternate: #6c71c4;
-urgent-foreground: #0e2329;
-urgent-background: #dc322f;
-urgent-background-alternate: #cb4b16;
-border-color: #268bd2;
-
-/* ʕっ•ᴥ•ʔっ COLOURS END */
+    normal-foreground: #889091;
+    normal-background: #0e2329;
+    normal-background-alternate: #162d33;
+    normal-selected-foreground: #0e2329;
+    normal-selected-background: #268bd2;
+    active-foreground: #0e2329;
+    active-background: #d33682;
+    active-background-alternate: #6c71c4;
+    urgent-foreground: #0e2329;
+    urgent-background: #dc322f;
+    urgent-background-alternate: #cb4b16;
+    border-color: #268bd2;
 
 
     /* top level properties */
@@ -37,7 +28,7 @@ border-color: #268bd2;
     /* font: "Input Sans Narrow 12"; */
     /* font: "RobotoMono Nerd Font 12"; */
     /* font: "Roboto 12"; */
-    font: "JetBrains Mono NL 12";
+    font: "JetBrains Mono NL 16";
 
 }
 
