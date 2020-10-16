@@ -324,7 +324,7 @@ myLayoutHook =
     $   hiddenWindows
     $   avoidStruts
     $   tall
-    ||| dwindle
+    -- ||| dwindle
     ||| tabs
  where
 
@@ -558,14 +558,14 @@ myKeys2 conf =
 -----------------------------------------------------------------------
     subKeys
       "Media controls"
-      [ ("<XF86AudioRaiseVolume>"   , addName "Volume +2%"     $ spawn "audioctl vol up 2" )
-      , ("M-<Up>"                   , addName "Volume +2%"     $ spawn "audioctl vol up 2")
-      , ("<XF86AudioLowerVolume>"   , addName "Volume -2%"     $ spawn "audioctl vol down 2" )
-      , ("M-<Down>"                 , addName "Volume -2%"     $ spawn "audioctl vol down 2")
-      , ("S-<XF86AudioRaiseVolume>" , addName "Volume +10%"    $ spawn "audioctl vol up 10" )
-      , ("M-S-<Up>"                 , addName "Volume +10%"    $ spawn "audioctl vol up 10")
-      , ("S-<XF86AudioLowerVolume>" , addName "Volume -10%"    $ spawn "audioctl vol down 10" )
-      , ("M-S-<Down>"               , addName "Volume -10%"    $ spawn "audioctl vol down 10" )
+      [ ("<XF86AudioRaiseVolume>"   , addName "Volume +1%"     $ spawn "audioctl vol up 1" )
+      , ("M-<Up>"                   , addName "Volume +1%"     $ spawn "audioctl vol up 1")
+      , ("<XF86AudioLowerVolume>"   , addName "Volume -1%"     $ spawn "audioctl vol down 1" )
+      , ("M-<Down>"                 , addName "Volume -1%"     $ spawn "audioctl vol down 1")
+      , ("S-<XF86AudioRaiseVolume>" , addName "Volume +5%"     $ spawn "audioctl vol up 5" )
+      , ("M-S-<Up>"                 , addName "Volume +5%"     $ spawn "audioctl vol up 5")
+      , ("S-<XF86AudioLowerVolume>" , addName "Volume -5%"     $ spawn "audioctl vol down 5" )
+      , ("M-S-<Down>"               , addName "Volume -5%"     $ spawn "audioctl vol down 5" )
       , ("<XF86AudioMute>"          , addName "Toggle volume"  $ spawn "audioctl vol mute" )
       , ("M-S-m"                    , addName "Toggle volume"  $ spawn "audioctl vol mute")
       , ("<XF86AudioMicMute>"       , addName "Toggle mic"     $ spawn "audioctl mic mute" )
