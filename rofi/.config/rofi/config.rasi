@@ -28,16 +28,19 @@
     /* font: "Input Sans Narrow 12"; */
     /* font: "RobotoMono Nerd Font 12"; */
     /* font: "Roboto 12"; */
-    font: "JetBrains Mono NL 16";
+    font: "JetBrains Mono NL 28";
 
 }
 
 
 #window {
+    width: 1500;
+    height: 750;
+
     foreground-color: @normal-foreground;
     background-color: @normal-background;
 
-    border:           4px;
+    border:           10px;
     padding:          3px;
 }
 

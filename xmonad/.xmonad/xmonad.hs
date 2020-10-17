@@ -149,7 +149,7 @@ myClickJustFocuses = True
 -- myTerminal    = "st"
 myTerminal = "kitty"
 myLauncher =
-  "rofi -modi \"drun,window,ssh\" -show drun -scroll-method 1 -show-icons true"
+  "rofi -modi 'drun,window,ssh' -matching fuzzy -show drun -scroll-method 1 -show-icons true"
 -- myLauncher    = "rofi -modi \"drun,window,ssh\" -show drun -scroll-method 1"
 
 scratchpads =
