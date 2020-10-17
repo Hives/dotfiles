@@ -7,6 +7,3 @@
 [submodule "zsh/.zsh/zsh-syntax-highlighting"]
 	path = zsh/.zsh/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
-[submodule "my-scripts/bin/Bash-GitLab-pipeline-monitor"]
-	path = my-scripts/bin/Bash-GitLab-pipeline-monitor
-	url = https://github.com/Hives/Bash-GitLab-pipeline-monitor
