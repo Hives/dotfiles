@@ -17,7 +17,6 @@ Plug 'shumphrey/fugitive-gitlab.vim' " An extension to fugitive.vim for gitlab s
 Plug 'junegunn/fzf' " fuzzy finder - requires fzf to be installed seperately
 Plug 'junegunn/fzf.vim' " Things you can do with fzf and Vim
 Plug 'udalov/kotlin-vim' " Kotlin plugin for Vim.
-Plug 'cohama/lexima.vim' " Auto close parentheses and repeat by dot dot dot...
 Plug 'itchyny/lightline.vim' " status bar
 Plug 'wincent/loupe' " Enhanced in-file search for Vim
 Plug 'godlygeek/tabular' " Vim script for text filtering and alignment
