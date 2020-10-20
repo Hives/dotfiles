@@ -34,8 +34,8 @@
 
 
 #window {
-    width: 1500;
-    height: 750;
+    width: 60%;
+    height: 60%;
 
     foreground-color: @normal-foreground;
     background-color: @normal-background;
