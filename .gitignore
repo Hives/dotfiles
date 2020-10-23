@@ -1,6 +1,7 @@
 aliases/.config/aliases-secret
 
 moc/.moc/cache
+moc/.moc/last_directory
 
 mpd/.config/mpd/*
 !mpd/.config/mpd/mpd.conf
