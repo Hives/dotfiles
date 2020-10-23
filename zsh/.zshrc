@@ -135,7 +135,7 @@ setopt autopushd            # cd automatically pushes old dir onto dir stack
 setopt correct              # command auto-correction
 alias sudo='nocorrect sudo'
 setopt listpacked           # make completion lists more densely packed
-setopt menucomplete         # auto-insert first possible ambiguous completion
+# setopt menucomplete         # auto-insert first possible ambiguous completion
 setopt printexitvalue       # for non-zero exit status
 setopt pushdignoredups      # don't push multiple copies of same dir onto stack
 setopt pushdsilent          # don't print dir stack after pushing/popping
