@@ -414,17 +414,17 @@ myKeys2 conf =
 -----------------------------------------------------------------------
 -- Help
 -----------------------------------------------------------------------
-         -- subKeys
-         --   "Help"
-         --   [ ("M-F1", addName "Show Keybindings" $ return ())
+    subKeys
+      "Help"
+      [ ("M-g", addName "Ergodox keybindings" $ spawn "keyboard-layout | less-standalone")
          --   , ( "M-o"
          --     , addName "Show orgmode bindings"
          --       $ spawn
          --           ("less-standalone $HOME/Documents/my\\ help\\ files/org-mode-keys.txt"
          --           )
          --     )
-         --   ]
-    -- ^++^
+      ]
+    ^++^
 
 -----------------------------------------------------------------------
 -- Windows

@@ -1,0 +1,9 @@
+#! /usr/bin/env bash
+
+keymapFile="/home/hives/code/qmk_firmware/keyboards/ergodox_ez/keymaps/hives/keymap.c"
+
+while IFS= read -r line; do
+    if [[ $line == " *"* ]] || [[ $line == "/*"* ]]; then
+        echo "${line}"
+    fi
+done < $keymapFile
