@@ -34,6 +34,7 @@ alias rx="xrdb ~/.Xresources"
 alias hosts="sudoedit /etc/hosts"
 alias vhosts="sudoedit /etc/httpd/conf/extra/httpd-vhosts.conf"
 # alias vim="vim.nox" # vim package compiled with ruby support
+alias v=vim
 alias vim=~/.local/bin/nvim.appimage
 alias vimrc='${EDITOR:-vi} ~/.vim/vimrc'
 
