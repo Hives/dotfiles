@@ -28,7 +28,7 @@
     /* font: "Input Sans Narrow 12"; */
     /* font: "RobotoMono Nerd Font 12"; */
     /* font: "Roboto 12"; */
-    font: "JetBrains Mono NL 28";
+    font: "JetBrains Mono NL 22";
 
 }
 
