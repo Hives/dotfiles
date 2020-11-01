@@ -8,12 +8,21 @@ nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
+noremap <silent> [g <cmd>PrevDiagnosticCycle<CR>
+noremap <silent> ]g <cmd>NextDiagnosticCycle<CR>
+
 lua <<EOF
-  local on_attach_vim = function(client)
+  local on_attach = function(client)
     require'completion'.on_attach(client)
+    require'diagnostic'.on_attach(client)
   end
   
   -- requires typescript to be installed - npm i -g typescript
-  require'nvim_lsp'.tsserver.setup{on_attach=require'completion'.on_attach}
-  require'nvim_lsp'.bashls.setup{on_attach=require'completion'.on_attach}
+  require'nvim_lsp'.tsserver.setup {
+    on_attach = on_attach
+  }
+
+  require'nvim_lsp'.bashls.setup {
+    on_attach = on_attach
+  }
 EOF
