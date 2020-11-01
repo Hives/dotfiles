@@ -39,4 +39,5 @@ In tmux do `prefix` + `I` to install plugins from `.tmux.conf`
 
 - fzf
 - git
+- Xresources
 - emacs?
