@@ -215,7 +215,7 @@ myConfig p = def { borderWidth        = border
 ---------------------------------------------------------------------------
 
 myStartupHook = do
-  spawn "~/bin/keyboard-remaps/remap-keys-hybrid-modifiers"
+  spawn "~/bin/keyboard-remaps/remap-keys-magicforce68-standard"
   spawn "xscreensaver -no-splash"
   spawn "~/.dropbox-dist/dropboxd"
   spawn "set-wallpaper"
@@ -260,7 +260,7 @@ myManageHook = composeAll
   , appName =? "jetbrains-idea" --> doShift "8"
 
     -- Pop up help pages
-  , title =? "Paul's Special Less" --> centerScreen 0.5 0.9
+  , title =? "Paul's Special Less" --> centerScreen 0.7 0.9
   , (className =? "feh" <&&> fmap ("GuiFN layer" `isInfixOf`) title) --> doCenterFloat
     -- , (className =? "Zathura" <&&> fmap ("ErgoDox\\ EZ\\ Configurator.pdf" `isInfixOf`) title) --> doCenterFloat
     -- , (className =? "Zathura" <&&> fmap ("Er" `isInfixOf`) title) --> doCenterFloat
@@ -558,10 +558,10 @@ myKeys2 conf =
 -----------------------------------------------------------------------
     subKeys
       "Media controls"
-      [ ("<XF86AudioRaiseVolume>"   , addName "Volume +1%"     $ spawn "audioctl vol up 1" )
-      , ("M-<Up>"                   , addName "Volume +1%"     $ spawn "audioctl vol up 1")
-      , ("<XF86AudioLowerVolume>"   , addName "Volume -1%"     $ spawn "audioctl vol down 1" )
-      , ("M-<Down>"                 , addName "Volume -1%"     $ spawn "audioctl vol down 1")
+      [ ("<XF86AudioRaiseVolume>"   , addName "Volume +2%"     $ spawn "audioctl vol up 2" )
+      , ("M-<Up>"                   , addName "Volume +2%"     $ spawn "audioctl vol up 2")
+      , ("<XF86AudioLowerVolume>"   , addName "Volume -2%"     $ spawn "audioctl vol down 2" )
+      , ("M-<Down>"                 , addName "Volume -2%"     $ spawn "audioctl vol down 2")
       , ("S-<XF86AudioRaiseVolume>" , addName "Volume +5%"     $ spawn "audioctl vol up 5" )
       , ("M-S-<Up>"                 , addName "Volume +5%"     $ spawn "audioctl vol up 5")
       , ("S-<XF86AudioLowerVolume>" , addName "Volume -5%"     $ spawn "audioctl vol down 5" )
