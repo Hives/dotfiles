@@ -19,7 +19,7 @@ Plug 'junegunn/fzf.vim' " Things you can do with fzf and Vim
 Plug 'udalov/kotlin-vim' " Kotlin plugin for Vim.
 Plug 'itchyny/lightline.vim' " status bar
 Plug 'wincent/loupe' " Enhanced in-file search for Vim
-Plug 'godlygeek/tabular' " Vim script for text filtering and alignment
+" Plug 'godlygeek/tabular' " Vim script for text filtering and alignment
 Plug 'wincent/terminus' " enhanced terminal integration including mouse stuff
 Plug 'Hives/vim-base16-lightline' " A minimal base16 colour scheme for vim-lightline
 Plug 'tpope/vim-commentary' " comment stuff out
@@ -27,7 +27,8 @@ Plug 'tpope/vim-eunuch' " Helpers for UNIX
 Plug 'tpope/vim-fugitive' " A Git wrapper so awesome, it should be illegal
 Plug 'maxmellon/vim-jsx-pretty' " JSX syntax pretty highlighting for vim
 " Plug 'jeetsukumaran/vim-buffergator' " Vim plugin to manage buffers.
-Plug 'tpope/vim-liquid' " syntax highlighting for liquid + jekyll enhancements
+" Plug 'tpope/vim-liquid' " syntax highlighting for liquid + jekyll enhancements
+Plug 'pangloss/vim-javascript' " Vastly improved Javascript indentation and syntax support in Vim.
 Plug 'andymass/vim-matchup' " enhances vim's '%' motion and matching
 " Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'tpope/vim-rhubarb' " GitHub extension for fugitive.vim
@@ -35,9 +36,9 @@ Plug 'tpope/vim-rhubarb' " GitHub extension for fugitive.vim
 Plug 'tpope/vim-sleuth' " automatic indentation detection
 Plug 'psliwka/vim-smoothie' " Smooth scrolling for Vim done right🥤
 " Plug 'honza/vim-snippets' " multi-language snippets for use with ultisnips
-Plug 'tpope/vim-surround' " edit parantheses, brackets, quotes, html tags + more
+" Plug 'tpope/vim-surround' " edit parantheses, brackets, quotes, html tags + more
 Plug 'christoomey/vim-tmux-navigator' " Seamless navigation between tmux panes and vim splits
-Plug 'tpope/vim-vinegar' " edit parantheses, brackets, quotes, html tags + more
+Plug 'tpope/vim-vinegar' " combine with netrw to create a delicious salad dressing
 " Plug 'tmux-plugins/vim-tmux-focus-events'
 " Plug 'vimwiki/vimwiki' " Personal wiki for vim
 " Plug 'chaoren/vim-wordmotion' " provides CamelCase motion through words
@@ -48,6 +49,7 @@ Plug 'Sirver/ultisnips' " snippets
 
 " NVIM stuff
 Plug 'neovim/nvim-lspconfig' " Collection of (useful, but unsupported) configurations for the Nvim LSP client
+Plug 'nvim-lua/completion-nvim'
 
 call plug#end()
 
@@ -290,18 +292,15 @@ let &colorcolumn="+".join(range(80,999),",")
 " :highlight EndOfBuffer ctermbg=18
 
 " NVIM LSP
+source $HOME/.config/nvim/lsp_config.vim
 
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+" NVIM/LSP AUTOCOMPLETE
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-:lua <<EOF
-  require'nvim_lsp'.tsserver.setup{}
-  require'nvim_lsp'.bashls.setup{}
-EOF
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
