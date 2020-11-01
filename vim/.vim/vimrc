@@ -64,10 +64,10 @@ syntax enable
 " SOME GLOBAL VARIABLES
 let $VRC = "~/.vim/vimrc"
 
-" BASE16 COLOURS
+" COLORSCHEME
 let base16colorspace=256
-
 colorscheme base16-default-dark
+
 " BUFFERS
 set hidden
 
@@ -87,10 +87,6 @@ endif
 " if has('linebreak')
 "   let &showbreak='↳ ' " DOWNWARDS ARROW WITH TIP RIGHTWARDS (U+21B3, UTF-8: E2 86 B3)
 " endif
-
-" " BASE16 COLOURS
-" let base16colorspace=256
-" colorscheme base16-default-dark
 
 " ULTISNIPS
 " let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
@@ -225,7 +221,7 @@ augroup numbertoggle
     autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
     autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
-let &colorcolumn="+".join(range(80,999),",")
+let &colorcolumn="+".join(range(100,999),",")
 " :highlight EndOfBuffer ctermbg=18
 
 " NVIM LSP
