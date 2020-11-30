@@ -57,8 +57,8 @@ alias aliases='${EDITOR:-vi} ~/.config/aliases/aliases-general'
 
 # kubectl
 alias kc="kubectl"
-alias kctx="kubectx"
-alias kns="kubens"
+alias kx="kubectx"
+alias kn="kubens"
 alias kgp="kubectl get pods"
 alias kgd="kubectl get deployments"
 
@@ -78,3 +78,5 @@ alias ig='${EDITOR:-vi} .gitignore'
 # requires vim-fugitive plugin
 # https://github.com/tpope/vim-fugitive
 alias browse="vim -E -c Gbrowse -c q"
+
+alias gcb="./gradlew clean build"
