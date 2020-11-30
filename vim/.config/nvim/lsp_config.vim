@@ -25,4 +25,15 @@ lua <<EOF
   require'nvim_lsp'.bashls.setup {
     on_attach = on_attach
   }
+
+  -- require'nvim_lsp'.kotlin_language_server.setup {
+  --   on_attach = on_attach,
+  --   settings = {
+  --     kotlin = {
+  --       languageServer = {
+  --         path = "/home/hives/.local/bin/kotlin-language-server/server/build/install/server/bin/kotlin-language-server"
+  --       }
+  --     }
+  --   }
+  -- }
 EOF
