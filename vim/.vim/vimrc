@@ -32,7 +32,7 @@ Plug 'maxmellon/vim-jsx-pretty' " JSX syntax pretty highlighting for vim
 " Plug 'tpope/vim-liquid' " syntax highlighting for liquid + jekyll enhancements
 Plug 'pangloss/vim-javascript' " Vastly improved Javascript indentation and syntax support in Vim.
 Plug 'andymass/vim-matchup' " enhances vim's '%' motion and matching
-" Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'tpope/vim-rhubarb' " GitHub extension for fugitive.vim
 " Plug 'tpope/vim-sensible' " a set of sensible defaults
 Plug 'tpope/vim-sleuth' " automatic indentation detection
@@ -44,7 +44,7 @@ Plug 'tpope/vim-vinegar' " combine with netrw to create a delicious salad dressi
 " Plug 'tmux-plugins/vim-tmux-focus-events'
 " Plug 'vimwiki/vimwiki' " Personal wiki for vim
 " Plug 'chaoren/vim-wordmotion' " provides CamelCase motion through words
-Plug 'Sirver/ultisnips' " snippets
+" Plug 'Sirver/ultisnips' " snippets
 " Plug 'othree/yajs.vim' " Yet Another JavaScript Syntax for vim
 " Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') } " code completion
 " Plug 'reedes/vim-pencil'
@@ -100,9 +100,9 @@ endif
 " let g:UltiSnipsJumpForwardTrigger = "<tab>"
 " let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+" let g:UltiSnipsExpandTrigger="<c-j>"
+" let g:UltiSnipsJumpForwardTrigger="<c-j>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " DIAGNOSTIC NVIM
 let g:diagnostic_enable_virtual_text = 0
@@ -228,7 +228,7 @@ augroup numbertoggle
     autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
     autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
-let &colorcolumn="+".join(range(100,999),",")
+let &colorcolumn="+".join(range(80,999),",")
 " :highlight EndOfBuffer ctermbg=18
 
 " NVIM LSP

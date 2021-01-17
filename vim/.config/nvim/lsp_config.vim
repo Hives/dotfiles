@@ -8,6 +8,8 @@ nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
+nnoremap <silent> gn    <cmd>lua vim.lsp.buf.rename()<CR>
+
 noremap <silent> [g <cmd>PrevDiagnosticCycle<CR>
 noremap <silent> ]g <cmd>NextDiagnosticCycle<CR>
 
@@ -18,15 +20,19 @@ lua <<EOF
   end
   
   -- requires typescript to be installed - npm i -g typescript
-  require'nvim_lsp'.tsserver.setup {
+  require'lspconfig'.tsserver.setup {
     on_attach = on_attach
   }
 
-  require'nvim_lsp'.bashls.setup {
+  require'lspconfig'.bashls.setup {
     on_attach = on_attach
   }
 
-  -- require'nvim_lsp'.kotlin_language_server.setup {
+  require'lspconfig'.pyls.setup{
+    on_attach = on_attach
+  }
+
+  -- require'lspconfig'.kotlin_language_server.setup {
   --   on_attach = on_attach,
   --   settings = {
   --     kotlin = {
