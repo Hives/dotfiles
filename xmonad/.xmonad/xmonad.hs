@@ -248,6 +248,7 @@ myManageHook = composeAll
 
     -- Float images
   , appName =? "feh" --> doCenterFloat
+  , appName =? "gifview" --> doCenterFloat
 
     -- Send applications to workspaces
   , appName =? "preview.web.skype.com__en" --> doShift "1" <+> unfloat
