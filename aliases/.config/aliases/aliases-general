@@ -38,19 +38,23 @@ alias v=vim
 alias vim=~/.local/bin/nvim.appimage
 alias vimrc='${EDITOR:-vi} ~/.vim/vimrc'
 
-alias weather="curl http://wttr.in/limehouse"
-
-alias gd="cd ~/Downloads; ls -lrt"
+alias gd="cd ~/Downloads; ls"
 alias gdoc="cd ~/Documents"
 alias gm="cd ~/Music; ls -lrt"
 alias tmp="cd ~/tmp"
 alias bin="cd ~/bin"
 alias dotfiles="cd ~/.dotfiles"
+alias code="cd ~/code; ls -lrt"
+alias nvlsp="v ~/.dotfiles/vim/.config/nvim/lsp_config.vim"
 
 alias o="xdg-open"
 
 alias t="tmux"
 alias mux="tmuxinator"
+
+alias weather="curl http://wttr.in/limehouse"
+
+alias gifview="gifview -a"
 
 alias zeesh='${EDITOR:-vi} ~/.zshrc'
 alias aliases='${EDITOR:-vi} ~/.config/aliases/aliases-general'
