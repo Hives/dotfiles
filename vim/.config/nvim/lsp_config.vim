@@ -10,13 +10,12 @@ nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
 nnoremap <silent> gn    <cmd>lua vim.lsp.buf.rename()<CR>
 
-noremap <silent> [g <cmd>PrevDiagnosticCycle<CR>
-noremap <silent> ]g <cmd>NextDiagnosticCycle<CR>
+noremap <silent> [g <cmd>vim.lsp.diagnostic.goto_prev()<CR>
+noremap <silent> ]g <cmd>vim.lsp.diagnostic.goto_next()<CR>
 
 lua <<EOF
   local on_attach = function(client)
     require'completion'.on_attach(client)
-    require'diagnostic'.on_attach(client)
   end
   
   -- requires typescript to be installed - npm i -g typescript
