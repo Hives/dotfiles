@@ -80,8 +80,13 @@ alias gst="git status"
 alias gl="git log"
 alias ig='${EDITOR:-vi} .gitignore'
 alias gpo="git push --set-upstream origin master"
+
 # requires vim-fugitive plugin
 # https://github.com/tpope/vim-fugitive
-alias browse="vim -E -c Gbrowse -c q"
+# alias browse="vim -E -c Gbrowse -c q"
+
+alias browse="git-web browse"
+alias pipe="git-web pipe"
+alias pipes="git-web pipes"
 
 alias gcb="./gradlew clean build"

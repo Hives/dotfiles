@@ -1,0 +1,39 @@
+#! /usr/bin/env bash
+
+GIT_CONFIG=".git/config"
+
+URL_LINE=$(grep "url =" "${GIT_CONFIG}")
+
+# https://stackoverflow.com/a/36798723/1107844
+SED_FILTER="s/^.*:\(.*\)\.git$/\1/p"
+
+URL_FRAGMENT=$(echo "${URL_LINE}" | sed -n "${SED_FILTER}")
+
+if [[ $URL_LINE =~ "gitlab" ]]; then
+    PREFIX="https://gitlab.com"
+elif [[ $URL_LINE =~ "github" ]]; then
+    PREFIX="https://github.com"
+else
+    echo "Couldn't work out site for ${URL_LINE}"
+    exit 1
+fi
+
+_browse() {
+    xdg-open "${PREFIX}/${URL_FRAGMENT}"
+}
+
+_pipe() {
+    xdg-open "${PREFIX}/${URL_FRAGMENT}/pipelines/latest"
+}
+
+_pipes() {
+    xdg-open "${PREFIX}/${URL_FRAGMENT}/pipelines"
+}
+
+if [[ $1 =~ ^(browse|pipe|pipes)$ ]]; then
+    COMMAND=_$1
+    shift
+    $COMMAND "$@"
+else
+    exit 1
+fi
