@@ -1,20 +1,18 @@
 #! /usr/bin/env bash
 
-GIT_CONFIG=".git/config"
-
-URL_LINE=$(grep "url =" "${GIT_CONFIG}")
+REMOTE_ORIGIN_URL=$(git config --get remote.origin.url)
 
 # https://stackoverflow.com/a/36798723/1107844
 SED_FILTER="s/^.*:\(.*\)\.git$/\1/p"
 
-URL_FRAGMENT=$(echo "${URL_LINE}" | sed -n "${SED_FILTER}")
+URL_FRAGMENT=$(echo "${REMOTE_ORIGIN_URL}" | sed -n "${SED_FILTER}")
 
-if [[ $URL_LINE =~ "gitlab" ]]; then
+if [[ $REMOTE_ORIGIN_URL =~ "gitlab" ]]; then
     PREFIX="https://gitlab.com"
-elif [[ $URL_LINE =~ "github" ]]; then
+elif [[ $REMOTE_ORIGIN_URL =~ "github" ]]; then
     PREFIX="https://github.com"
 else
-    echo "Couldn't work out site for ${URL_LINE}"
+    echo "Couldn't work out site for ${REMOTE_ORIGIN_URL}"
     exit 1
 fi
 
