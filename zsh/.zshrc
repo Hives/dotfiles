@@ -45,6 +45,10 @@ bindkey '^z' fg-bg
 # breaks signal and menus
 bindkey '\e' send-break
 
+# cycle through history based on characters already typed on the line
+bindkey "$key[Up]" history-beginning-search-backward
+bindkey "$key[Down]" history-beginning-search-forward
+
 ##############################################################################
 # Completion
 ##############################################################################
