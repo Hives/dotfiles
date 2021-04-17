@@ -1,4 +1,4 @@
-mpd_music_dir                         = "~/Music/mp3s"
+mpd_music_dir                         = "/home/hives/Music"
 visualizer_fifo_path                  = "/tmp/mpd.fifo"
 visualizer_output_name                = "fifo output"
 visualizer_sync_interval              = "30"
