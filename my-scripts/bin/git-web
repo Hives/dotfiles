@@ -28,7 +28,11 @@ _pipes() {
     xdg-open "${PREFIX}/${URL_FRAGMENT}/pipelines"
 }
 
-if [[ $1 =~ ^(browse|pipe|pipes)$ ]]; then
+_url() {
+    echo "${URL_FRAGMENT}"
+}
+
+if [[ $1 =~ ^(browse|pipe|pipes|url)$ ]]; then
     COMMAND=_$1
     shift
     $COMMAND "$@"
