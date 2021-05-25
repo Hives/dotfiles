@@ -215,7 +215,7 @@ myConfig p = def { borderWidth        = border
 ---------------------------------------------------------------------------
 
 myStartupHook = do
-  spawn "~/bin/keyboard-remaps/remap-keys-magicforce68-standard"
+  spawn "~/bin/keyboard-remaps/remap-keys-hybrid-modifiers"
   spawn "xscreensaver -no-splash"
   spawn "~/.dropbox-dist/dropboxd"
   spawn "set-wallpaper"
