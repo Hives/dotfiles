@@ -46,8 +46,8 @@ bindkey '^z' fg-bg
 bindkey '\e' send-break
 
 # cycle through history based on characters already typed on the line
-bindkey "$key[Up]" history-beginning-search-backward
-bindkey "$key[Down]" history-beginning-search-forward
+# bindkey "$key[Up]" history-beginning-search-backward
+# bindkey "$key[Down]" history-beginning-search-forward
 
 ##############################################################################
 # Completion
