@@ -86,3 +86,4 @@ configs
 namespaces
 npm
 online
+configmap
