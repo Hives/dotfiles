@@ -1,0 +1,12 @@
+#! /usr/bin/env bash
+
+cat ~/.history |\
+    awk '{ print $2 }' |\
+    sed -n '/^[0-9]\+:[0-9]\+;/p' |\
+    sed 's/^[0-9]\+:[0-9]\+;//g' |\
+    awk '{CMD[$1]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' |\
+    grep -v "./" |\
+    column -c3 -s " " -t |\
+    sort -nr |\
+    nl |\
+    head -n10
