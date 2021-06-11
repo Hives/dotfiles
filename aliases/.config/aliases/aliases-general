@@ -66,7 +66,8 @@ alias kn="kubens"
 alias kgp="kubectl get pods"
 alias kgd="kubectl get deployments"
 
-alias p="mocp -G"
+# alias p="mocp -G"
+alias p="mpc toggle"
 alias poop="ncmpcpp"
 
 alias fd="fdfind"
