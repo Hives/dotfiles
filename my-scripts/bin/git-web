@@ -28,11 +28,15 @@ _pipes() {
     xdg-open "${PREFIX}/${URL_FRAGMENT}/pipelines"
 }
 
+_commits() {
+    xdg-open "${PREFIX}/${URL_FRAGMENT}/commits/master"
+}
+
 _url() {
     echo "${URL_FRAGMENT}"
 }
 
-if [[ $1 =~ ^(browse|pipe|pipes|url)$ ]]; then
+if [[ $1 =~ ^(browse|pipe|pipes|commits|url)$ ]]; then
     COMMAND=_$1
     shift
     $COMMAND "$@"
