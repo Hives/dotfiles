@@ -177,6 +177,7 @@ scratchpads =
     -- , NS "spotify"      "spotify" (className =? "Spotify") (centerScreen 0.7 0.7)
     -- , NS "ghci"       "urxvtc -e ghci" (title =? "ghci") (centerScreen 0.7 0.7)
   , NS "notes"       "emacs ~/Documents/notes/notes.org -name notes" (appName =? "notes") (centerScreen 0.5 0.8)
+  , NS "jb toolbox"  " ~/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox" (appName =? "JetBrains Toolbox") (centerScreen 0.2 0.8)
   ]
 
 ------------------------------------------------------------------------
@@ -537,6 +538,7 @@ myKeys2 conf =
       , ("S-M-v"            , addName "NSP pavucontrol" $ namedScratchpadAction scratchpads "pavucontrol")
       , ("M-n"              , addName "NSP notes" $ namedScratchpadAction scratchpads "notes")
       , ("<XF86Calculator>" , addName "NSP calculator" $ namedScratchpadAction scratchpads "calculator")
+      , ("M-S-t"            , addName "NSP JetBrains Toolbox" $ namedScratchpadAction scratchpads "jb toolbox")
       -- hangouts and hangouts helpers
       , ( "M-M1-1"          , addName "Hangout 1" $ spawn "deskopen $HOME/.local/share/applications/digi-merch-hangout-1.desktop")
       , ( "M-M1-2"          , addName "Hangout 2" $ spawn "deskopen $HOME/.local/share/applications/digi-merch-hangout-2.desktop")
