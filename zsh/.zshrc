@@ -202,10 +202,9 @@ if [ -x "$(command -v kubectl)" ]; then source <(kubectl completion zsh); fi
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 # node
-# - fnm
-export PATH=/home/hives/.fnm:$PATH
-eval "`fnm env --multi`"
-source ~/.zsh/node-autoswitch.sh
+# - nvm
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 # - yarn
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
