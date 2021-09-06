@@ -154,7 +154,7 @@ myLauncher =
 
 scratchpads =
     -- kitty terminal apps
-  [ NS "terminal"    (myTerminal ++ " --name terminal-scratchpad")  (resource =? "terminal-scratchpad") (placeWindow 0.05 0.02 0.52 0.02)
+  [ NS "terminal"    (myTerminal ++ " --name terminal-scratchpad")  (resource =? "terminal-scratchpad") (placeWindow 0.55 0.02 0.02 0.02)
   , NS "htop"        (myTerminal ++ " --name htop-scratchpad htop") (resource =? "htop-scratchpad")     (centerScreen 0.7 0.7)
   , NS "alsamixer"   (myTerminal ++ " alsamixer")                   (title =? "alsamixer")              (centerScreen 0.6 0.7)
   , NS "musicplayer" (myTerminal ++ " --name ncmpcpp ncmpcpp")      (resource =? "ncmpcpp")             (centerScreen 0.7 0.7)
