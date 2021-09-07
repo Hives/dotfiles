@@ -2,6 +2,15 @@
 
 Uses [GNU Stow](https://www.gnu.org/software/stow/).
 
+You need to clone this project, and its submodules (zsh plugins, base16...), and
+move it to e.g. `~/.dotfiles`:
+
+```shell
+cd ~
+git clone --recurse-submodules git@github.com:Hives/dotfiles.git
+mv dotfiles .dotfiles
+```
+
 Running e.g. `stow MY_CONFIG` from the dotfiles folder symlinks the contents of
 the `MY_CONFIG` folder into the parent folder of the folder where the command
 was run. Capiche?
