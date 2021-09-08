@@ -179,6 +179,9 @@ source ~/.config/aliases/aliases
 # binaries go in here
 PATH=$HOME/.local/bin:$PATH
 
+# secret executables go in here
+PATH=$HOME/bin-secret:$PATH
+
 # default editor = neovim
 neovim_path=/home/hives/.local/bin/nvim.appimage
 export EDITOR=$neovim_path
