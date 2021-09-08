@@ -37,7 +37,7 @@ _pipes() {
 }
 
 _commits() {
-    xdg-open "${PREFIX}/${URL_FRAGMENT}/commits/master"
+    xdg-open "${PREFIX}/${URL_FRAGMENT}/commits"
 }
 
 _url() {
