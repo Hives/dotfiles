@@ -14,3 +14,5 @@ xmonad/.xmonad/*
 !xmonad/.xmonad/xmonad.hs
 !xmonad/.xmonad/xmobar.conf
 !xmonad/.xmonad/xmonad.simple.hs
+
+.idea/
