@@ -14,31 +14,23 @@ noremap <silent> [g <cmd>vim.lsp.diagnostic.goto_prev()<CR>
 noremap <silent> ]g <cmd>vim.lsp.diagnostic.goto_next()<CR>
 
 lua <<EOF
-  local on_attach = function(client)
-    require'completion'.on_attach(client)
+  local function setup_servers()
+    -- Register configs for installed servers in lspconfig.
+    require'lspinstall'.setup()
+
+    -- Get list of installed servers and then setup each
+    -- server with lspconfig as usual.
+    local servers = require'lspinstall'.installed_servers()
+    for _, server in pairs(servers) do
+      require'lspconfig'[server].setup{}
+    end
   end
-  
-  -- requires typescript to be installed - npm i -g typescript
-  require'lspconfig'.tsserver.setup {
-    on_attach = on_attach
-  }
 
-  require'lspconfig'.bashls.setup {
-    on_attach = on_attach
-  }
+  setup_servers()
 
-  require'lspconfig'.pyls.setup{
-    on_attach = on_attach
-  }
-
-  -- require'lspconfig'.kotlin_language_server.setup {
-  --   on_attach = on_attach,
-  --   settings = {
-  --     kotlin = {
-  --       languageServer = {
-  --         path = "/home/hives/.local/bin/kotlin-language-server/server/build/install/server/bin/kotlin-language-server"
-  --       }
-  --     }
-  --   }
-  -- }
+  -- automatically setup servers again after `:LspInstall <server>`
+  require'lspinstall'.post_install_hook = function ()
+    setup_servers() -- makes sure the new server is setup in lspconfig
+    vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+  end
 EOF

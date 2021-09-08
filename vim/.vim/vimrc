@@ -51,6 +51,7 @@ Plug 'tpope/vim-vinegar' " combine with netrw to create a delicious salad dressi
 
 " NVIM stuff
 Plug 'neovim/nvim-lspconfig' " Collection of (useful, but unsupported) configurations for the Nvim LSP client
+Plug 'kabouzeid/nvim-lspinstall' " Provides the missing :LspInstall for nvim-lspconfig
 Plug 'nvim-lua/completion-nvim'
 
 call plug#end()
