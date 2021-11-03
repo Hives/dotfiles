@@ -38,7 +38,7 @@ alias v=vim
 alias vim=~/.local/bin/nvim.appimage
 alias vimrc='${EDITOR:-vi} ~/.vim/vimrc'
 
-alias gd="cd ~/Downloads; ls"
+alias gd="cd ~/Downloads; ls -lrt"
 alias gdoc="cd ~/Documents"
 alias gm="cd ~/Music; ls -lrt"
 alias tmp="cd ~/tmp"
@@ -81,6 +81,8 @@ alias ga="git add"
 alias gst="git status"
 alias gl="git log"
 alias ig='${EDITOR:-vi} .gitignore'
+alias gpr="git pull -r"
+alias gps="git push"
 alias gpo="git push --set-upstream origin master"
 
 alias browse="git-web browse"
