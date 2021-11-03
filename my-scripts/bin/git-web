@@ -49,5 +49,5 @@ if [[ $1 =~ ^(browse|pipe|pipes|commits|url)$ ]]; then
     shift
     $COMMAND "$@"
 else
-    echo "syntax is: '${SCRIPTNAME} [browse|pipe|pipes|commits|url]'"
+    echo "Usage: ${SCRIPTNAME} [browse|pipe|pipes|commits|url]"
 fi
