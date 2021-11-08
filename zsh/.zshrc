@@ -182,6 +182,9 @@ PATH=$HOME/.local/bin:$PATH
 # secret executables go in here
 PATH=$HOME/bin-secret:$PATH
 
+# personal executables subfolder
+PATH=$HOME/bin/gcp:$PATH
+
 # default editor = neovim
 neovim_path=/home/hives/.local/bin/nvim.appimage
 export EDITOR=$neovim_path
@@ -214,3 +217,5 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # SDKMAN - THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/hives/.sdkman"
 [[ -s "/home/hives/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hives/.sdkman/bin/sdkman-init.sh"
+
+source /home/hives/.config/broot/launcher/bash/br
