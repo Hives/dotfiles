@@ -6,6 +6,7 @@ format = """\
     $git_state\
     $git_status\
     $kubernetes\
+    $gcloud\
     $cmd_duration\
     $custom\
     $line_break\
@@ -18,7 +19,10 @@ format = """\
 symbol = "★"
 
 [kubernetes]
-symbol = "☸"
-format = "on [$symbol $context( \\($namespace\\))]($style) "
+symbol = "☸ "
+format = "in [$context( \\($namespace\\))]($style) "
 disabled = false
 
+[gcloud]
+symbol = "☁️"
+format = "on [$project]($style) "
