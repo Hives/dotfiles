@@ -1,7 +1,15 @@
 #! /usr/bin/env bash
 
+scriptname=$(basename $0)
+
+if [ -z $1 ]; then
+  echo "syntax is: '${scriptname} \"POD_NAME_SEARCH_TERM\"'"
+  exit
+fi
+
 search_term=$1
-logfile="/tmp/${search_term}-pod-logs.log"
+timestamp="$(date +%Y%m%d-%H%M%S)"
+logfile="/tmp/${search_term}-pod-logs-${timestamp}.log"
 touch $logfile
 
 function cleanup {
@@ -17,9 +25,11 @@ echo "Following logs from pods:"
 kubectl get pods | grep $search_term | awk '{print $1}' | while read pod;
 do
     echo " - ${pod}"
-    kubectl logs $pod app --follow >> $logfile &
+    kubectl logs $pod --since=1h app --follow >> $logfile &
 done
 
 sleep 2
 
-tail -f $logfile | jq -R -r '. as $line | try fromjson catch $line'
+# need a way to filter out e.g. INFOs
+
+tail -f $logfile | jq-logs

@@ -2,13 +2,14 @@
 
 properties=(
     "@timestamp"
-    "x-b3-traceid"
+    # "x-b3-traceid"
     "message"
     "method"
     "request_uri"
+    "severity"
     "status"
     "duration"
-    "user_agent"
+    # "user_agent"
 )
 
 function ifPropertyExistsIncludeIt {
@@ -21,4 +22,11 @@ for property in "${properties[@]}"; do
     query+=' + '$(ifPropertyExistsIncludeIt ${property})
 done
 
-eval "jq '${query}'"
+while read line
+do
+    echo "${line}" | \
+        jq -n 'def handle: inputs | '"${query}"' ;
+        def process: try handle catch ("Could not parse this line", process) ;
+        process'
+done < "${1:-/dev/stdin}"
+
