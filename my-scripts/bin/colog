@@ -1,0 +1,25 @@
+#! /usr/bin/env bash
+
+search_term=$1
+logfile="/tmp/${search_term}-pod-logs.log"
+touch $logfile
+
+function cleanup {
+    echo
+    echo "Cleaning up"
+    pkill kubectl
+    rm $logfile
+}
+trap cleanup EXIT
+
+echo "Following logs from pods:"
+
+kubectl get pods | grep $search_term | awk '{print $1}' | while read pod;
+do
+    echo " - ${pod}"
+    kubectl logs $pod app --follow >> $logfile &
+done
+
+sleep 2
+
+tail -f $logfile | jq -R -r '. as $line | try fromjson catch $line'
