@@ -25,7 +25,7 @@ echo "Following logs from pods:"
 kubectl get pods | grep $search_term | awk '{print $1}' | while read pod;
 do
     echo " - ${pod}"
-    kubectl logs $pod --since=1h app --follow >> $logfile &
+    kubectl logs $pod app --follow >> $logfile &
 done
 
 sleep 2
