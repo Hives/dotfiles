@@ -214,8 +214,8 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 # - yarn
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
+export PATH=/home/hives/rakudo/bin/:/home/hives/rakudo/share/perl6/site/bin:/home/hives/rakudo/share/perl6/vendor/bin:/home/hives/rakudo/share/perl6/core/bin:$PATH
+
 # SDKMAN - THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/hives/.sdkman"
 [[ -s "/home/hives/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hives/.sdkman/bin/sdkman-init.sh"
-
-source /home/hives/.config/broot/launcher/bash/br
