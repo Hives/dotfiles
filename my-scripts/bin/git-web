@@ -10,38 +10,46 @@ fi
 
 REMOTE_ORIGIN_URL=$(git config --get remote.origin.url)
 
-# https://stackoverflow.com/a/36798723/1107844
-SED_FILTER="s/^.*:\(.*\)\.git$/\1/p"
-
-URL_FRAGMENT=$(echo "${REMOTE_ORIGIN_URL}" | sed -n "${SED_FILTER}")
-
-if [[ $REMOTE_ORIGIN_URL =~ "gitlab" ]]; then
-    PREFIX="https://gitlab.com"
-elif [[ $REMOTE_ORIGIN_URL =~ "github" ]]; then
-    PREFIX="https://github.com"
+if [[ $REMOTE_ORIGIN_URL =~ http* ]]; then
+    HTTP_SED_FILTER="s/^\(.*\)\.git$/\1/p"
+    
+    URL=$(echo "${REMOTE_ORIGIN_URL}" | sed -n "${HTTP_SED_FILTER}")
 else
-    echo "${SCRIPTNAME}: Couldn't work out site for ${REMOTE_ORIGIN_URL}"
-    exit 1
+    # https://stackoverflow.com/a/36798723/1107844
+    SSH_SED_FILTER="s/^.*:\(.*\)\.git$/\1/p"
+    
+    URL_FRAGMENT=$(echo "${REMOTE_ORIGIN_URL}" | sed -n "${SSH_SED_FILTER}")
+
+    if [[ $REMOTE_ORIGIN_URL =~ "gitlab" ]]; then
+        PREFIX="https://gitlab.com"
+    elif [[ $REMOTE_ORIGIN_URL =~ "github" ]]; then
+        PREFIX="https://github.com"
+    else
+        echo "${SCRIPTNAME}: couldn't parse remote origin ${REMOTE_ORIGIN_URL}"
+        exit 1
+    fi
+
+    URL="${PREFIX}/${URL_FRAGMENT}"
 fi
 
 _browse() {
-    xdg-open "${PREFIX}/${URL_FRAGMENT}"
+    xdg-open "${URL}"
 }
 
 _pipe() {
-    xdg-open "${PREFIX}/${URL_FRAGMENT}/pipelines/latest"
+    xdg-open "${URL}/pipelines/latest"
 }
 
 _pipes() {
-    xdg-open "${PREFIX}/${URL_FRAGMENT}/pipelines"
+    xdg-open "${URL}/pipelines"
 }
 
 _commits() {
-    xdg-open "${PREFIX}/${URL_FRAGMENT}/commits"
+    xdg-open "${URL}/commits"
 }
 
 _url() {
-    echo "${URL_FRAGMENT}"
+    echo "${URL}"
 }
 
 if [[ $1 =~ ^(browse|pipe|pipes|commits|url)$ ]]; then
