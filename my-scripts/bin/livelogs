@@ -32,4 +32,4 @@ sleep 2
 
 # need a way to filter out e.g. INFOs
 
-tail -f $logfile | jq-logs
+tail -f $logfile
