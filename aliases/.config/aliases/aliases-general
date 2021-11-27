@@ -91,3 +91,5 @@ alias pipes="git-web pipes"
 alias commits="git-web commits"
 
 alias gcb="./gradlew clean build"
+
+alias rg="rg -S"
