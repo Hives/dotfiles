@@ -1,0 +1,11 @@
+#! /usr/bin/env bash
+
+if [ $# -eq 0 ]; then
+  year=$(date +"%Y")
+  day=$(date +"%-d")
+else
+  year=$1
+  day=$2
+fi
+
+xdg-open "https://adventofcode.com/${year}/day/${day}"
