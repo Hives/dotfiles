@@ -86,9 +86,11 @@ alias gps="git push"
 alias gpo="git push --set-upstream origin master"
 
 alias browse="git-web browse"
-alias pipe="git-web pipe"
+# alias pipe="git-web pipe"
 alias pipes="git-web pipes"
 alias commits="git-web commits"
+
+alias pipe="node ~/code/gitlab-cli/dist/index.js"
 
 alias gcb="./gradlew clean build"
 
