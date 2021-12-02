@@ -20,9 +20,9 @@ else
     
     URL_FRAGMENT=$(echo "${REMOTE_ORIGIN_URL}" | sed -n "${SSH_SED_FILTER}")
 
-    if [[ $REMOTE_ORIGIN_URL =~ "gitlab" ]]; then
+    if [[ $REMOTE_ORIGIN_URL =~ "@gitlab" ]]; then
         PREFIX="https://gitlab.com"
-    elif [[ $REMOTE_ORIGIN_URL =~ "github" ]]; then
+    elif [[ $REMOTE_ORIGIN_URL =~ "@github" ]]; then
         PREFIX="https://github.com"
     else
         echo "${SCRIPTNAME}: couldn't parse remote origin ${REMOTE_ORIGIN_URL}"
