@@ -42,17 +42,22 @@ else
 fi
 
 _browse() {
+    BRANCH=$(git branch --show-current)
+
     # https://stackoverflow.com/questions/16623835/remove-a-fixed-prefix-suffix-from-a-string-in-bash
     SUB_PATH=${PWD#"$REPO_PATH"}
 
+    echo $BRANCH
+    echo $SUB_PATH
+
     # does this require the master branch to be called "master"?
     if [[ $PLATFORM = "gitlab" ]]; then
-        xdg-open "${URL}/-/tree/master${SUB_PATH}/$1"
+        xdg-open "${URL}/-/tree/${BRANCH}${SUB_PATH}/$1"
     elif [[ $PLATFORM = "github" ]]; then
-        xdg-open "${URL}/tree/master${SUB_PATH}/$1"
+        xdg-open "${URL}/tree/${BRANCH}${SUB_PATH}/$1"
     else
         # ¯\_(ツ)_/¯
-        xdg-open "${URL}/tree/master${SUB_PATH}/$1"
+        xdg-open "${URL}/tree/${BRANCH}${SUB_PATH}/$1"
     fi
 }
 
