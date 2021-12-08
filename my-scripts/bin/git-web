@@ -10,6 +10,14 @@ fi
 
 REMOTE_ORIGIN_URL=$(git config --get remote.origin.url)
 REPO_PATH=$(git rev-parse --show-toplevel)
+if [[ $REMOTE_ORIGIN_URL =~ "@gitlab" ]]; then
+    PLATFORM="gitlab"
+elif [[ $REMOTE_ORIGIN_URL =~ "@github" ]]; then
+    PLATFORM="github"
+else
+    PLATFORM="unknown"
+fi
+
 
 if [[ $REMOTE_ORIGIN_URL =~ http* ]]; then
     HTTP_SED_FILTER="s/^\(.*\)\.git$/\1/p"
@@ -21,9 +29,9 @@ else
     
     URL_FRAGMENT=$(echo "${REMOTE_ORIGIN_URL}" | sed -n "${SSH_SED_FILTER}")
 
-    if [[ $REMOTE_ORIGIN_URL =~ "@gitlab" ]]; then
+    if [[ $PLATFORM = "gitlab" ]]; then
         PREFIX="https://gitlab.com"
-    elif [[ $REMOTE_ORIGIN_URL =~ "@github" ]]; then
+    elif [[ $PLATFORM = "github" ]]; then
         PREFIX="https://github.com"
     else
         echo "${SCRIPTNAME}: couldn't parse remote origin ${REMOTE_ORIGIN_URL}"
@@ -34,9 +42,18 @@ else
 fi
 
 _browse() {
+    # https://stackoverflow.com/questions/16623835/remove-a-fixed-prefix-suffix-from-a-string-in-bash
     SUB_PATH=${PWD#"$REPO_PATH"}
+
     # does this require the master branch to be called "master"?
-    xdg-open "${URL}/tree/master${SUB_PATH}"
+    if [[ $PLATFORM = "gitlab" ]]; then
+        xdg-open "${URL}/-/tree/master${SUB_PATH}/$1"
+    elif [[ $PLATFORM = "github" ]]; then
+        xdg-open "${URL}/tree/master${SUB_PATH}/$1"
+    else
+        # ¯\_(ツ)_/¯
+        xdg-open "${URL}/tree/master${SUB_PATH}/$1"
+    fi
 }
 
 _pipe() {
