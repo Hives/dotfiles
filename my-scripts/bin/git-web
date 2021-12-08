@@ -9,6 +9,7 @@ if [[ $? != 0 ]]; then
 fi
 
 REMOTE_ORIGIN_URL=$(git config --get remote.origin.url)
+REPO_PATH=$(git rev-parse --show-toplevel)
 
 if [[ $REMOTE_ORIGIN_URL =~ http* ]]; then
     HTTP_SED_FILTER="s/^\(.*\)\.git$/\1/p"
@@ -33,7 +34,9 @@ else
 fi
 
 _browse() {
-    xdg-open "${URL}"
+    SUB_PATH=${PWD#"$REPO_PATH"}
+    # does this require the master branch to be called "master"?
+    xdg-open "${URL}/tree/master${SUB_PATH}"
 }
 
 _pipe() {
@@ -48,14 +51,20 @@ _commits() {
     xdg-open "${URL}/commits"
 }
 
+_root() {
+    # you can't cd from a bash script unless you source the file
+    # so to run this one you need to do e.g. `. git-web root`
+    cd "${REPO_PATH}"
+}
+
 _url() {
     echo "${URL}"
 }
 
-if [[ $1 =~ ^(browse|pipe|pipes|commits|url)$ ]]; then
+if [[ $1 =~ ^(browse|pipe|pipes|commits|root|url)$ ]]; then
     COMMAND=_$1
     shift
     $COMMAND "$@"
 else
-    echo "Usage: ${SCRIPTNAME} [browse|pipe|pipes|commits|url]"
+    echo "Usage: ${SCRIPTNAME} [browse|pipe|pipes|commits|root|url]"
 fi
