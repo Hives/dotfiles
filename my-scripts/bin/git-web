@@ -10,14 +10,15 @@ fi
 
 REMOTE_ORIGIN_URL=$(git config --get remote.origin.url)
 REPO_PATH=$(git rev-parse --show-toplevel)
+
 if [[ $REMOTE_ORIGIN_URL =~ "@gitlab" ]]; then
     PLATFORM="gitlab"
 elif [[ $REMOTE_ORIGIN_URL =~ "@github" ]]; then
     PLATFORM="github"
 else
-    PLATFORM="unknown"
+    echo "${SCRIPTNAME}: couldn't parse platform from remote origin ${REMOTE_ORIGIN_URL}"
+    exit 1
 fi
-
 
 if [[ $REMOTE_ORIGIN_URL =~ http* ]]; then
     HTTP_SED_FILTER="s/^\(.*\)\.git$/\1/p"
@@ -34,7 +35,7 @@ else
     elif [[ $PLATFORM = "github" ]]; then
         PREFIX="https://github.com"
     else
-        echo "${SCRIPTNAME}: couldn't parse remote origin ${REMOTE_ORIGIN_URL}"
+        # should be impossible ¯\_(ツ)_/¯
         exit 1
     fi
 
@@ -45,19 +46,15 @@ _browse() {
     BRANCH=$(git branch --show-current)
 
     # https://stackoverflow.com/questions/16623835/remove-a-fixed-prefix-suffix-from-a-string-in-bash
-    SUB_PATH=${PWD#"$REPO_PATH"}
+    RELATIVE_PATH=${PWD#"$REPO_PATH"}
 
-    echo $BRANCH
-    echo $SUB_PATH
-
-    # does this require the master branch to be called "master"?
     if [[ $PLATFORM = "gitlab" ]]; then
-        xdg-open "${URL}/-/tree/${BRANCH}${SUB_PATH}/$1"
+        xdg-open "${URL}/-/tree/${BRANCH}${RELATIVE_PATH}/$1"
     elif [[ $PLATFORM = "github" ]]; then
-        xdg-open "${URL}/tree/${BRANCH}${SUB_PATH}/$1"
+        xdg-open "${URL}/tree/${BRANCH}${RELATIVE_PATH}/$1"
     else
         # ¯\_(ツ)_/¯
-        xdg-open "${URL}/tree/${BRANCH}${SUB_PATH}/$1"
+        xdg-open "${URL}/tree/${BRANCH}${RELATIVE_PATH}/$1"
     fi
 }
 
@@ -75,7 +72,7 @@ _commits() {
 
 _root() {
     # you can't cd from a bash script unless you source the file
-    # so to run this one you need to do e.g. `. git-web root`
+    # so to run this one you need to source the script, e.g. `. git-web root`
     cd "${REPO_PATH}"
 }
 
