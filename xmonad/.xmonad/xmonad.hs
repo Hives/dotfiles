@@ -172,6 +172,7 @@ scratchpads =
 
   , NS "calculator"  "speedcrunch" (className =? "SpeedCrunch") (placeWindow 0.05 0.05 0.55 0.55)
   , NS "calendar"    "deskopen $HOME/.local/share/applications/google-calendar.desktop" (fmap ("calendar.google.com" `isInfixOf`) appName) (centerScreen 0.7 0.7)
+  , NS "qobuz"       "deskopen $HOME/.local/share/applications/qobuz.desktop" (fmap ("qobuz.com" `isInfixOf`) appName) (centerScreen 0.7 0.7)
   , NS "spotify"     "spotify" (resource =? "spotify") (centerScreen 0.7 0.7)
   , NS "pavucontrol" "pavucontrol" (resource =? "pavucontrol") (centerScreen 0.7 0.7)
     -- , NS "spotify"      "spotify" (className =? "Spotify") (centerScreen 0.7 0.7)
@@ -522,7 +523,6 @@ myKeys2 conf =
       "Launchers"
       [ ("M-<Space>"        , addName "Launcher" $ spawn myLauncher)
       , ("M-S-<Return>"     , addName "Terminal" $ spawn myTerminal)
-      , ("M-z"              , addName "Test" $ spawn "notify-send 'hello'")
       , ("M-p"              , addName "Display menu" $ spawn "displayctl menu")
       , ("M-S-p"            , addName "Password menu" $ spawn "password-menu")
       , ("M-b"              , addName "Keyboard remapping menu" $ spawn ("find $HOME/bin/keyboard-remaps -type f | launcher | /bin/sh"))
@@ -532,7 +532,8 @@ myKeys2 conf =
       , ("M1-C-<Return>"    , addName "NSP terminal" $ namedScratchpadAction scratchpads "terminal")
       , ("M-m"              , addName "NSP music player" $ namedScratchpadAction scratchpads "musicplayer")
       , ("<XF86Tools>"      , addName "NSP music player" $ namedScratchpadAction scratchpads "musicplayer")
-      , ("M-c"              , addName "NSP Google" $ namedScratchpadAction scratchpads "calendar")
+      , ("M-c"              , addName "NSP Google Calender" $ namedScratchpadAction scratchpads "calendar")
+      , ("M-z"              , addName "NSP Qobuz" $ namedScratchpadAction scratchpads "qobuz")
       , ("M-S-h"            , addName "NSP htop" $ namedScratchpadAction scratchpads "htop")
       -- , ("M-v"              , addName "NSP alsamixer" $ namedScratchpadAction scratchpads "alsamixer")
       , ("S-M-v"            , addName "NSP pavucontrol" $ namedScratchpadAction scratchpads "pavucontrol")
