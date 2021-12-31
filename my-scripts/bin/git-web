@@ -23,7 +23,7 @@ fi
 if [[ $REMOTE_ORIGIN_URL =~ http* ]]; then
     HTTP_SED_FILTER="s/^\(.*\)\.git$/\1/p"
     
-    URL=$(echo "${REMOTE_ORIGIN_URL}" | sed -n "${HTTP_SED_FILTER}")
+    PLATFORM_URL=$(echo "${REMOTE_ORIGIN_URL}" | sed -n "${HTTP_SED_FILTER}")
 else
     # https://stackoverflow.com/a/36798723/1107844
     SSH_SED_FILTER="s/^.*:\(.*\)\.git$/\1/p"
@@ -39,7 +39,7 @@ else
         exit 1
     fi
 
-    URL="${PREFIX}/${URL_FRAGMENT}"
+    PLATFORM_URL="${PREFIX}/${URL_FRAGMENT}"
 fi
 
 _browse() {
@@ -49,25 +49,25 @@ _browse() {
     RELATIVE_PATH=${PWD#"$REPO_PATH"}
 
     if [[ $PLATFORM = "gitlab" ]]; then
-        xdg-open "${URL}/-/tree/${BRANCH}${RELATIVE_PATH}/$1"
+        xdg-open "${PLATFORM_URL}/-/tree/${BRANCH}${RELATIVE_PATH}/$1"
     elif [[ $PLATFORM = "github" ]]; then
-        xdg-open "${URL}/tree/${BRANCH}${RELATIVE_PATH}/$1"
+        xdg-open "${PLATFORM_URL}/tree/${BRANCH}${RELATIVE_PATH}/$1"
     else
         # ¯\_(ツ)_/¯
-        xdg-open "${URL}/tree/${BRANCH}${RELATIVE_PATH}/$1"
+        xdg-open "${PLATFORM_URL}/tree/${BRANCH}${RELATIVE_PATH}/$1"
     fi
 }
 
 _pipe() {
-    xdg-open "${URL}/pipelines/latest"
+    xdg-open "${PLATFORM_URL}/pipelines/latest"
 }
 
 _pipes() {
-    xdg-open "${URL}/pipelines"
+    xdg-open "${PLATFORM_URL}/pipelines"
 }
 
 _commits() {
-    xdg-open "${URL}/commits"
+    xdg-open "${PLATFORM_URL}/commits"
 }
 
 _root() {
@@ -77,7 +77,7 @@ _root() {
 }
 
 _url() {
-    echo "${URL}"
+    echo "${PLATFORM_URL}"
 }
 
 if [[ $1 =~ ^(browse|pipe|pipes|commits|root|url)$ ]]; then
