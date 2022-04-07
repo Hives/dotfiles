@@ -15,6 +15,9 @@ format = """\
     $character\
     """
 
+[directory]
+truncate_to_repo = false
+
 [jobs]
 symbol = "★"
 
