@@ -66,7 +66,7 @@ main () {
 
 menu () {
     screenlayout_folder="${HOME}/.screenlayout"
-    screenlayout_file=$(for file in "${screenlayout_folder}/"*; do echo "$(basename "${file}")"; done | launcher "Screenlayout")
+    screenlayout_file=$(for file in "${screenlayout_folder}/"*; do echo "$(basename "${file}")"; done | menu.sh "Screenlayout")
     screenlayout="${screenlayout_folder}/${screenlayout_file}"
     
     save_fingerprint "${screenlayout}"

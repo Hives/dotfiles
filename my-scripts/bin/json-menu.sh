@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-# requires launcher script (not named well for this context)
+# requires menu.sh script
 
 set -e -o pipefail
 
@@ -15,7 +15,7 @@ function remove_quotes {
 object=$(cat $menu_file)
 
 function make_selection {
-    key=$(echo $object | jq -c keys | jq -c '.[]' | launcher)
+    key=$(echo $object | jq -c keys | jq -c '.[]' | menu.sh)
     key_unquoted=$(remove_quotes $key)
 
     object=$(echo $object | jq ".${key_unquoted}")
