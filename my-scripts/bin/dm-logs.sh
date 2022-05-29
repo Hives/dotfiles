@@ -1,3 +1,3 @@
 #! /usr/bin/env bash
 
-xdg-open $(json-menu.sh ~/.secret/digi-merch-logs.json)
+xdg-open $(yaml-menu.sh ~/.secret/digi-merch-logs.yaml)
