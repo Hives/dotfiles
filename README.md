@@ -29,10 +29,11 @@ Requires:
 - [starship prompt](https://starship.rs/guide/#%F0%9F%9A%80-installation)
 - neovim (`.zshrc` sets it as default editor, check the path)
 
-### vim
+### neovim
 
-[vim-plug](https://github.com/junegunn/vim-plug) is included in `autoload`
-folder. Run `:PlugInstall` to install plugins from `vimrc`.
+Uses [packer](https://github.com/wbthomason/packer.nvim) for package management.
+May require a manual step to install. Then do `:PackerSync` to compile and
+install plugins.
 
 Do something like `:mkspell ~/.vim/spell/en.utf-8.add` to compile the spellings
 file.
