@@ -36,7 +36,7 @@ alias vhosts="sudoedit /etc/httpd/conf/extra/httpd-vhosts.conf"
 # alias vim="vim.nox" # vim package compiled with ruby support
 alias v=vim
 alias vim=~/.local/bin/nvim.appimage
-alias vimrc='${EDITOR:-vi} ~/.vim/vimrc'
+alias vimrc='${EDITOR:-vi} ~/.config/nvim/init.lua'
 
 alias gd="cd ~/Downloads; ls -lrt"
 alias gdoc="cd ~/Documents"
@@ -47,6 +47,7 @@ alias dotfiles="cd ~/.dotfiles"
 alias code="cd ~/code; ls -lrt"
 alias dm="cd ~/code/john-lewis/digital-merch/; ls"
 alias nvlsp="v ~/.dotfiles/vim/.config/nvim/lsp_config.vim"
+alias secret="cd ~/.secret"
 
 alias o="xdg-open"
 
