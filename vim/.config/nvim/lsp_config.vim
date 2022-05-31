@@ -13,24 +13,24 @@ nnoremap <silent> gn    <cmd>lua vim.lsp.buf.rename()<CR>
 noremap <silent> [g <cmd>vim.lsp.diagnostic.goto_prev()<CR>
 noremap <silent> ]g <cmd>vim.lsp.diagnostic.goto_next()<CR>
 
-lua <<EOF
-  local function setup_servers()
-    -- Register configs for installed servers in lspconfig.
-    require'lspinstall'.setup()
-
-    -- Get list of installed servers and then setup each
-    -- server with lspconfig as usual.
-    local servers = require'lspinstall'.installed_servers()
-    for _, server in pairs(servers) do
-      require'lspconfig'[server].setup{}
-    end
-  end
-
-  setup_servers()
-
-  -- automatically setup servers again after `:LspInstall <server>`
-  require'lspinstall'.post_install_hook = function ()
-    setup_servers() -- makes sure the new server is setup in lspconfig
-    vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-  end
-EOF
+" lua <<EOF
+"   local function setup_servers()
+"     -- Register configs for installed servers in lspconfig.
+"     require'lspinstall'.setup()
+" 
+"     -- Get list of installed servers and then setup each
+"     -- server with lspconfig as usual.
+"     local servers = require'lspinstall'.installed_servers()
+"     for _, server in pairs(servers) do
+"       require'lspconfig'[server].setup{}
+"     end
+"   end
+" 
+"   setup_servers()
+" 
+"   -- automatically setup servers again after `:LspInstall <server>`
+"   require'lspinstall'.post_install_hook = function ()
+"     setup_servers() -- makes sure the new server is setup in lspconfig
+"     vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+"   end
+" EOF
