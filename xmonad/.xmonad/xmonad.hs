@@ -527,6 +527,7 @@ myKeys2 conf =
       , ("M-S-p"            , addName "Password menu" $ spawn "password-menu")
       , ("M-b"              , addName "Keyboard remapping menu" $ spawn ("find $HOME/bin/keyboard-remaps -type f | menu.sh | /bin/sh"))
       , ("M-S-l"            , addName "DigiMerch logs menu" $ spawn "dm-logs.sh")
+      , ("M-S-g"            , addName "GCP console menu" $ spawn "gcp-links.sh")
       , ("<Print>"          , addName "Copy screengrab to clipboard" $ spawn "screengrab copy" )
       , ("S-<Print>"        , addName "Save screengrab" $ spawn "screengrab save")
       , ("M1-<Print>"       , addName "Save screengrab of active window" $ spawn "screengrab win")
