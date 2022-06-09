@@ -62,7 +62,7 @@ alias zeesh='${EDITOR:-vi} ~/.zshrc'
 alias aliases='${EDITOR:-vi} ~/.config/aliases/aliases-general'
 
 # kubectl
-alias kc="kubectl"
+alias kc="kubecolor"
 alias kx="kubectx"
 alias kn="kubens"
 alias kgp="kubectl get pods"

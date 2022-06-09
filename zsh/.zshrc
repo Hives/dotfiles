@@ -203,6 +203,7 @@ if [ -f '/home/hives/.local/bin/google-cloud-sdk/completion.zsh.inc' ]; then . '
 
 # kubectl autocompletion
 if [ -x "$(command -v kubectl)" ]; then source <(kubectl completion zsh); fi
+compdef kubecolor=kubectl
 
 # linux brew??
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
