@@ -2,4 +2,4 @@
 
 clipboard=$(xsel)
 
-[[ $clipboard == http* ]] && /opt/google/chrome/google-chrome --profile-directory=Default --app=$clipboard
+[[ $clipboard == http* ]] && /usr/bin/brave-browser --app=$clipboard
