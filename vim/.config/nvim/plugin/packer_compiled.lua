@@ -134,6 +134,11 @@ _G.packer_plugins = {
     path = "/home/hives/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
+  terminus = {
+    loaded = true,
+    path = "/home/hives/.local/share/nvim/site/pack/packer/start/terminus",
+    url = "https://github.com/wincent/terminus"
+  },
   ["vim-base16-lightline"] = {
     loaded = true,
     path = "/home/hives/.local/share/nvim/site/pack/packer/start/vim-base16-lightline",

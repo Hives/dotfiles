@@ -23,9 +23,9 @@ symbol = "★"
 
 [kubernetes]
 symbol = "☸ "
-format = "in [$context( \\($namespace\\))]($style) "
+format = "k8s: [$context( \\($namespace\\))]($style) "
 disabled = false
 
 [gcloud]
 symbol = "☁️"
-format = "on [$project]($style) "
+format = "gcp: [$project]($style) "

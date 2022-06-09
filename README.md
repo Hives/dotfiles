@@ -28,6 +28,7 @@ Requires:
   - [fd](https://github.com/sharkdp/fd)
 - [starship prompt](https://starship.rs/guide/#%F0%9F%9A%80-installation)
 - neovim (`.zshrc` sets it as default editor, check the path)
+- kubectl, kubens, kuectc, kubecolor
 
 ### neovim
 

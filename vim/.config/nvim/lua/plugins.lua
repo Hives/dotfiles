@@ -20,6 +20,8 @@ require('packer').startup(function()
 
     use 'christoomey/vim-tmux-navigator' -- Seamless navigation between tmux panes and vim splits
 
+    use 'wincent/terminus' -- enhanced terminal integration including mouse stuff
+
     use 'chriskempson/base16-vim'
 
     use 'itchyny/lightline.vim'
