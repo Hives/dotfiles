@@ -219,9 +219,22 @@ if [ -f '/home/hives/.local/bin/google-cloud-sdk/path.zsh.inc' ]; then . '/home/
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/hives/.local/bin/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/hives/.local/bin/google-cloud-sdk/completion.zsh.inc'; fi
 
-# kubectl autocompletion
-if [ -x "$(command -v kubectl)" ]; then source <(kubectl completion zsh); fi
-compdef kubecolor=kubectl
+# Lazy load kubectl autocompletion
+# Check if 'kubectl' is a command in $PATH
+if [ $commands[kubectl] ]; then
+  # Placeholder 'kubectl' shell function:
+  # Will only be executed on the first call to 'kubectl'
+  kubectl() {
+    # Remove this function, subsequent calls will execute 'kubectl' directly
+    unfunction "$0"
+    # Load auto-completion
+    source <(kubectl completion zsh)
+    # Pretty colours
+    compdef kubecolor=kubectl
+    # Execute 'kubectl' binary
+    $0 "$@"
+  }
+fi
 
 # linux brew??
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
@@ -235,3 +248,4 @@ export PATH=/home/hives/rakudo/bin/:/home/hives/rakudo/share/perl6/site/bin:/hom
 # SDKMAN - THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/hives/.sdkman"
 [[ -s "/home/hives/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hives/.sdkman/bin/sdkman-init.sh"
+
