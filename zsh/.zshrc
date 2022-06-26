@@ -3,8 +3,8 @@
 ##############################################################################
 
 # Uncomment this line to enable profiling of zsh startup. Then run `zprof` in
-# your shell to see the results.
-zmodload zsh/zprof
+# a new shell to see the results.
+# zmodload zsh/zprof
 
 ##############################################################################
 # Global
