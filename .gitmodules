@@ -10,3 +10,6 @@
 [submodule "my-scripts/bin/Bash-GitLab-pipeline-monitor"]
 	path = my-scripts/bin/Bash-GitLab-pipeline-monitor
 	url = git@github.com:Hives/Bash-GitLab-pipeline-monitor.git
+[submodule "zsh/.zsh/zsh-nvm"]
+	path = zsh/.zsh/zsh-nvm
+	url = https://github.com/lukechilds/zsh-nvm

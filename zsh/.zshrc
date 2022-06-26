@@ -1,4 +1,12 @@
 ##############################################################################
+# Profiling
+##############################################################################
+
+# Uncomment this line to enable profiling of zsh startup. Then run `zprof` in
+# your shell to see the results.
+zmodload zsh/zprof
+
+##############################################################################
 # Global
 ##############################################################################
 
@@ -153,6 +161,10 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
 
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+export NVM_LAZY_LOAD=true
+export NVM_LAZY_LOAD_EXTRA_COMMANDS=('yarn' 'v' 'vim' 'nvim.appimage')
+source ~/.zsh/zsh-nvm/zsh-nvm.plugin.zsh
+
 ##############################################################################
 # Prompt
 ##############################################################################
@@ -163,6 +175,12 @@ eval "$(starship init zsh)"
 ##############################################################################
 # Stuffs
 ##############################################################################
+
+# time zsh startup
+timezsh() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+}
 
 # aliases
 source ~/.config/aliases/aliases
@@ -186,9 +204,9 @@ PATH=$HOME/bin-secret:$PATH
 PATH=$HOME/bin/gcp:$PATH
 
 # default editor = neovim
-neovim_path=/home/hives/.local/bin/nvim.appimage
-export EDITOR=$neovim_path
-export VISUAL=$neovim_path
+neovim_binary=nvim.appimage
+export EDITOR=$neovim_binary
+export VISUAL=$neovim_binary
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -207,33 +225,6 @@ compdef kubecolor=kubectl
 
 # linux brew??
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-
-# node
-# - nvm
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
-# https://stackoverflow.com/questions/57110542/how-to-write-a-nvmrc-file-which-automatically-change-node-version
-autoload -U add-zsh-hook
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
-
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-    if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
-    fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
 
 # - yarn
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
