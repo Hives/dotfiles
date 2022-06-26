@@ -6,10 +6,10 @@ def chunk_list(l, n):
         yield l[i:i + n]
 
 
-client = datastore.Client(namespace="prod-categories", project="jl-digital-merch-prod")
+client = datastore.Client(namespace="stubs-index-data-cacher", project="jl-digital-merch-flex")
 batch_size = 500
 
-kinds = [ 'Category', 'CategoryWithHierarchy', 'SeoInformation', 'Category_IdRtCQmZ', 'CategoryWithHierarchy_IdRtCQmZ', 'SeoInformation_IdRtCQmZ' ]
+kinds = [ 'Product' ]
 
 for kind in kinds:
 
