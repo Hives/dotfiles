@@ -1,23 +1,31 @@
 require('plugins')
 require('keybindings')
+require('comment')
+require('treesitter')
+require('completion')
 
-local function blahdeblah()
-    print "hello world\n"
-end
+vim.o.number = true
+vim.o.relativenumber = true
+-- vim.o.cursorline = true
+vim.o.scrolloff = 8
 
-vim.bo.expandtab = true
-vim.bo.tabstop = 4       -- number of visual spaces per tab
-vim.bo.softtabstop = 4   -- number of spaces in tab when editing
-vim.bo.shiftwidth = 4
+vim.o.showcmd = true
+
+vim.wo.signcolumn = "yes"
+
+vim.api.nvim_exec([[
+  " to make vim commit messages wrap?
+  filetype indent plugin on
+]], false)
 
 -- COLORSCHEME
 vim.api.nvim_exec([[
-let base16colorspace=256
-colorscheme base16-default-dark
+  let base16colorspace=256
+  colorscheme base16-default-dark
 ]], false)
 
+-- LIGHTLINE
 vim.api.nvim_exec([[
-" LIGHTLINE
 " append * for 'changes need saving' to the filename
 function! LightlineFilename()
   let modified = &modified ? ' *' : ''
@@ -47,13 +55,6 @@ let g:lightline = {
       \ }
 ]], false)
 
-vim.o.number = true
-vim.o.relativenumber = true
-vim.o.cursorline = true
-
--- what is this??
-vim.o.showcmd = true
-
 vim.api.nvim_create_augroup("NumberToggle", { clear = false })
 vim.api.nvim_create_autocmd( {"BufEnter", "FocusGained", "InsertLeave"}, {
     command = "set relativenumber",
@@ -70,83 +71,79 @@ for i=80,999 do
 end
 vim.o.colorcolumn = colorcolumnValue
 
-local configs = require'nvim-treesitter.configs'
-configs.setup {
-    ensure_installed = "all",
-    highlight = {
-        enable = true,
-    },
-    indent = {
-        enable = true,
-    }
+-- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+--vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+
+-- LSP settings.
+--  This function gets run when an LSP connects to a particular buffer.
+local on_attach = function(_, bufnr)
+  -- NOTE: Remember that lua is a real programming language, and as such it is possible
+  -- to define small helper and utility functions so you don't have to repeat yourself
+  -- many times.
+  --
+  -- In this case, we create a function that lets us more easily define mappings specific
+  -- for LSP related items. It sets the mode, buffer and description for us each time.
+  local nmap = function(keys, func, desc)
+    if desc then
+      desc = 'LSP: ' .. desc
+    end
+
+    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+  end
+
+  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]tion')
+
+  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+  nmap('gr', require('telescope.builtin').lsp_references)
+  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+  nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+
+  -- See `:help K` for why this keymap
+  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+
+  -- Lesser used LSP functionality
+  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type Definition')
+  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+  nmap('<leader>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, '[W]orkspace [L]ist Folders')
+
+  -- Create a command `:Format` local to the LSP buffer
+  vim.api.nvim_buf_create_user_command(bufnr, 'Format', vim.lsp.buf.format or vim.lsp.buf.formatting, { desc = 'Format current buffer with LSP' })
+end
+
+-- nvim-cmp supports additional completion capabilities
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+-- Enable the following language servers
+local servers = { 'pyright', 'tsserver', 'sumneko_lua' }
+
+-- Ensure the servers above are installed
+require('nvim-lsp-installer').setup {
+  ensure_installed = servers,
 }
 
-local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.on_server_ready(function(server)
-    local opts = {}
-    if server.name == "sumneko_lua" then
-        blahdeblah()
-        opts = {
-            settings = {
-                Lua = {
-                    diagnostics = {
-                        globals = { 'vim', 'use' }
-                    },
-                }
-            }
-        }
-    end
-    server:setup(opts)
-end)
-
-local cmp = require'cmp'
-cmp.setup({
-  mapping = cmp.mapping.preset.insert({
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    -- Accept currently selected item. Set `select` to `false` to only
-    -- confirm explicitly selected items.
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-  }),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-  }, {
-    { name = 'buffer' },
-  })
-})
-
--- -- Set configuration for specific filetype.
--- cmp.setup.filetype('gitcommit', {
---   sources = cmp.config.sources({
---     { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
---   }, {
---     { name = 'buffer' },
---   })
--- })
-
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline('/', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
+for _, lsp in ipairs(servers) do
+  require('lspconfig')[lsp].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
   }
-})
+end
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
-  })
-})
-
--- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-require('lspconfig')['sumneko_lua'].setup {
-  capabilities = capabilities
+require('lspconfig').sumneko_lua.setup {
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = {'vim'}
+      }
+    }
+  }
 }

@@ -7,13 +7,24 @@ local function nkeymap(key, map)
     keymap('n', key, map, opts)
 end
 
+local function vkeymap(key, map)
+    keymap('v', key, map, opts)
+end
+
+
 nkeymap('<leader>w', ':w<cr>')
 nkeymap('<leader>q', ':q<cr>')
+
+-- open netrw file browser in vertical split
+nkeymap('<leader>pv', ':Vex<CR>')
+nkeymap('<leader>ph', ':Hex<CR>')
+
+nkeymap('<leader><CR>', ':so ~/.config/nvim/init.lua<CR>')
 
 -- make Ctrl-C copy to both x clipboard and primary selection
 -- requires gvim to be installed?!
 -- see https://www.youtube.com/watch?v=E_rbfQqrm7g
-keymap('v', '<c-c>', '"*y :let @+=@*<CR>', opts)
+vkeymap('<c-c>', '"*y :let @+=@*<CR>')
 
 nkeymap('<leader>t', [[<cmd>lua require('telescope.builtin').find_files()<cr>]])
 nkeymap('<leader>f', [[<cmd>lua require('telescope.builtin').live_grep()<cr>]])

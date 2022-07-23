@@ -69,6 +69,16 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["Comment.nvim"] = {
+    loaded = true,
+    path = "/home/hives/.local/share/nvim/site/pack/packer/start/Comment.nvim",
+    url = "https://github.com/numToStr/Comment.nvim"
+  },
+  LuaSnip = {
+    loaded = true,
+    path = "/home/hives/.local/share/nvim/site/pack/packer/start/LuaSnip",
+    url = "https://github.com/L3MON4D3/LuaSnip"
+  },
   ["base16-vim"] = {
     loaded = true,
     path = "/home/hives/.local/share/nvim/site/pack/packer/start/base16-vim",
@@ -94,10 +104,30 @@ _G.packer_plugins = {
     path = "/home/hives/.local/share/nvim/site/pack/packer/start/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
   },
+  cmp_luasnip = {
+    loaded = true,
+    path = "/home/hives/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
+    url = "https://github.com/saadparwaiz1/cmp_luasnip"
+  },
+  ["friendly-snippets"] = {
+    loaded = true,
+    path = "/home/hives/.local/share/nvim/site/pack/packer/start/friendly-snippets",
+    url = "https://github.com/rafamadriz/friendly-snippets"
+  },
   ["lightline.vim"] = {
     loaded = true,
     path = "/home/hives/.local/share/nvim/site/pack/packer/start/lightline.vim",
     url = "https://github.com/itchyny/lightline.vim"
+  },
+  loupe = {
+    loaded = true,
+    path = "/home/hives/.local/share/nvim/site/pack/packer/start/loupe",
+    url = "https://github.com/wincent/loupe"
+  },
+  ["nvim-autopairs"] = {
+    loaded = true,
+    path = "/home/hives/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
+    url = "https://github.com/windwp/nvim-autopairs"
   },
   ["nvim-cmp"] = {
     loaded = true,
@@ -118,6 +148,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/hives/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
+  },
+  ["nvim-ts-context-commentstring"] = {
+    loaded = true,
+    path = "/home/hives/.local/share/nvim/site/pack/packer/start/nvim-ts-context-commentstring",
+    url = "https://github.com/JoosepAlviste/nvim-ts-context-commentstring"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -143,6 +178,16 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/hives/.local/share/nvim/site/pack/packer/start/vim-base16-lightline",
     url = "https://github.com/Hives/vim-base16-lightline"
+  },
+  ["vim-fugitive"] = {
+    loaded = true,
+    path = "/home/hives/.local/share/nvim/site/pack/packer/start/vim-fugitive",
+    url = "https://github.com/tpope/vim-fugitive"
+  },
+  ["vim-sleuth"] = {
+    loaded = true,
+    path = "/home/hives/.local/share/nvim/site/pack/packer/start/vim-sleuth",
+    url = "https://github.com/tpope/vim-sleuth"
   },
   ["vim-tmux-navigator"] = {
     loaded = true,
