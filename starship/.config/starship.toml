@@ -6,7 +6,6 @@ format = """\
     $git_state\
     $git_status\
     $kubernetes\
-    $gcloud\
     $cmd_duration\
     $custom\
     $line_break\
