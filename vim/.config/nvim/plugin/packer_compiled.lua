@@ -129,6 +129,16 @@ _G.packer_plugins = {
     path = "/home/hives/.local/share/nvim/site/pack/packer/start/loupe",
     url = "https://github.com/wincent/loupe"
   },
+  ["lsp_lines.nvim"] = {
+    loaded = true,
+    path = "/home/hives/.local/share/nvim/site/pack/packer/start/lsp_lines.nvim",
+    url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
+  },
+  ["null-ls.nvim"] = {
+    loaded = true,
+    path = "/home/hives/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
+    url = "https://github.com/jose-elias-alvarez/null-ls.nvim"
+  },
   ["nvim-autopairs"] = {
     loaded = true,
     path = "/home/hives/.local/share/nvim/site/pack/packer/start/nvim-autopairs",

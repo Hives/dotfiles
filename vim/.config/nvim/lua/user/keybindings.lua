@@ -43,3 +43,4 @@ nkeymap('<c-k>', ':lua vim.lsp.buf.signature_help()<cr>')
 nkeymap('<leader>af', ':lua vim.lsp.buf.code_action()<cr>')
 nkeymap('<leader>rn', ':lua vim.lsp.buf.rename()<cr>')
 
+nkeymap('<leader>r', ':lua vim.lsp.buf.formatting_sync()<cr>')

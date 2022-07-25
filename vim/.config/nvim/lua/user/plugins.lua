@@ -11,12 +11,13 @@ require('packer').startup(function(use)
 
     use "rafamadriz/friendly-snippets"
 
-    use "williamboman/nvim-lsp-installer"
-    use "neovim/nvim-lspconfig"
+    use "neovim/nvim-lspconfig" -- enable LSP
+    use "williamboman/nvim-lsp-installer" -- simple to use language server installer
+    use "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
 
     use {
         'nvim-telescope/telescope.nvim',
-        requires = { {'nvim-lua/plenary.nvim'} }
+        requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
     use 'christoomey/vim-tmux-navigator' -- Seamless navigation between tmux panes and vim splits
@@ -45,4 +46,3 @@ require('packer').startup(function(use)
 
     use 'JoosepAlviste/nvim-ts-context-commentstring'
 end)
-
