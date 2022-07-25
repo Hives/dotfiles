@@ -16,7 +16,7 @@ import           XMonad.Hooks.FadeInactive
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.ManageHelpers
 import           XMonad.Hooks.UrgencyHook
-import           XMonad.Layout.Accordion
+-- import           XMonad.Layout.Accordion
 import           XMonad.Layout.BinarySpacePartition
 -- import qualified XMonad.Layout.BoringWindows
 import           XMonad.Layout.Dwindle
@@ -193,6 +193,7 @@ main = do
   xmonad
     $ withUrgencyHook NoUrgencyHook
     $ ewmh
+    $ withNavigation2DConfig def
     $ addDescrKeys' ((myModMask, xK_F1), showKeybindings) myKeys2
     $ myConfig xmobarPipe
 
@@ -440,11 +441,29 @@ myKeys2 conf =
       , ("M-S-<Delete>"   , addName "Kill all" $ confirmPrompt hotPromptTheme "kill all" $ killAll)
       , ("M-d"            , addName "Duplicate w to all ws" $ toggleCopyToAll)
       , ("M-<Return>"     , addName "Promote to master pane" $ promote)
-      , ("M-j"            , addName "Focus down" $ windows W.focusDown)
-      , ("M-k"            , addName "Focus up" $ windows W.focusUp)
-      , ("M-S-j"          , addName "Swap down" $ windows W.swapDown)
-      , ("M-S-k"          , addName "Swap up" $ windows W.swapUp)
+
+      , ("M-j"            , addName "Cycle focus down" $ windows W.focusDown)
+      , ("M-k"            , addName "Cycle focus up" $ windows W.focusUp)
+      , ("M-S-j"          , addName "Cycle window down" $ windows W.swapDown)
+      , ("M-S-k"          , addName "Cycle window up" $ windows W.swapUp)
+
       , ("M-t"            , addName "Unfloat window" $ withFocused $ windows . W.sink)
+      ]
+    ^++^
+
+-----------------------------------------------------------------------
+-- Navigation2D
+-----------------------------------------------------------------------
+    subKeys
+      "Navigation2D"
+      [ ("M-<Left>",    addName "Move focus left" $ windowGo L False)
+      , ("M-<Right>",   addName "Move focus right" $ windowGo R False)
+      , ("M-<Up>",      addName "Move focus up" $ windowGo U False)
+      , ("M-<Down>",    addName "Move focus down" $ windowGo D False)
+      , ("M-S-<Left>",  addName "Swap window left" $ windowSwap L False)
+      , ("M-S-<Right>", addName "Swap window left" $ windowSwap R False)
+      , ("M-S-<Up>",    addName "Swap window up" $ windowSwap U False)
+      , ("M-S-<Down>",  addName "Swap window down" $ windowSwap D False)
       ]
     ^++^
 
@@ -565,13 +584,13 @@ myKeys2 conf =
     subKeys
       "Media controls"
       [ ("<XF86AudioRaiseVolume>"   , addName "Volume +2%"     $ spawn "audioctl vol up 2" )
-      , ("M-<Up>"                   , addName "Volume +2%"     $ spawn "audioctl vol up 2")
+      , ("M-]"                      , addName "Volume +2%"     $ spawn "audioctl vol up 2")
       , ("<XF86AudioLowerVolume>"   , addName "Volume -2%"     $ spawn "audioctl vol down 2" )
-      , ("M-<Down>"                 , addName "Volume -2%"     $ spawn "audioctl vol down 2")
+      , ("M-["                      , addName "Volume -2%"     $ spawn "audioctl vol down 2")
       , ("S-<XF86AudioRaiseVolume>" , addName "Volume +5%"     $ spawn "audioctl vol up 5" )
-      , ("M-S-<Up>"                 , addName "Volume +5%"     $ spawn "audioctl vol up 5")
+      , ("M-S-]"                    , addName "Volume +5%"     $ spawn "audioctl vol up 5")
       , ("S-<XF86AudioLowerVolume>" , addName "Volume -5%"     $ spawn "audioctl vol down 5" )
-      , ("M-S-<Down>"               , addName "Volume -5%"     $ spawn "audioctl vol down 5" )
+      , ("M-S-["                      , addName "Volume -5%"     $ spawn "audioctl vol down 5" )
       , ("<XF86AudioMute>"          , addName "Toggle volume"  $ spawn "audioctl vol mute" )
       , ("M-S-m"                    , addName "Toggle volume"  $ spawn "audioctl vol mute")
       , ("<XF86AudioMicMute>"       , addName "Toggle mic"     $ spawn "audioctl mic mute" )
