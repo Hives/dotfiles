@@ -33,7 +33,8 @@ require('packer').startup(function(use)
 
     use 'tpope/vim-sleuth' -- detect tab settings automatically
 
-    use 'tpope/vim-fugitive' -- detect tab settings automatically
+    use 'tpope/vim-fugitive'
+    use 'lewis6991/gitsigns.nvim'
 
     use 'numToStr/Comment.nvim'
 

@@ -1,8 +1,10 @@
-require('plugins')
-require('keybindings')
-require('comment')
-require('treesitter')
-require('completion')
+require('user.plugins')
+
+require('user.keybindings')
+require('user.comment')
+require('user.treesitter')
+require('user.completion')
+require('user.gitsigns')
 
 vim.o.number = true
 vim.o.relativenumber = true
