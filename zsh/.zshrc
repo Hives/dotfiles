@@ -162,7 +162,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export NVM_LAZY_LOAD=true
-export NVM_LAZY_LOAD_EXTRA_COMMANDS=('yarn' 'v' 'vim' 'nvim.appimage')
+export NVM_LAZY_LOAD_EXTRA_COMMANDS=('yarn' 'v' 'vim' 'nvim')
 source ~/.zsh/zsh-nvm/zsh-nvm.plugin.zsh
 
 ##############################################################################
@@ -211,10 +211,8 @@ PATH=$HOME/bin-secret:$PATH
 # personal executables subfolder
 PATH=$HOME/bin/gcp:$PATH
 
-# default editor = neovim
-neovim_binary=nvim.appimage
-export EDITOR=$neovim_binary
-export VISUAL=$neovim_binary
+export EDITOR=nvim
+export VISUAL=nvim
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

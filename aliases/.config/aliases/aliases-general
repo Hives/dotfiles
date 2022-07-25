@@ -35,7 +35,7 @@ alias hosts="sudoedit /etc/hosts"
 alias vhosts="sudoedit /etc/httpd/conf/extra/httpd-vhosts.conf"
 # alias vim="vim.nox" # vim package compiled with ruby support
 alias v=vim
-alias vim=nvim.appimage
+alias vim=nvim
 alias vimrc='${EDITOR:-vi} ~/.config/nvim/init.lua'
 
 alias gd="cd ~/Downloads; ls -lrt"
