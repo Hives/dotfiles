@@ -256,12 +256,14 @@ myManageHook = composeAll
     -- Send applications to workspaces
   , appName =? "preview.web.skype.com__en" --> doShift "1" <+> unfloat
   , appName =? "skype" --> doShift "1" <+> unfloat
-  , className =? "Slack" --> doShift "3"
   , appName =? "soulseekqt" --> doShift "2"
+  , className =? "zoom" --> doShift "2"
+  , fmap ("meet.google.com" `isInfixOf`) appName --> doShift "2"
+  , className =? "Slack" --> doShift "3"
   , appName =? "transmission-gtk" --> doShift "6"
   , stringProperty "WM_WINDOW_ROLE" =? "browser" --> doShift "7"
-  , fmap ("meet.google.com" `isInfixOf`) appName --> doShift "2"
   , appName =? "jetbrains-idea" --> doShift "8"
+  , appName =? "code" --> doShift "8"
 
     -- Pop up help pages
   , title =? "Paul's Special Less" --> centerScreen 0.7 0.9
@@ -562,10 +564,10 @@ myKeys2 conf =
       , ("<XF86Calculator>" , addName "NSP calculator" $ namedScratchpadAction scratchpads "calculator")
       , ("M-S-t"            , addName "NSP JetBrains Toolbox" $ namedScratchpadAction scratchpads "jb toolbox")
       -- hangouts and hangouts helpers
-      , ( "M-M1-1"          , addName "Hangout 1" $ spawn "deskopen $HOME/.local/share/applications/digi-merch-hangout-1.desktop")
-      , ( "M-M1-2"          , addName "Hangout 2" $ spawn "deskopen $HOME/.local/share/applications/digi-merch-hangout-2.desktop")
-      , ( "M-M1-3"          , addName "Hangout 3" $ spawn "deskopen $HOME/.local/share/applications/digi-merch-hangout-3.desktop")
-      , ( "M-M1-s"          , addName "DigiMerch standup" $ spawn "deskopen $HOME/.local/share/applications/digi-merch-standup.desktop")
+      -- , ( "M-M1-1"          , addName "Hangout 1" $ spawn "deskopen $HOME/.local/share/applications/digi-merch-hangout-1.desktop")
+      -- , ( "M-M1-2"          , addName "Hangout 2" $ spawn "deskopen $HOME/.local/share/applications/digi-merch-hangout-2.desktop")
+      -- , ( "M-M1-3"          , addName "Hangout 3" $ spawn "deskopen $HOME/.local/share/applications/digi-merch-hangout-3.desktop")
+      , ( "M-M1-s"          , addName "Design System standup" $ spawn "deskopen $HOME/.local/share/applications/design-system-standup.desktop")
       , ( "M-M1-c"          , addName "Open clipboard link as app" $ spawn "open-clipboard-link-as-app")
       ]
     ^++^
