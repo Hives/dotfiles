@@ -76,6 +76,10 @@ _commits() {
     xdg-open "${PLATFORM_URL}/commits"
 }
 
+_mrs() {
+    xdg-open "${PLATFORM_URL}/merge_requests"
+}
+
 _root() {
     # you can't cd from a bash script unless you source the file
     # so to run this one you need to source the script, e.g. `. git-web root`
@@ -86,10 +90,10 @@ _url() {
     echo "${PLATFORM_URL}"
 }
 
-if [[ $1 =~ ^(browse|pipe|pipes|commits|root|url)$ ]]; then
+if [[ $1 =~ ^(browse|pipe|pipes|commits|mrs|root|url)$ ]]; then
     COMMAND=_$1
     shift
     $COMMAND "$@"
 else
-    echo "Usage: ${SCRIPTNAME} [browse|pipe|pipes|commits|root|url]"
+    echo "Usage: ${SCRIPTNAME} [browse|pipe|pipes|commits|mrs|root|url]"
 fi
