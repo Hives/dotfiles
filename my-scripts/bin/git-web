@@ -72,6 +72,10 @@ _pipes() {
     xdg-open "${PLATFORM_URL}/pipelines"
 }
 
+_branches() {
+    xdg-open "${PLATFORM_URL}/-/branches"
+}
+
 _commits() {
     xdg-open "${PLATFORM_URL}/commits"
 }
@@ -90,10 +94,10 @@ _url() {
     echo "${PLATFORM_URL}"
 }
 
-if [[ $1 =~ ^(browse|pipe|pipes|commits|mrs|root|url)$ ]]; then
+if [[ $1 =~ ^(browse|pipe|pipes|branches|commits|mrs|root|url)$ ]]; then
     COMMAND=_$1
     shift
     $COMMAND "$@"
 else
-    echo "Usage: ${SCRIPTNAME} [browse|pipe|pipes|commits|mrs|root|url]"
+    echo "Usage: ${SCRIPTNAME} [browse|pipe|pipes|branches|commits|mrs|root|url]"
 fi
