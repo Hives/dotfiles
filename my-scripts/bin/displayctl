@@ -133,7 +133,7 @@ get_edids () {
 
 execute () {
     eval ${1}
-    sleep 4
+    sleep 2
     set-wallpaper
 }
 
