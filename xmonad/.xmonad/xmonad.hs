@@ -564,9 +564,9 @@ myKeys2 conf =
       , ("<XF86Calculator>" , addName "NSP calculator" $ namedScratchpadAction scratchpads "calculator")
       , ("M-S-t"            , addName "NSP JetBrains Toolbox" $ namedScratchpadAction scratchpads "jb toolbox")
       -- hangouts and hangouts helpers
-      -- , ( "M-M1-1"          , addName "Hangout 1" $ spawn "deskopen $HOME/.local/share/applications/digi-merch-hangout-1.desktop")
-      -- , ( "M-M1-2"          , addName "Hangout 2" $ spawn "deskopen $HOME/.local/share/applications/digi-merch-hangout-2.desktop")
-      -- , ( "M-M1-3"          , addName "Hangout 3" $ spawn "deskopen $HOME/.local/share/applications/digi-merch-hangout-3.desktop")
+      , ( "M-M1-1"          , addName "Hangout 1" $ spawn "deskopen $HOME/.local/share/applications/design-system-hangout-1.desktop")
+      , ( "M-M1-2"          , addName "Hangout 2" $ spawn "deskopen $HOME/.local/share/applications/design-system-hangout-2.desktop")
+      , ( "M-M1-3"          , addName "Hangout 3" $ spawn "deskopen $HOME/.local/share/applications/design-system-hangout-3.desktop")
       , ( "M-M1-s"          , addName "Design System standup" $ spawn "deskopen $HOME/.local/share/applications/design-system-standup.desktop")
       , ( "M-M1-c"          , addName "Open clipboard link as app" $ spawn "open-clipboard-link-as-app")
       ]
