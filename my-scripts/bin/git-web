@@ -31,15 +31,15 @@ else
     URL_FRAGMENT=$(echo "${REMOTE_ORIGIN_URL}" | sed -n "${SSH_SED_FILTER}")
 
     if [[ $PLATFORM = "gitlab" ]]; then
-        PREFIX="https://gitlab.com"
+        URL_PREFIX="https://gitlab.com"
     elif [[ $PLATFORM = "github" ]]; then
-        PREFIX="https://github.com"
+        URL_PREFIX="https://github.com"
     else
         # should be impossible ¯\_(ツ)_/¯
         exit 1
     fi
 
-    PLATFORM_URL="${PREFIX}/${URL_FRAGMENT}"
+    PLATFORM_URL="${URL_PREFIX}/${URL_FRAGMENT}"
 fi
 
 _browse() {
