@@ -64,8 +64,8 @@ alias aliases='${EDITOR:-vi} ~/.config/aliases/aliases-general'
 
 # kubectl
 alias kc="kubecolor"
-alias kx="kubectx"
-alias kn="kubens"
+alias kctx="kubectx"
+alias kns="kubens"
 alias kgp="kubectl get pods"
 alias kgd="kubectl get deployments"
 
@@ -87,6 +87,8 @@ alias gpr="git pull -r"
 alias gp="git push"
 alias gpo="git push --set-upstream origin master"
 alias gpf="git push --force"
+alias grs="git restore --staged"
+alias gcnv="gc --no-verify"
 
 alias browse="git-web browse"
 # alias pipe="git-web pipe"
