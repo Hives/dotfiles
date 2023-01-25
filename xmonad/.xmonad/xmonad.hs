@@ -149,7 +149,7 @@ myClickJustFocuses = True
 -- myTerminal    = "st"
 myTerminal = "kitty"
 myLauncher =
-  "rofi -modi 'drun,window,ssh' -show drun -scroll-method 1 -show-icons true"
+  "rofi -modi 'drun,window' -show drun -scroll-method 1 -show-icons true"
 -- myLauncher    = "rofi -modi \"drun,window,ssh\" -show drun -scroll-method 1"
 
 scratchpads =
@@ -260,6 +260,7 @@ myManageHook = composeAll
   , className =? "zoom" --> doShift "2"
   , fmap ("meet.google.com" `isInfixOf`) appName --> doShift "2"
   , className =? "Slack" --> doShift "3"
+  , className =? "discord" --> doShift "3"
   , appName =? "transmission-gtk" --> doShift "6"
   , stringProperty "WM_WINDOW_ROLE" =? "browser" --> doShift "7"
   , appName =? "jetbrains-idea" --> doShift "8"
@@ -329,9 +330,9 @@ myLayoutHook =
     $   fullScreenToggle
     $   hiddenWindows
     $   avoidStruts
-    $   tall
+    $   tabs
     -- ||| dwindle
-    ||| tabs
+    ||| tall
  where
 
   showWorkspaceName = showWName' myShowWNameTheme
@@ -564,10 +565,9 @@ myKeys2 conf =
       , ("<XF86Calculator>" , addName "NSP calculator" $ namedScratchpadAction scratchpads "calculator")
       , ("M-S-t"            , addName "NSP JetBrains Toolbox" $ namedScratchpadAction scratchpads "jb toolbox")
       -- hangouts and hangouts helpers
-      , ( "M-M1-1"          , addName "Hangout 1" $ spawn "deskopen $HOME/.local/share/applications/design-system-hangout-1.desktop")
-      , ( "M-M1-2"          , addName "Hangout 2" $ spawn "deskopen $HOME/.local/share/applications/design-system-hangout-2.desktop")
-      , ( "M-M1-3"          , addName "Hangout 3" $ spawn "deskopen $HOME/.local/share/applications/design-system-hangout-3.desktop")
-      , ( "M-M1-s"          , addName "Design System standup" $ spawn "deskopen $HOME/.local/share/applications/design-system-standup.desktop")
+      , ( "M-M1-1"          , addName "Hangout 1" $ spawn "deskopen $HOME/.local/share/applications/web-architecture-hangout-1.desktop")
+      , ( "M-M1-2"          , addName "Hangout 2" $ spawn "deskopen $HOME/.local/share/applications/web-architecture-hangout-2.desktop")
+      , ( "M-M1-s"          , addName "Web Architecture standup" $ spawn "deskopen $HOME/.local/share/applications/web-architecture-standup.desktop")
       , ( "M-M1-c"          , addName "Open clipboard link as app" $ spawn "open-clipboard-link-as-app")
       ]
     ^++^
