@@ -99,13 +99,14 @@ zstyle ':completion:*:descriptions' format %F{default}%B%{$__HIVEMIND[ITALIC_ON]
 # History
 ##############################################################################
 
-export HISTSIZE=100000
-export HISTFILE="$HOME/.history"
+export HISTSIZE=1000000
+export HISTFILE="$HOME/.zsh_history"
 export SAVEHIST=$HISTSIZE
 setopt extended_history
 setopt histignorealldups    # filter duplicates from history
 # setopt histignorespace      # don't record commands starting with a space
 setopt histverify           # confirm history expansion (!$, !!, !foo)
+setopt inc_append_history
 setopt sharehistory         # share history across shells
 
 HIST_STAMPS="yyyy-mm-dd"
@@ -251,7 +252,15 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # raku
 export PATH=/home/hives/rakudo/bin/:/home/hives/rakudo/share/perl6/site/bin:/home/hives/rakudo/share/perl6/vendor/bin:/home/hives/rakudo/share/perl6/core/bin:$PATH
 
+# kubectl authentication https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
 # SDKMAN - THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/hives/.sdkman"
 [[ -s "/home/hives/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hives/.sdkman/bin/sdkman-init.sh"
 
+
+# pnpm
+export PNPM_HOME="/home/hives/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
