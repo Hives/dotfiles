@@ -103,3 +103,5 @@ alias pipe="node ~/code/gitlab-cli/dist/index.js"
 alias gcb="./gradlew clean build"
 
 alias rg="rg -S"
+
+alias scripts="cat package.json | jq .scripts"
