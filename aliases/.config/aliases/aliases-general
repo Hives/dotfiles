@@ -66,8 +66,8 @@ alias aliases='${EDITOR:-vi} ~/.config/aliases/aliases-general'
 alias kc="kubecolor"
 alias kctx="kubectx"
 alias kns="kubens"
-alias kgp="kubectl get pods"
-alias kgd="kubectl get deployments"
+alias kgp="kc get pods"
+alias kgd="kc get deployments"
 
 # alias p="mocp -G"
 alias p="mpc toggle"
@@ -79,6 +79,7 @@ alias vix='${EDITOR:-vi} ~/.xmonad/xmonad.hs'
 
 # git
 alias gc="git commit -v"
+alias gcm="git commit -m"
 alias ga="git add"
 alias gst="git status"
 alias gl="git log"
