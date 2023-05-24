@@ -23,7 +23,7 @@ fi
 if [[ $REMOTE_ORIGIN_URL =~ http* ]]; then
     HTTP_SED_FILTER="s/^\(.*\)\.git$/\1/p"
     
-    PLATFORM_URL=$(echo "${REMOTE_ORIGIN_URL}" | sed -n "${HTTP_SED_FILTER}")
+    PROJECT_URL=$(echo "${REMOTE_ORIGIN_URL}" | sed -n "${HTTP_SED_FILTER}")
 else
     # https://stackoverflow.com/a/36798723/1107844
     SSH_SED_FILTER="s/^.*:\(.*\)\.git$/\1/p"
@@ -39,49 +39,71 @@ else
         exit 1
     fi
 
-    PLATFORM_URL="${URL_PREFIX}/${URL_FRAGMENT}"
+    PROJECT_URL="${URL_PREFIX}/${URL_FRAGMENT}"
 fi
 
+
 _browse() {
-    BRANCH=$(git branch --show-current)
-
-    # https://stackoverflow.com/questions/16623835/remove-a-fixed-prefix-suffix-from-a-string-in-bash
-    RELATIVE_PATH=${PWD#"$REPO_PATH"}
-
-    if [[ $PWD == $REPO_PATH && -z "${1}" ]]; then
-        TARGET="${PLATFORM_URL}"
-    else
-        if [[ $PLATFORM = "gitlab" ]]; then
-            TARGET="${PLATFORM_URL}/-/tree/${BRANCH}${RELATIVE_PATH}/${1}"
-        elif [[ $PLATFORM = "github" ]]; then
-            TARGET="${PLATFORM_URL}/tree/${BRANCH}${RELATIVE_PATH}/${1}"
-        else
-            # ¯\_(ツ)_/¯
-            TARGET="${PLATFORM_URL}/tree/${BRANCH}${RELATIVE_PATH}/${1}"
-        fi
+    # if no parameter provided view the project page
+    if [[ -z "${1}" ]]; then
+        xdg-open $PROJECT_URL
+        exit
     fi
 
-    xdg-open $TARGET
+    BRANCH=$(git branch --show-current)
+
+    FULL_PATH=$(realpath "${PWD}/${1}")
+
+    # https://stackoverflow.com/questions/16623835/remove-a-fixed-prefix-suffix-from-a-string-in-bash
+    RELATIVE_PATH=${FULL_PATH#"$REPO_PATH"}
+
+    if [[ $PLATFORM = "gitlab" ]]; then
+        xdg-open "${PROJECT_URL}/-/blob/${BRANCH}${RELATIVE_PATH}"
+    elif [[ $PLATFORM = "github" ]]; then
+        xdg-open "${PROJECT_URL}/blob/${BRANCH}${RELATIVE_PATH}"
+    fi
 }
 
 _pipe() {
-    xdg-open "${PLATFORM_URL}/pipelines/latest"
+    if [[ $PLATFORM = "gitlab" ]]; then
+        xdg-open "${PROJECT_URL}/-/pipelines/latest"
+    elif [[ $PLATFORM = "github" ]]; then
+        echo "'pipe' option not implemented for GitHub"
+        exit 1
+    fi
 }
 
 _pipes() {
-    xdg-open "${PLATFORM_URL}/pipelines"
+    if [[ $PLATFORM = "gitlab" ]]; then
+        xdg-open "${PROJECT_URL}/-/pipelines"
+    elif [[ $PLATFORM = "github" ]]; then
+        echo "'pipes' option not implemented for GitHub"
+        exit 1
+    fi
 }
 
 _branches() {
-    xdg-open "${PLATFORM_URL}/-/branches"
+    if [[ $PLATFORM = "gitlab" ]]; then
+        xdg-open "${PROJECT_URL}/-/branches"
+    elif [[ $PLATFORM = "github" ]]; then
+        xdg-open "${PROJECT_URL}/branches"
+    fi
 }
 
 _commits() {
-    xdg-open "${PLATFORM_URL}/commits"
+    if [[ $PLATFORM = "gitlab" ]]; then
+        xdg-open "${PROJECT_URL}/-/commits"
+    elif [[ $PLATFORM = "github" ]]; then
+        xdg-open "${PROJECT_URL}/commits"
+    fi
 }
 
 _mrs() {
-    xdg-open "${PLATFORM_URL}/merge_requests"
+    if [[ $PLATFORM = "gitlab" ]]; then
+        xdg-open "${PROJECT_URL}/-/merge_requests"
+    elif [[ $PLATFORM = "github" ]]; then
+        xdg-open "${PROJECT_URL}/pulls"
+    fi
 }
 
 _root() {
@@ -91,7 +113,7 @@ _root() {
 }
 
 _url() {
-    echo "${PLATFORM_URL}"
+    echo "${PROJECT_URL}"
 }
 
 if [[ $1 =~ ^(browse|pipe|pipes|branches|commits|mrs|root|url)$ ]]; then
