@@ -255,6 +255,10 @@ export PATH=/home/hives/rakudo/bin/:/home/hives/rakudo/share/perl6/site/bin:/hom
 # kubectl authentication https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
+# deno
+export DENO_INSTALL="/home/hives/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
 # SDKMAN - THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/hives/.sdkman"
 [[ -s "/home/hives/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hives/.sdkman/bin/sdkman-init.sh"
