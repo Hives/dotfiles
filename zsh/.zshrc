@@ -103,7 +103,7 @@ export HISTSIZE=1000000
 export HISTFILE="$HOME/.zsh_history"
 export SAVEHIST=$HISTSIZE
 setopt extended_history
-setopt histignorealldups    # filter duplicates from history
+# setopt histignorealldups    # filter duplicates from history
 # setopt histignorespace      # don't record commands starting with a space
 setopt histverify           # confirm history expansion (!$, !!, !foo)
 setopt inc_append_history
@@ -162,9 +162,9 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
 
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-export NVM_LAZY_LOAD=true
-export NVM_LAZY_LOAD_EXTRA_COMMANDS=('yarn' 'v' 'vim' 'nvim')
-source ~/.zsh/zsh-nvm/zsh-nvm.plugin.zsh
+# export NVM_LAZY_LOAD=true
+# export NVM_LAZY_LOAD_EXTRA_COMMANDS=('yarn' 'v' 'vim' 'nvim')
+# source ~/.zsh/zsh-nvm/zsh-nvm.plugin.zsh
 
 ##############################################################################
 # Prompt
@@ -212,8 +212,8 @@ PATH=$HOME/bin-secret:$PATH
 # personal executables subfolder
 PATH=$HOME/bin/gcp:$PATH
 
-export EDITOR=nvim
-export VISUAL=nvim
+export EDITOR=nvim.appimage
+export VISUAL=nvim.appimage
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -259,6 +259,9 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 export DENO_INSTALL="/home/hives/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
+# go
+export PATH=$PATH:/usr/local/go/bin
+
 # SDKMAN - THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/hives/.sdkman"
 [[ -s "/home/hives/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hives/.sdkman/bin/sdkman-init.sh"
@@ -268,3 +271,14 @@ export SDKMAN_DIR="/home/hives/.sdkman"
 export PNPM_HOME="/home/hives/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
+
+# bun completions
+[ -s "/home/hives/.bun/_bun" ] && source "/home/hives/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# fnm
+export PATH="/home/hives/.local/share/fnm:$PATH"
+eval "`fnm env --use-on-cd`"
