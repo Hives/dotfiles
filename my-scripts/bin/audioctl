@@ -21,24 +21,15 @@ set -eu
 # scripts (audioctl, displayctl) require this as they may be called
 # by udev or acpi and thus by root.
 
+# PM - commenting this out but leaving it in. doesn't work as expected
+#      because ubuntu runs 2 Xorg sessions now, one for the login
+#      scren and one for the window manager (i think?), and as a result
+#      XUSER comes out as "root root". the overall script still works though...
 # rerun as X user if running as root
-XUSER=$(ps -C Xorg -C X -ouser=)
-[ "$(id -un)" = root ] && [ "$XUSER" != root ] && exec su -c "$0 $*" "$XUSER"
-
-# grab X user id if necessary
-XUSERID=$(id -u $XUSER)
-
-# key environment variables
-export DISPLAY=":0"
-export XAUTHORITY=$HOME/.Xauthority
-# note that the dbus env is definitely not required for this pulse
-# audio script but retained here for reference
-export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$XUSERID/bus"
-
-# script values and config file if we need it
-SCRIPTNAME=$(basename $0)
-SCRIPTDIR=$(dirname $(readlink -f $0))
-CONFIG=/home/$XUSER/.config/$SCRIPTNAME
+# XUSER=$(ps -C Xorg -C X -ouser=)
+# echo $XUSER
+# exit
+# [ "$(id -un)" = root ] && [ "$XUSER" != root ] && exec su -c "$0 $*" "$XUSER"
 
 # ----------------------------------------------------------------------
 # Main

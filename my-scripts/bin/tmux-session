@@ -5,13 +5,11 @@ if [[ $# -eq 1 ]]; then
 else
     selected=$(find \
         ~/code \
-        ~/code/john-lewis/design-system \
-        ~/code/john-lewis/digi-merch/digital-merch \
-        ~/code/john-lewis/digi-merch/digital-merch/_datastore \
-        ~/code/john-lewis/digi-merch/digital-merch/_categories \
-        ~/code/john-lewis/digi-merch/digital-merch/_tools \
-        ~/code/john-lewis/digi-merch/navigation \
-        -mindepth 1 -maxdepth 1 -type d | fzf)
+	      -maxdepth 3 \
+	      -type d \
+	      -exec test -e '{}/.git' ';' \
+	      -not -path '*/node_modules/*' \
+	      -print -prune | fzf)
 fi
 
 if [[ -z $selected ]]; then

@@ -2,6 +2,11 @@
 # sets the wallpaper
 
 # feh --bg-max ~/Pictures/fomenko/5865090295_af8c96f404_o.jpg
-# feh --bg-fill ~/Pictures/nasa-art/Cylinder_Endcap_AC75-1883_5729.jpg
+# feh --bg-fill ~/Pictures/dan-davis/Cylinder_Endcap_AC75-1883_5729.jpg
 # feh --bg-fill ~/Pictures/kirby-wallpaper.jpg
-feh --bg-fill --geometry +0-250 ~/Pictures/cell.jpg
+# feh --bg-fill --geometry +0-250 ~/Pictures/cell.jpg
+# feh --bg-fill --geometry +0-250 ~/Pictures/breughel-landscape.jpg
+# feh --bg-tile ~/Pictures/backgrounds/greenmesh.gif
+# feh --bg-fill ~/Pictures/dan-davis/Planetoid_crashing_into_primordial_Earth.jpg
+# feh --bg-fill ~/Pictures/wrath-of-khan/mpv-shot0009.jpg
+feh --bg-fill ~/Pictures/backgrounds/kirby-head.jpeg

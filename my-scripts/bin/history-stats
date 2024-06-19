@@ -9,4 +9,4 @@ cat ~/.history |\
     column -c3 -s " " -t |\
     sort -nr |\
     nl |\
-    head -n10
+    head -n20
