@@ -1,0 +1,4 @@
+#! /usr/bin/env bash
+
+echo "${1}" | sed -e "s/,/\n/g" -e "s/-/ /g" | sort
+
