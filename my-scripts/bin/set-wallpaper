@@ -9,4 +9,5 @@
 # feh --bg-tile ~/Pictures/backgrounds/greenmesh.gif
 # feh --bg-fill ~/Pictures/dan-davis/Planetoid_crashing_into_primordial_Earth.jpg
 # feh --bg-fill ~/Pictures/wrath-of-khan/mpv-shot0009.jpg
-feh --bg-fill ~/Pictures/backgrounds/kirby-head.jpeg
+# feh --bg-fill ~/Pictures/backgrounds/kirby-head.jpeg
+feh --bg-fill ~/Pictures/backgrounds/ancient-woodland.jpeg
