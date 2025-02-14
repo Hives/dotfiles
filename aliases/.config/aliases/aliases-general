@@ -108,3 +108,7 @@ alias gcb="./gradlew clean build"
 alias rg="rg -S"
 
 alias scripts="cat package.json | jq .scripts | less"
+
+alias uuid="curl https://www.uuidgenerator.net/api/version4"
+
+alias python=python3
