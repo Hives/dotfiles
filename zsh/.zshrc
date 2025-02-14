@@ -99,15 +99,16 @@ zstyle ':completion:*:descriptions' format %F{default}%B%{$__HIVEMIND[ITALIC_ON]
 # History
 ##############################################################################
 
-export HISTSIZE=1000000
 export HISTFILE="$HOME/.zsh_history"
+export HISTSIZE=1000000
 export SAVEHIST=$HISTSIZE
-setopt extended_history
-# setopt histignorealldups    # filter duplicates from history
+setopt EXTENDED_HISTORY
+setopt histignorealldups    # filter duplicates from history
 # setopt histignorespace      # don't record commands starting with a space
-setopt histverify           # confirm history expansion (!$, !!, !foo)
-setopt inc_append_history
-setopt sharehistory         # share history across shells
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_VERIFY           # confirm history expansion (!$, !!, !foo)
+setopt INC_APPEND_HISTORY_TIME
+setopt SHARE_HISTORY         # share history across shells
 
 HIST_STAMPS="yyyy-mm-dd"
 alias history="history -t'%F %T'"
@@ -282,3 +283,8 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # fnm
 export PATH="/home/hives/.local/share/fnm:$PATH"
 eval "`fnm env --use-on-cd`"
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
