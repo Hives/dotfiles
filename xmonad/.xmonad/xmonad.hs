@@ -155,7 +155,8 @@ myLauncher =
 scratchpads =
     -- kitty terminal apps
   [ NS "terminal"    (myTerminal ++ " --name terminal-scratchpad")  (resource =? "terminal-scratchpad") (placeWindow 0.55 0.02 0.02 0.02)
-  , NS "htop"        (myTerminal ++ " --name htop-scratchpad htop") (resource =? "htop-scratchpad")     (centerScreen 0.7 0.7)
+  -- , NS "htop"        (myTerminal ++ " --name htop-scratchpad htop") (resource =? "htop-scratchpad")     (centerScreen 0.7 0.7)
+  , NS "btop"        (myTerminal ++ " --name btop-scratchpad btop") (resource =? "btop-scratchpad")     (centerScreen 0.85 0.85)
   , NS "alsamixer"   (myTerminal ++ " alsamixer")                   (title =? "alsamixer")              (centerScreen 0.6 0.7)
   , NS "musicplayer" (myTerminal ++ " --name ncmpcpp ncmpcpp")      (resource =? "ncmpcpp")             (centerScreen 0.7 0.7)
   -- , NS
@@ -557,7 +558,7 @@ myKeys2 conf =
       , ("<XF86Tools>"      , addName "NSP music player" $ namedScratchpadAction scratchpads "musicplayer")
       , ("M-c"              , addName "NSP Google Calender" $ namedScratchpadAction scratchpads "calendar")
       , ("M-z"              , addName "NSP Qobuz" $ namedScratchpadAction scratchpads "qobuz")
-      , ("M-S-h"            , addName "NSP htop" $ namedScratchpadAction scratchpads "htop")
+      , ("M-S-h"            , addName "NSP btop" $ namedScratchpadAction scratchpads "btop")
       -- , ("M-v"              , addName "NSP alsamixer" $ namedScratchpadAction scratchpads "alsamixer")
       , ("S-M-v"            , addName "NSP pavucontrol" $ namedScratchpadAction scratchpads "pavucontrol")
       , ("M-n"              , addName "NSP notes" $ namedScratchpadAction scratchpads "notes")
