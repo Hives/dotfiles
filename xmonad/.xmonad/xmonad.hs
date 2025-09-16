@@ -569,6 +569,10 @@ myKeys2 conf =
       , ( "M-M1-2"          , addName "Hangout 2" $ spawn "deskopen $HOME/.local/share/applications/web-architecture-hangout-2.desktop")
       , ( "M-M1-s"          , addName "Web Architecture standup" $ spawn "deskopen $HOME/.local/share/applications/web-architecture-standup.desktop")
       , ( "M-M1-c"          , addName "Open clipboard link as app" $ spawn "open-clipboard-link-as-app")
+      -- dunst
+      , ("C-<Space>"        , addName "Close dunst notification" $ spawn "dunstctl close")
+      , ("C-S-<Space>"      , addName "Close all dunst notifications" $ spawn "dunstctl close-all")
+      , ("C-S-,"      , addName "Pop dunst history" $ spawn "dunstctl history-pop")
       ]
     ^++^
 

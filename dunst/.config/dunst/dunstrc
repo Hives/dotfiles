@@ -29,7 +29,12 @@
     # the top and down respectively.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "500x5-30+45"
+    # geometry = "500x5-30+45"
+
+    width = 500
+    height = 500
+    offset = 30x45
+    origin = top-right
 
     # Show how many messages are currently hidden (because of geometry).
     indicate_hidden = yes
@@ -42,11 +47,6 @@
     # This option will only work if a compositing window manager is
     # present (e.g. xcompmgr, compiz, etc.).
     transparency = 00
-
-    # The height of the entire notification.  If the height is smaller
-    # than the font height and padding combined, it will be raised
-    # to the font height and padding.
-    notification_height = 0
 
     # Draw a line of "separator_height" pixel height between two
     # notifications.
@@ -85,7 +85,7 @@
     ### Text ###
 
     # font = Monospace 8
-    font = Roboto 14
+    font = Roboto 16
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
@@ -160,7 +160,7 @@
     max_icon_size = 32
 
     # Paths to default icons.
-    icon_folders = /usr/share/icons/gnome/32x32/status/:/usr/share/icons/gnome/32x32/devices/:/usr/share/icons/gnome/32x32/apps/:/usr/share/icons/hicolor/32x32/apps/
+    icon_path = /usr/share/icons/gnome/32x32/status/:/usr/share/icons/gnome/32x32/devices/:/usr/share/icons/gnome/32x32/apps/:/usr/share/icons/hicolor/32x32/apps/
 
     ### History ###
 
@@ -188,12 +188,7 @@
 
     # Define the class of the windows spawned by dunst
     class = Dunst
-
-    # Print a notification on startup.
-    # This is mainly for error detection, since dbus (re-)starts dunst
-    # automatically after a crash.
-    startup_notification = false
-
+  
     ### Legacy
 
     # Use the Xinerama extension instead of RandR for multi-monitor support.
@@ -215,28 +210,6 @@
     # using the resolution and physical size. This might be useful in setups
     # where there are multiple screens with very different dpi values.
     per_monitor_dpi = false
-
-[shortcuts]
-
-    # Shortcuts are specified as [modifier+][modifier+]...key
-    # Available modifiers are "ctrl", "mod1" (the alt-key), "mod2",
-    # "mod3" and "mod4" (windows-key).
-    # Xev might be helpful to find names for keys.
-
-    # Close notification.
-    close = ctrl+space
-
-    # Close all notifications.
-    close_all = ctrl+shift+space
-
-    # Redisplay last message(s).
-    # On the US keyboard layout "grave" is normally above TAB and left
-    # of "1". Make sure this key actually exists on your keyboard layout,
-    # e.g. check output of 'xmodmap -pke'
-    # history = ctrl+grave
-
-    # Context menu.
-    context = ctrl+shift+period
 
 # colours from colour manager start here
 # don't fiddle with these lines or it might mess everything up
