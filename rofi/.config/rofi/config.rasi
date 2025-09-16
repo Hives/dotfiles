@@ -14,9 +14,11 @@
     active-foreground: #0e2329;
     active-background: #d33682;
     active-background-alternate: #6c71c4;
+    active-background-selected: #7b50b3;
     urgent-foreground: #0e2329;
     urgent-background: #dc322f;
     urgent-background-alternate: #cb4b16;
+    urgent-background-selected: #b22222;
     border-color: #268bd2;
 
 
@@ -90,7 +92,7 @@
     text-color:       @active-foreground;   
 }
 #element.alternate.active {
-    background-color: @active-background;
+    background-color: @active-background-alternate;
     text-color:       @active-foreground;   
 }
 #element.selected.active {
@@ -104,7 +106,7 @@
     text-color:       @urgent-foreground;   
 }
 #element.alternate.urgent {
-    background-color: @urgent-background;
+    background-color: @urgent-background-alternate;
     text-color:       @urgent-foreground;   
 }
 #element.selected.urgent {
@@ -123,7 +125,7 @@
 
 #sidebar {
     border:       2px 0px 0px ;
-    border-color: @purple;
+    /* border-color: @purple; */
 }
 #button.selected {
     background-color: @selected-normal-background;
