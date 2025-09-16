@@ -82,7 +82,7 @@ cPromptHighlight = "#268bd2"
 -- Theme
 ------------------------------------------------------------------------
 
-border = 4  -- width of borders
+borderFoo = 4  -- width of borders
 numIcons = 7  -- width of system tray in icons
 
 topbar = 8  -- height of top bar
@@ -130,7 +130,7 @@ myShowWNameTheme = def { swn_font    = myBIGFont
                        , swn_color   = "#FFFFFF"
                        }
 
-myFont = "xft:JetBrains Mono NL:size=10:antialias=true:hinting=true"
+myFont = "xft:JetBrains Mono NL:size=16:antialias=true:hinting=true"
 myPromptFont = myFont
 -- myBIGFont = "xft:Roboto:style=Bold:pixelsize=180:antialias=true:hinting=true"
 myBIGFont =
@@ -189,7 +189,7 @@ scratchpads =
 main = do
 
   xmobarPipe <- spawnPipe
-    "xmobar --position='TopP 0 0' /home/hives/.xmonad/xmobar.conf"
+    "xmobar /home/hives/.xmonad/xmobar.conf"
 
   xmonad
     $ withUrgencyHook NoUrgencyHook
@@ -198,7 +198,7 @@ main = do
     $ addDescrKeys' ((myModMask, xK_F1), showKeybindings) myKeys2
     $ myConfig xmobarPipe
 
-myConfig p = def { borderWidth        = border
+myConfig p = def { borderWidth        = borderFoo
                  , clickJustFocuses   = myClickJustFocuses
                  , focusFollowsMouse  = myFocusFollowsMouse
                  , focusedBorderColor = cActive
