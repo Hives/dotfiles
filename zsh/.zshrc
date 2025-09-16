@@ -147,7 +147,8 @@ zstyle ':chpwd:*' recent-dirs-default true
 setopt autocd               # .. is shortcut for cd .. (etc)
 setopt autopushd            # cd automatically pushes old dir onto dir stack
 setopt correct              # command auto-correction
-alias sudo='nocorrect sudo'
+# alias sudo='nocorrect sudo'
+alias npm='nocorrect npm'
 setopt listpacked           # make completion lists more densely packed
 # setopt menucomplete         # auto-insert first possible ambiguous completion
 setopt printexitvalue       # for non-zero exit status
@@ -213,8 +214,10 @@ PATH=$HOME/bin-secret:$PATH
 # personal executables subfolder
 PATH=$HOME/bin/gcp:$PATH
 
-export EDITOR=nvim.appimage
-export VISUAL=nvim.appimage
+# export EDITOR=nvim.appimage
+# export VISUAL=nvim.appimage
+export EDITOR=lvim
+export VISUAL=lvim
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -263,11 +266,6 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 # go
 export PATH=$PATH:/usr/local/go/bin
 
-# SDKMAN - THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/hives/.sdkman"
-[[ -s "/home/hives/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hives/.sdkman/bin/sdkman-init.sh"
-
-
 # pnpm
 export PNPM_HOME="/home/hives/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
@@ -288,3 +286,7 @@ eval "`fnm env --use-on-cd`"
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+# SDKMAN - THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/hives/.sdkman"
+[[ -s "/home/hives/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hives/.sdkman/bin/sdkman-init.sh"
