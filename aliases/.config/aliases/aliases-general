@@ -62,8 +62,6 @@ alias aliases='${EDITOR:-vi} ~/.config/aliases/aliases-general'
 
 # kubectl
 alias kc="kubecolor"
-alias kctx="kubectx"
-alias kns="kubens"
 alias kgp="kc get pods"
 alias kgd="kc get deployments"
 
@@ -90,8 +88,10 @@ alias grs="git restore --staged ."
 alias gcnv="gc --no-verify"
 alias gm="git checkout main"
 alias g-="git checkout -"
+alias gco="git checkout"
 alias gb="git checkout -b"
 alias gmm="git merge main"
+alias gbd="git branch -D"
 
 alias browse="git-web browse"
 # alias pipe="git-web pipe"
@@ -99,6 +99,7 @@ alias pipes="git-web pipes"
 alias branches="git-web branches"
 alias commits="git-web commits"
 alias mrs="git-web mrs"
+alias mr="glab mr view -w"
 alias root=". git-web root"
 
 alias pipe="node ~/code/gitlab-cli/dist/index.js"
