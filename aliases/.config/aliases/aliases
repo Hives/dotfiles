@@ -1,2 +1,2 @@
-source "${HOME}"/.config/aliases/aliases-general
-source "${HOME}"/.secret/aliases
+[ -f "${HOME}/.config/aliases/aliases-general" ] && source "${HOME}/.config/aliases/aliases-general"
+[ -f "${HOME}/.secret/aliases" ] && source "${HOME}/.secret/aliases"
