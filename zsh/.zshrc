@@ -164,10 +164,6 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
 
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# export NVM_LAZY_LOAD=true
-# export NVM_LAZY_LOAD_EXTRA_COMMANDS=('yarn' 'v' 'vim' 'nvim')
-# source ~/.zsh/zsh-nvm/zsh-nvm.plugin.zsh
-
 ##############################################################################
 # Prompt
 ##############################################################################
@@ -194,10 +190,16 @@ timezsh() {
 }
 
 # aliases
-source ~/.config/aliases/aliases
+[ -f ~/.config/aliases/aliases ] && source ~/.config/aliases/aliases
 
 # autojump
 [ -f /usr/share/autojump/autojump.sh ] && source /usr/share/autojump/autojump.sh
+
+# z - jump around
+[ -f "$HOME/.local/bin/z/z.sh" ] && source "$HOME/.local/bin/z/z.sh"
+
+# zoxide - zoxide is a smarter cd command, inspired by z and autojump
+eval "$(zoxide init zsh)"
 
 # base16 colors
 BASE16_SHELL="$HOME/.config/base16-shell/"
