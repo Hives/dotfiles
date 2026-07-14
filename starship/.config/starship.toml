@@ -5,7 +5,9 @@ format = """\
     $git_commit\
     $git_state\
     $git_status\
+    $nodejs\
     $kubernetes\
+    $gcloud\
     $cmd_duration\
     $custom\
     $line_break\
@@ -28,3 +30,4 @@ disabled = false
 [gcloud]
 symbol = "☁️"
 format = "gcp: [$project]($style) "
+disabled = false
