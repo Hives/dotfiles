@@ -35,7 +35,8 @@ alias hosts="sudoedit /etc/hosts"
 alias vhosts="sudoedit /etc/httpd/conf/extra/httpd-vhosts.conf"
 # alias vim="vim.nox" # vim package compiled with ruby support
 alias v=vim
-alias vim=lvim
+alias vim=nvim
+alias vimdiff="nvim -d"
 alias vimrc='${EDITOR:-vi} ~/.config/nvim/init.lua'
 
 alias gd="cd ~/Downloads; ls -lrt"
@@ -113,3 +114,9 @@ alias scripts="cat package.json | jq .scripts | less"
 alias uuid="curl https://www.uuidgenerator.net/api/version4"
 
 alias python=python3
+
+alias bat="bat --wrap=word"
+
+cs() {
+    curl "cheat.sh/$1"
+}
