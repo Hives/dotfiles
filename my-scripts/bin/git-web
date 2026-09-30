@@ -5,7 +5,7 @@ SCRIPTNAME=$(basename $0)
 git rev-parse --git-dir > /dev/null 2>&1
 if [[ $? != 0 ]]; then
     echo "${SCRIPTNAME}: couldn't find a git repo"
-    exit 1
+    return 1
 fi
 
 REMOTE_ORIGIN_URL=$(git config --get remote.origin.url)

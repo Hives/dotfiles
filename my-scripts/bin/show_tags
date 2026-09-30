@@ -1,0 +1,24 @@
+#! /usr/bin/env bash
+
+# Check if a filename was provided
+if [ -z "$1" ]; then
+    echo "Usage: $0 <file.mp3>"
+    exit 1
+fi
+
+FILE="$1"
+
+# Check if the file exists
+if [ ! -f "$FILE" ]; then
+    echo "Error: File '$FILE' not found."
+    exit 1
+fi
+
+# Print a header
+echo "--- Metadata for: $FILE ---"
+
+# Extract tags using ffprobe
+# -v quiet: Hides versioning info
+# -show_format: Displays container metadata
+# -print_format: Formats output (flat makes it easy to read/grep)
+ffprobe -v quiet -show_format -print_format flat "$FILE" | grep "format.tags" | sed 's/format.tags.//g'

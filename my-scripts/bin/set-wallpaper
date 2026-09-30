@@ -9,5 +9,11 @@
 # feh --bg-tile ~/Pictures/backgrounds/greenmesh.gif
 # feh --bg-fill ~/Pictures/dan-davis/Planetoid_crashing_into_primordial_Earth.jpg
 # feh --bg-fill ~/Pictures/wrath-of-khan/mpv-shot0009.jpg
+# feh --bg-fill ~/Pictures/backgrounds/foundation-01.jpg
+# feh --bg-fill --geometry +0+300 ~/Pictures/backgrounds/fred-gambino-01.jpg
+feh --bg-fill --geometry +0+300 ~/Pictures/crystal-cave.avif
+# feh --bg-fill ~/Pictures/euclid/Euclid_s_view_of_the_Perseus_cluster_of_galaxies_pillars.jpg
 # feh --bg-fill ~/Pictures/backgrounds/kirby-head.jpeg
-feh --bg-fill ~/Pictures/backgrounds/ancient-woodland.jpeg
+# feh --bg-fill ~/Pictures/backgrounds/ancient-woodland.jpeg
+# feh --bg-center --image-bg "#268bd2" ~/Pictures/ill-be-the-hit-of-the-party.jpg
+# feh --bg-center --image-bg "#268bd2" ~/Pictures/Classicspacelogo.webp
