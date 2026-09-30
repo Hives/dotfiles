@@ -7,6 +7,7 @@ format = """\
     $git_status\
     $nodejs\
     $kubernetes\
+    $gcloud\
     $cmd_duration\
     $custom\
     $line_break\
@@ -17,3 +18,16 @@ format = """\
 
 [directory]
 truncate_to_repo = false
+
+[jobs]
+symbol = "★"
+
+[kubernetes]
+symbol = "☸ "
+format = "k8s: [$context( \\($namespace\\))]($style) "
+disabled = false
+
+[gcloud]
+symbol = "☁️"
+format = "gcp: [$project]($style) "
+disabled = false
