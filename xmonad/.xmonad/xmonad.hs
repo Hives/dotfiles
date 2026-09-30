@@ -196,6 +196,7 @@ main = do
     $ ewmh
     $ withNavigation2DConfig def
     $ addDescrKeys' ((myModMask, xK_F1), showKeybindings) myKeys2
+    $ docks
     $ myConfig xmobarPipe
 
 myConfig p = def { borderWidth        = borderFoo
@@ -205,7 +206,7 @@ myConfig p = def { borderWidth        = borderFoo
                  , handleEventHook    = myHandleEventHook
                  , layoutHook         = myLayoutHook
                  , logHook            = myXmobarLogHook p <+> fadeInactiveLogHook 0.95
-                 , manageHook         = myManageHook <+> manageHook defaultConfig
+                 , manageHook         = myManageHook <+> manageHook def
                  , modMask            = myModMask
                  , mouseBindings      = myMouseBindings
                  , normalBorderColor  = cVisible
@@ -221,7 +222,7 @@ myConfig p = def { borderWidth        = borderFoo
 myStartupHook = do
   spawn "~/bin/keyboard-remaps/remap-keys-hybrid-modifiers"
   spawn "xscreensaver -no-splash"
-  spawn "~/.dropbox-dist/dropboxd"
+  -- spawn "~/.dropbox-dist/dropboxd"
   spawn "set-wallpaper"
   spawn "/usr/bin/gnome-keyring-daemon --start --components=ssh"
   spawn "ssh-add -q $HOME/.ssh/jl-githost.io"
@@ -233,8 +234,7 @@ myStartupHook = do
 ---------------------------------------------------------------------------
 
 myHandleEventHook =
-  docksEventHook -- Whenever a new dock appears, refresh the layout immediately to avoid the new dock.
-    <+> handleEventHook defaultConfig
+  handleEventHook def
                  -- <+> XMonad.Hooks.EwmhDesktops.fullscreenEventHook -- Enable fullscreen in ewmh applications
     <+> XMonad.Layout.Fullscreen.fullscreenEventHook
 
@@ -260,7 +260,7 @@ myManageHook = composeAll
   , appName =? "soulseekqt" --> doShift "2"
   , className =? "zoom" --> doShift "2"
   , fmap ("meet.google.com" `isInfixOf`) appName --> doShift "2"
-  , className =? "Slack" --> doShift "3"
+  , className =? "slack" --> doShift "3"
   , className =? "discord" --> doShift "3"
   , appName =? "transmission-gtk" --> doShift "6"
   , stringProperty "WM_WINDOW_ROLE" =? "browser" --> doShift "7"
@@ -377,13 +377,13 @@ showKeybindings x = addName "Show Keybindings" $ io $ do
   hClose h
   return ()
 
-shiftAndView dir = findWorkspace getSortByIndexNoSP dir HiddenWS 1
+shiftAndView dir = findWorkspace getSortByIndexNoSP dir hiddenWS 1
   >>= \t -> (windows . W.shift $ t) >> (windows . W.greedyView $ t)
-nextNonEmptyWS = findWorkspace getSortByIndexNoSP Next HiddenNonEmptyWS 1
+nextNonEmptyWS = findWorkspace getSortByIndexNoSP Next (hiddenWS :&: Not emptyWS) 1
   >>= \t -> (windows . W.view $ t)
-prevNonEmptyWS = findWorkspace getSortByIndexNoSP Prev HiddenNonEmptyWS 1
+prevNonEmptyWS = findWorkspace getSortByIndexNoSP Prev (hiddenWS :&: Not emptyWS) 1
   >>= \t -> (windows . W.view $ t)
-getSortByIndexNoSP = fmap (. namedScratchpadFilterOutWorkspace) getSortByIndex
+getSortByIndexNoSP = fmap (. filterOutWs [scratchpadWorkspaceTag]) getSortByIndex
 
 myKeys2 conf =
   let
@@ -548,6 +548,7 @@ myKeys2 conf =
       , ("M-S-<Return>"     , addName "Terminal" $ spawn myTerminal)
       , ("M-p"              , addName "Display menu" $ spawn "displayctl menu")
       , ("M-S-p"            , addName "Password menu" $ spawn "password-menu")
+      , ("M-S-e"            , addName "Select gcloud project/k8s service" $ spawn "kitty $HOME/bin/select-env.sh")
       , ("M-b"              , addName "Keyboard remapping menu" $ spawn ("find $HOME/bin/keyboard-remaps -type f | menu.sh | /bin/sh"))
       , ("M-S-l"            , addName "Links menu" $ spawn "links.sh")
       , ("<Print>"          , addName "Copy screengrab to clipboard" $ spawn "screengrab copy" )
@@ -561,7 +562,6 @@ myKeys2 conf =
       , ("M-S-h"            , addName "NSP btop" $ namedScratchpadAction scratchpads "btop")
       -- , ("M-v"              , addName "NSP alsamixer" $ namedScratchpadAction scratchpads "alsamixer")
       , ("S-M-v"            , addName "NSP pavucontrol" $ namedScratchpadAction scratchpads "pavucontrol")
-      , ("M-n"              , addName "NSP notes" $ namedScratchpadAction scratchpads "notes")
       , ("<XF86Calculator>" , addName "NSP calculator" $ namedScratchpadAction scratchpads "calculator")
       , ("M-S-t"            , addName "NSP JetBrains Toolbox" $ namedScratchpadAction scratchpads "jb toolbox")
       -- hangouts and hangouts helpers
