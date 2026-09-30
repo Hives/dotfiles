@@ -216,10 +216,8 @@ PATH=$HOME/bin-secret:$PATH
 # personal executables subfolder
 PATH=$HOME/bin/gcp:$PATH
 
-# export EDITOR=nvim.appimage
-# export VISUAL=nvim.appimage
-export EDITOR=lvim
-export VISUAL=lvim
+export EDITOR=nvim
+export VISUAL=nvim
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
