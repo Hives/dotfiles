@@ -14,6 +14,9 @@
 # scope with a bunch of identifiers.
 typeset -A __HIVEMIND
 
+# keep PATH entries unique (later duplicates are dropped, earliest kept)
+typeset -U path PATH
+
 __HIVEMIND[ITALIC_ON]=$'\e[3m'
 __HIVEMIND[ITALIC_OFF]=$'\e[23m'
 
