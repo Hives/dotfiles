@@ -13,3 +13,6 @@
 [submodule "zsh/.zsh/zsh-nvm"]
 	path = zsh/.zsh/zsh-nvm
 	url = https://github.com/lukechilds/zsh-nvm
+[submodule "zsh/.zsh/fast-syntax-highlighting"]
+	path = zsh/.zsh/fast-syntax-highlighting
+	url = https://github.com/zdharma-continuum/fast-syntax-highlighting.git

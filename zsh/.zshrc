@@ -75,9 +75,21 @@ if [ -x "$(command -v gopass)" ]; then
 fi
 
 # compinit = initialise completion system
-# this must come after changes to fpath
-autoload -U compinit
-compinit -u
+# Fast compinit caching (macOS & Linux compatible)
+autoload -Uz compinit
+ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump"
+
+if [[ -s "$ZSH_COMPDUMP" && $(date -r "$ZSH_COMPDUMP" +%s 2>/dev/null) -gt $(($(date +%s) - 86400)) ]]; then
+  compinit -C -d "$ZSH_COMPDUMP"
+else
+  compinit -d "$ZSH_COMPDUMP"
+  touch "$ZSH_COMPDUMP"
+fi
+
+# Compile zcompdump to byte-code if changed
+if [[ -s "$ZSH_COMPDUMP" && (! -s "${ZSH_COMPDUMP}.zwc" || "$ZSH_COMPDUMP" -nt "${ZSH_COMPDUMP}.zwc") ]]; then
+  zcompile "$ZSH_COMPDUMP"
+fi
 
 # Make completion:
 # - Case-insensitive.
@@ -162,7 +174,8 @@ setopt pushdsilent          # don't print dir stack after pushing/popping
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
 
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 ##############################################################################
 # Prompt
@@ -214,21 +227,26 @@ PATH=$HOME/.local/bin:$PATH
 PATH=$HOME/bin-secret:$PATH
 
 # personal executables subfolder
+PATH=$HOME/bin:$PATH
+
+# personal executables subfolder
 PATH=$HOME/bin/gcp:$PATH
 
 export EDITOR=nvim
 export VISUAL=nvim
 
 # fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='fdfind --hidden --exclude .git --type f' # requires fd-find obv
-export FZF_DEFAULT_OPTS='--color bg+:18,fg+:07' # seems to make it play better with base16
+if command -v fzf >/dev/null 2>&1; then
+  source <(fzf --zsh)
+fi
+export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --type f' # requires fd-find obv
+# export FZF_DEFAULT_OPTS='--color bg+:18,fg+:07' # seems to make it play better with base16
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/hives/.local/bin/google-cloud-sdk/path.zsh.inc' ]; then . '/home/hives/.local/bin/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "$HOME/.local/bin/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/.local/bin/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/hives/.local/bin/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/hives/.local/bin/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "$HOME/.local/bin/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/.local/bin/google-cloud-sdk/completion.zsh.inc"; fi
 
 # Lazy load kubectl autocompletion
 # Check if 'kubectl' is a command in $PATH
@@ -247,46 +265,58 @@ if [ $commands[kubectl] ]; then
   }
 fi
 
-# linux brew??
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+# linux homebrew
+# eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+# osx homebrew
+eval $(/opt/homebrew/bin/brew shellenv)
 
 # - yarn
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-# raku
-export PATH=/home/hives/rakudo/bin/:/home/hives/rakudo/share/perl6/site/bin:/home/hives/rakudo/share/perl6/vendor/bin:/home/hives/rakudo/share/perl6/core/bin:$PATH
 
 # kubectl authentication https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # deno
-export DENO_INSTALL="/home/hives/.deno"
+export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
 # go
 export PATH=$PATH:/usr/local/go/bin
 
 # pnpm
-export PNPM_HOME="/home/hives/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
 # bun completions
-[ -s "/home/hives/.bun/_bun" ] && source "/home/hives/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # fnm
-export PATH="/home/hives/.local/share/fnm:$PATH"
+export PATH="$HOME/.local/share/fnm:$PATH"
 eval "`fnm env --use-on-cd`"
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+export PATH="$PYENV_ROOT/shims:$PATH"
+# Enable shell integration without spawning rehash subshells
+eval "$(pyenv init - --no-rehash)"
+# Automatically rehash pyenv after pip install/uninstall
+pip() {
+  command pip "$@"
+  local status=$?
+  if [[ "$1" == "install" || "$1" == "uninstall" ]] && [ $status -eq 0 ]; then
+    pyenv rehash
+  fi
+  return $status
+}
 
 # SDKMAN - THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/hives/.sdkman"
-[[ -s "/home/hives/.sdkman/bin/sdkman-init.sh" ]] && source "/home/hives/.sdkman/bin/sdkman-init.sh"
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+
+export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
