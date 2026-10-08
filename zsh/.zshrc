@@ -215,12 +215,6 @@ timezsh() {
 # aliases
 [ -f ~/.config/aliases/aliases ] && source ~/.config/aliases/aliases
 
-# autojump
-[ -f /usr/share/autojump/autojump.sh ] && source /usr/share/autojump/autojump.sh
-
-# z - jump around
-[ -f "$HOME/.local/bin/z/z.sh" ] && source "$HOME/.local/bin/z/z.sh"
-
 # zoxide - zoxide is a smarter cd command, inspired by z and autojump
 if command -v zoxide >/dev/null 2>&1; then eval "$(zoxide init zsh)"; fi
 
