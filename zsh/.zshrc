@@ -64,7 +64,14 @@ bindkey '\e' send-break
 # first match wins (Apple Silicon, Intel macOS, Linuxbrew)
 for brew_bin in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
   if [ -x "$brew_bin" ]; then
-    eval "$("$brew_bin" shellenv)"
+    # cache shellenv output; regenerate when the brew binary changes
+    _brew_cache="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/brew-shellenv.zsh"
+    if [[ ! -s "$_brew_cache" || "$brew_bin" -nt "$_brew_cache" ]]; then
+      mkdir -p "${_brew_cache:h}"
+      "$brew_bin" shellenv > "$_brew_cache"
+    fi
+    source "$_brew_cache"
+    unset _brew_cache
     break
   fi
 done
