@@ -17,6 +17,8 @@ elif [[ $REMOTE_ORIGIN_URL =~ "@github" ]]; then
     PLATFORM="github"
 elif [[ $REMOTE_ORIGIN_URL =~ "https://github" ]]; then
     PLATFORM="github"
+elif [[ $REMOTE_ORIGIN_URL =~ "https://gitlab" ]]; then
+    PLATFORM="gitlab"
 else
     echo "${SCRIPTNAME}: couldn't parse platform from remote origin ${REMOTE_ORIGIN_URL}"
     exit 1
@@ -48,7 +50,7 @@ fi
 _browse() {
     # if no parameter provided view the project page
     if [[ -z "${1}" ]]; then
-        xdg-open $PROJECT_URL
+        _open_url $PROJECT_URL
         exit
     fi
 
@@ -60,15 +62,15 @@ _browse() {
     RELATIVE_PATH=${FULL_PATH#"$REPO_PATH"}
 
     if [[ $PLATFORM = "gitlab" ]]; then
-        xdg-open "${PROJECT_URL}/-/blob/${BRANCH}${RELATIVE_PATH}"
+        _open_url "${PROJECT_URL}/-/blob/${BRANCH}${RELATIVE_PATH}"
     elif [[ $PLATFORM = "github" ]]; then
-        xdg-open "${PROJECT_URL}/blob/${BRANCH}${RELATIVE_PATH}"
+        _open_url "${PROJECT_URL}/blob/${BRANCH}${RELATIVE_PATH}"
     fi
 }
 
 _pipe() {
     if [[ $PLATFORM = "gitlab" ]]; then
-        xdg-open "${PROJECT_URL}/-/pipelines/latest"
+        _open_url "${PROJECT_URL}/-/pipelines/latest"
     elif [[ $PLATFORM = "github" ]]; then
         echo "'pipe' option not implemented for GitHub"
         exit 1
@@ -77,7 +79,7 @@ _pipe() {
 
 _pipes() {
     if [[ $PLATFORM = "gitlab" ]]; then
-        xdg-open "${PROJECT_URL}/-/pipelines"
+        _open_url "${PROJECT_URL}/-/pipelines"
     elif [[ $PLATFORM = "github" ]]; then
         echo "'pipes' option not implemented for GitHub"
         exit 1
@@ -86,25 +88,25 @@ _pipes() {
 
 _branches() {
     if [[ $PLATFORM = "gitlab" ]]; then
-        xdg-open "${PROJECT_URL}/-/branches"
+        _open_url "${PROJECT_URL}/-/branches"
     elif [[ $PLATFORM = "github" ]]; then
-        xdg-open "${PROJECT_URL}/branches"
+        _open_url "${PROJECT_URL}/branches"
     fi
 }
 
 _commits() {
     if [[ $PLATFORM = "gitlab" ]]; then
-        xdg-open "${PROJECT_URL}/-/commits"
+        _open_url "${PROJECT_URL}/-/commits"
     elif [[ $PLATFORM = "github" ]]; then
-        xdg-open "${PROJECT_URL}/commits"
+        _open_url "${PROJECT_URL}/commits"
     fi
 }
 
 _mrs() {
     if [[ $PLATFORM = "gitlab" ]]; then
-        xdg-open "${PROJECT_URL}/-/merge_requests"
+        _open_url "${PROJECT_URL}/-/merge_requests"
     elif [[ $PLATFORM = "github" ]]; then
-        xdg-open "${PROJECT_URL}/pulls"
+        _open_url "${PROJECT_URL}/pulls"
     fi
 }
 
@@ -116,6 +118,18 @@ _root() {
 
 _url() {
     echo "${PROJECT_URL}"
+}
+
+_open_url() {
+    local url="$1"
+    if command -v open >/dev/null 2>&1; then
+        open "$url"
+    elif command -v xdg-open >/dev/null 2>&1; then
+        xdg-open "$url"
+    else
+        echo "No suitable browser opener found."
+        exit 1
+    fi
 }
 
 if [[ $1 =~ ^(browse|pipe|pipes|branches|commits|mrs|root|url)$ ]]; then
