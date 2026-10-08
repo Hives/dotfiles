@@ -271,8 +271,8 @@ if (( $+commands[kubectl] )); then
     unfunction "$0"
     # Load auto-completion
     source <(kubectl completion zsh)
-    # Pretty colours
-    compdef kubecolor=kubectl
+    # Completion for kubecolor (a kubectl wrapper), only if it's installed
+    if (( $+commands[kubecolor] )); then compdef kubecolor=kubectl; fi
     # Execute 'kubectl' binary
     $0 "$@"
   }
