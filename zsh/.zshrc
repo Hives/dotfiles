@@ -136,7 +136,6 @@ setopt HIST_VERIFY           # confirm history expansion (!$, !!, !foo)
 setopt INC_APPEND_HISTORY_TIME
 setopt SHARE_HISTORY         # share history across shells
 
-HIST_STAMPS="yyyy-mm-dd"
 alias history="history -t'%F %T'"
 
 ##############################################################################
