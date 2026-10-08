@@ -270,7 +270,7 @@ if [ -n "$HOMEBREW_PREFIX" ] && [ -f "$HOMEBREW_PREFIX/share/google-cloud-sdk/co
 
 # Lazy load kubectl autocompletion
 # Check if 'kubectl' is a command in $PATH
-if (( $+commands[kubectl] )); then
+if command -v kubectl >/dev/null 2>&1; then
   # Placeholder 'kubectl' shell function:
   # Will only be executed on the first call to 'kubectl'
   kubectl() {
@@ -279,7 +279,7 @@ if (( $+commands[kubectl] )); then
     # Load auto-completion
     source <(kubectl completion zsh)
     # Completion for kubecolor (a kubectl wrapper), only if it's installed
-    if (( $+commands[kubecolor] )); then compdef kubecolor=kubectl; fi
+    if command -v kubecolor >/dev/null 2>&1; then compdef kubecolor=kubectl; fi
     # Execute 'kubectl' binary
     $0 "$@"
   }
