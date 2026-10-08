@@ -41,7 +41,7 @@ bindkey '^[[Z' reverse-menu-complete
 
 # Make C-z background things and unbackground them.
 function fg-bg() {
-  if [[ $#BUFFER -eq -0 ]]; then
+  if [[ $#BUFFER -eq 0 ]]; then
     fg
   else
     zle push-input
@@ -56,6 +56,16 @@ bindkey '\e' send-break
 # cycle through history based on characters already typed on the line
 # bindkey "$key[Up]" history-beginning-search-backward
 # bindkey "$key[Down]" history-beginning-search-forward
+
+# Homebrew must run before compinit so its completions are in FPATH.
+# first match wins (Apple Silicon, Intel macOS, Linuxbrew)
+for brew_bin in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
+  if [ -x "$brew_bin" ]; then
+    eval "$("$brew_bin" shellenv)"
+    break
+  fi
+done
+unset brew_bin
 
 ##############################################################################
 # Completion
@@ -79,7 +89,8 @@ fi
 autoload -Uz compinit
 ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump"
 
-if [[ -s "$ZSH_COMPDUMP" && $(date -r "$ZSH_COMPDUMP" +%s 2>/dev/null) -gt $(($(date +%s) - 86400)) ]]; then
+zmodload -F zsh/stat b:zstat
+if [[ -s "$ZSH_COMPDUMP" ]] && zstat -A compdump_stat +mtime -- "$ZSH_COMPDUMP" 2>/dev/null && (( compdump_stat[1] > $(date +%s) - 86400 )); then
   compinit -C -d "$ZSH_COMPDUMP"
 else
   compinit -d "$ZSH_COMPDUMP"
@@ -171,11 +182,10 @@ setopt pushdsilent          # don't print dir stack after pushing/popping
 # Plugins
 ##############################################################################
 
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
 
-# source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+# fast-syntax-highlighting is loaded at the end of this file
 
 ##############################################################################
 # Prompt
@@ -199,7 +209,7 @@ bindkey -s ^t^m "tmux-session\n"
 # time zsh startup
 timezsh() {
   shell=${1-$SHELL}
-  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+  for i in $(seq 1 10); do time $shell -i -c exit; done
 }
 
 # aliases
@@ -212,7 +222,7 @@ timezsh() {
 [ -f "$HOME/.local/bin/z/z.sh" ] && source "$HOME/.local/bin/z/z.sh"
 
 # zoxide - zoxide is a smarter cd command, inspired by z and autojump
-eval "$(zoxide init zsh)"
+if command -v zoxide >/dev/null 2>&1; then eval "$(zoxide init zsh)"; fi
 
 # base16 colors
 BASE16_SHELL="$HOME/.config/base16-shell/"
@@ -239,18 +249,25 @@ export VISUAL=nvim
 if command -v fzf >/dev/null 2>&1; then
   source <(fzf --zsh)
 fi
-export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --type f' # requires fd-find obv
+# fd is named fdfind on Debian/Ubuntu
+if command -v fd >/dev/null 2>&1; then
+  export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --type f'
+elif command -v fdfind >/dev/null 2>&1; then
+  export FZF_DEFAULT_COMMAND='fdfind --hidden --exclude .git --type f'
+fi
 # export FZF_DEFAULT_OPTS='--color bg+:18,fg+:07' # seems to make it play better with base16
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f "$HOME/.local/bin/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/.local/bin/google-cloud-sdk/path.zsh.inc"; fi
+if [ -n "$HOMEBREW_PREFIX" ] && [ -f "$HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc" ]; then . "$HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/.local/bin/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/.local/bin/google-cloud-sdk/completion.zsh.inc"; fi
+if [ -n "$HOMEBREW_PREFIX" ] && [ -f "$HOMEBREW_PREFIX/share/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOMEBREW_PREFIX/share/google-cloud-sdk/completion.zsh.inc"; fi
 
 # Lazy load kubectl autocompletion
 # Check if 'kubectl' is a command in $PATH
-if [ $commands[kubectl] ]; then
+if (( $+commands[kubectl] )); then
   # Placeholder 'kubectl' shell function:
   # Will only be executed on the first call to 'kubectl'
   kubectl() {
@@ -264,11 +281,6 @@ if [ $commands[kubectl] ]; then
     $0 "$@"
   }
 fi
-
-# linux homebrew
-# eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-# osx homebrew
-eval $(/opt/homebrew/bin/brew shellenv)
 
 # - yarn
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
@@ -297,14 +309,14 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # fnm
 export PATH="$HOME/.local/share/fnm:$PATH"
-eval "`fnm env --use-on-cd`"
+if command -v fnm >/dev/null 2>&1; then eval "$(fnm env --use-on-cd)"; fi
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 export PATH="$PYENV_ROOT/shims:$PATH"
 # Enable shell integration without spawning rehash subshells
-eval "$(pyenv init - --no-rehash)"
+if command -v pyenv >/dev/null 2>&1; then eval "$(pyenv init - --no-rehash)"; fi
 # Automatically rehash pyenv after pip install/uninstall
 pip() {
   command pip "$@"
@@ -319,4 +331,9 @@ pip() {
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
 
-export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+if [ -n "$HOMEBREW_PREFIX" ] && [ -d "$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin" ]; then
+  export PATH="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
+fi
+
+# syntax highlighting wraps line editor widgets, so it must load last
+[ -f ~/.zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh ] && source ~/.zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
