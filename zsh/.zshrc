@@ -312,7 +312,16 @@ export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 export PATH="$PYENV_ROOT/shims:$PATH"
 # Enable shell integration without spawning rehash subshells
-if command -v pyenv >/dev/null 2>&1; then eval "$(pyenv init - --no-rehash)"; fi
+# cache pyenv init output; regenerate when the pyenv binary changes
+if command -v pyenv >/dev/null 2>&1; then
+  _pyenv_cache="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/pyenv-init.zsh"
+  if [[ ! -s "$_pyenv_cache" || "$(command -v pyenv)" -nt "$_pyenv_cache" ]]; then
+    mkdir -p "${_pyenv_cache:h}"
+    pyenv init - --no-rehash > "$_pyenv_cache"
+  fi
+  source "$_pyenv_cache"
+  unset _pyenv_cache
+fi
 # Automatically rehash pyenv after pip install/uninstall
 _pyenv_rehash_after_pip() {
   local cmd=$1
