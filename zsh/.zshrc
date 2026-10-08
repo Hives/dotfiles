@@ -315,14 +315,18 @@ export PATH="$PYENV_ROOT/shims:$PATH"
 # Enable shell integration without spawning rehash subshells
 if command -v pyenv >/dev/null 2>&1; then eval "$(pyenv init - --no-rehash)"; fi
 # Automatically rehash pyenv after pip install/uninstall
-pip() {
-  command pip "$@"
+_pyenv_rehash_after_pip() {
+  local cmd=$1
+  shift
+  command "$cmd" "$@"
   local status=$?
   if [[ "$1" == "install" || "$1" == "uninstall" ]] && [ $status -eq 0 ]; then
     pyenv rehash
   fi
   return $status
 }
+pip() { _pyenv_rehash_after_pip pip "$@"; }
+pip3() { _pyenv_rehash_after_pip pip3 "$@"; }
 
 # SDKMAN - THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
